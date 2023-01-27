@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "vidqr",
+  "name": "vidqr - group video queuer",
   "icons": [
     {
       "src": "favicon.ico",

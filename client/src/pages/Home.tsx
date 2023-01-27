@@ -26,7 +26,7 @@ const Home = () => {
         if (joinCode.length === 0){
             return;
         }
-        aFetch.post(`/api/remote/${joinCode}`, {'redirect': true}).then(response => {
+        aFetch.post(`/api/remote/join_room/${joinCode}`, {'redirect': true}).then(response => {
             if (response.data.validRoom){
                 move(`/${response.data.roomId}`);
                 socket.emit("video:subscribe", {'roomId': response.data['roomId']});
