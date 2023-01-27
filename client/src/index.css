@@ -1,0 +1,155 @@
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: black;
+  height: 100%;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  monospace;
+}
+
+b {
+  color: white;
+}
+
+p {
+  color: white;
+}
+
+body > #root {
+  height: 100vh;
+}
+
+.mainViewer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+.vViewer {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.hViewer {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+}
+
+.primary {
+  background: rgb(78, 78, 78);
+  width: 80vw;
+  overflow: hidden;
+}
+
+.videoPlayer {
+  width: 100%;
+  height: 100%;
+}
+
+.secondary {
+  background: rgb(26, 26, 26);
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 17%;
+  margin-left: 1%;
+}
+
+.queueVideo {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.videoThumbnail {
+  width: 40%;
+  min-width: 100px;
+  height: 100%;
+}
+
+.videoInformation{
+  width: 50%;
+  height: 100%;
+  margin-left: 2%;
+}
+
+.videoTitle {
+  width: 100%;
+  height: 50%;
+}
+
+.videoUser {
+  width: 100%;
+  height: 50%;
+}
+
+.hostSettings {
+  background: rgb(26, 26, 26);
+  overflow: hidden;
+  margin: 1%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+
+
+}
+
+.userList {
+  width: 50%;
+  height: 10%;
+}
+
+.passwordEntry {
+  width: 10%;
+  height: 10%;
+}
+
+.shareLink {
+  width: 10%;
+  height: 10%;
+}
+
+.promptForm {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.promptBox {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: azure;
+
+  top: 50%;
+  left: 50%;
+  padding: 16px;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+}
+
+.remoteHeader {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
