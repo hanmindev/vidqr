@@ -22,49 +22,11 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
+const hostRouter = require('./app/routes/Host');
+const remoteRouter = require('./app/routes/Remote');
 
-interface FormInputs {
-  email: string,
-  password: string
-}
-
-// Array of example users for testing purposes
-const users = [
-  {
-    id: 1,
-    name: 'Maria Doe',
-    email: 'maria@example.com',
-    password: 'maria123'
-  },
-  {
-    id: 2,
-    name: 'Juan Doe',
-    email: 'juan@example.com',
-    password: 'juan123'
-  }
-];
-
-// route login
-app.post('/login', (req: Request, res: Response) => {
-  const { email, password }:FormInputs = req.body;
-
-  const user = users.find(user => {
-    return user.email === email && user.password === password
-  });
-
-  if (!user) {
-    return res.status(404).send('User Not Found!')
-  }
-
-  return res.status(200).json(user)
-});
-
-
-// const hostRouter = require('app/routes/Host');
-// const remoteRouter = require('app/routes/Remote');
-//
-// app.use('/api/host', hostRouter);
-// app.use('/api/remote', remoteRouter);
+app.use('/api/host', hostRouter);
+app.use('/api/remote', remoteRouter);
 
 
 
