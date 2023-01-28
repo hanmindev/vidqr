@@ -4,7 +4,6 @@ import {VideoQueue} from "../components/video_queue";
 import {Button, Loader, Stack, TextInput} from '@mantine/core';
 import {socket} from "../config/socket";
 import aFetch from "../config/axios";
-import {useSetState} from "@mantine/hooks";
 
 function RemoteWrapper(params: any) {
     const [videoLink, setVideoLink] = useState('');
@@ -59,7 +58,9 @@ const Remote = () => {
 
     const [username, setUsername] = useState(undefined)
     const [usernameBox, setUsernameBox] = useState('')
-    const [roomInfo, setRoomInfo] = useSetState({'roomName': undefined});
+    const [roomInfo, setRoomInfo] = useState({'roomName': undefined});
+
+    const [error, setError] = useState('');
 
     useEffect(() => {
         aFetch.post(`/api/host/get_room_info/`, {'roomId': params.roomId}).then(response => {
@@ -75,6 +76,7 @@ const Remote = () => {
             if (response.data.username){
                 setUsername(response.data.username);
             }
+
         }
     )}, []);
 
@@ -85,12 +87,23 @@ const Remote = () => {
 
 
         aFetch.post(`/api/remote/join_room/${params.roomId}`, {'redirect': false, 'username': usernameBox}).then(response => {
-            if (response.data.validRoom){
+            if (response.data.username){
                 socket.emit("video:subscribe", {'roomId': response.data.roomId});
                 setUsername(response.data.username);
+            }else if(response.data.validRoom){
+                setError('That username already exists.');
             }
         });
 
+    }
+
+    const usernameEdit = (username: string) => {
+        setUsernameBox(username);
+        if (username.length > 16){
+            setError('Usernames must be at most 16 characters');
+        }else{
+            setError('');
+        }
     }
 
     if (username === '' || username === undefined){
@@ -103,9 +116,9 @@ const Remote = () => {
                         <b>Pick an identifiable name</b>
                         <TextInput
                             placeholder="Username"
-                            onChange={(e) => {setUsernameBox(e.target.value)}}
+                            onChange={(e) => {usernameEdit(e.target.value)}}
                             onKeyDown={(e) => e.key === "Enter" ? promptSubmit(): null}
-                            error={usernameBox.length > 16 ? "Usernames must be at most 16 characters": null}
+                            error={error==='' ? null: error}
                         />
                         {params.isLocked ? (
                             <><b>This room is password-locked</b><TextInput

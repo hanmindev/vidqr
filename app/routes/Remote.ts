@@ -12,7 +12,7 @@ var router = express.Router();
 const roomManager = RoomManager.getInstance();
 const userManager = UserManager.getInstance();
 
-router.post('/get_username/:roomId', function (req: any, res: any, next: any) {
+router.post('/get_username/:roomId', function (req: any, res: any) {
     if (req.session.userId) {
         let username = userManager.getUser(req.session.userId).username;
         res.send({'username': username});
@@ -22,21 +22,25 @@ router.post('/get_username/:roomId', function (req: any, res: any, next: any) {
     req.session.userId = userManager.getUnusedId();
 });
 
-router.post('/join_room/:roomId', function (req: any, res: any, next: any) {
+router.post('/join_room/:roomId', function (req: any, res: any) {
     let roomId = req.params.roomId;
     let username = req.body.username;
     if (username !== undefined) {
+        username = username.trim();
         if (username.length > 16) {
             username = username.substring(0, 16);
-        }else if (username.length === 0) {
+        }
+        if (username.length === 0) {
             username = userManager.getRandomName();
         }
 
         if (!roomManager.roomExists(roomId)) {
-            res.status(404).send("Room does not exist");
-
-
             res.send({'username': username, 'validRoom': false});
+            return;
+        }
+
+        if (roomManager.getRoom(roomId).usernameExists(username)) {
+            res.send({'username': undefined, 'validRoom': true});
             return;
         }
 
@@ -56,7 +60,7 @@ router.post('/join_room/:roomId', function (req: any, res: any, next: any) {
     }
 });
 
-router.post('/check_room/:roomId', function (req: any, res: any, next: any) {
+router.post('/check_room/:roomId', function (req: any, res: any) {
     let roomId = req.params.roomId;
     if (roomManager.roomExists(roomId)) {
         res.send({'validRoom': true});
@@ -65,7 +69,7 @@ router.post('/check_room/:roomId', function (req: any, res: any, next: any) {
     }
 });
 
-router.post('/add_video/', function (req: any, res: any, next: any) {
+router.post('/add_video/', function (req: any, res: any) {
 
     let videoLink = req.body.videoLink;
     let userId = req.session.userId;
@@ -73,7 +77,7 @@ router.post('/add_video/', function (req: any, res: any, next: any) {
 
     try {
 
-        videoLink = videoLink.match(/^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube(-nocookie)?\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/)[6];
+        videoLink = videoLink.match(/^((?:https?:)?\/\/)?((?:www|m)\.)?(youtube(-nocookie)?\.com|youtu.be)(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/)[6];
         videoLink = "https://www.youtube.com/watch?v=" + videoLink;
 
 

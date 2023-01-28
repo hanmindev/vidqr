@@ -1,4 +1,4 @@
-import {User, UserManager} from "../users/user";
+import {User} from "../users/user";
 
 
 class Room {
@@ -6,6 +6,7 @@ class Room {
 
     public readonly roomName: string | undefined;
     private readonly _users: Map<string, User>;
+    private readonly _usernames: Set<string>;
     private readonly _videoList: {videoLink: string, videoTitle: string, videoThumbnail: string, videoUsername: string, videoId: number}[];
     private readonly _historicalVideoList: {videoLink: string, videoTitle: string, videoThumbnail: string, videoUsername: string, videoId: number}[];
     private _videoCount: number
@@ -15,6 +16,7 @@ class Room {
         this._roomId = roomId;
         this.roomName = roomName;
         this._users = new Map<string, User>();
+        this._usernames = new Set<string>();
         this._videoList = [];
         this._historicalVideoList = [];
         this._videoCount = 0;
@@ -26,6 +28,11 @@ class Room {
 
     public addUser(user: User): void {
         this._users.set(user.userId, user);
+        this._usernames.add(user.username);
+    }
+
+    public usernameExists(username: string): boolean {
+        return this._usernames.has(username);
     }
 
     public removeUser(userId: string): void {
