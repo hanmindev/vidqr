@@ -4,7 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="551da139-04ea-45c3-bbf0-076ee8c48de8" name="Changes" comment="add try catch safety" />
+    <list default="true" id="551da139-04ea-45c3-bbf0-076ee8c48de8" name="Changes" comment="fix pause toggle">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/VideoController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/VideoController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/modules/rooms/room.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/modules/rooms/room.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/modules/users/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/modules/users/user.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes/Host.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/Host.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes/Remote.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/Remote.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes/Video.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/Video.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/client/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/prompt.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/prompt.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/Host.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Host.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/Remote.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Remote.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,21 +44,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Hanmin/Websites/vidqr/dist/index.js",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "C:\\Users\\Hanmin\\Websites\\vidqr\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Hanmin/Websites/vidqr&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Hanmin\\Websites\\vidqr\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Hanmin\Websites\vidqr\client\public" />
@@ -115,7 +131,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1674856043509</updated>
-      <workItem from="1674856045003" duration="33414000" />
+      <workItem from="1674856045003" duration="37874000" />
+      <workItem from="1674942625259" duration="954000" />
+      <workItem from="1674944044862" duration="692000" />
     </task>
     <task id="LOCAL-00001" summary="working website">
       <created>1674858528745</created>
@@ -173,11 +191,29 @@
       <option name="project" value="LOCAL" />
       <updated>1674931123064</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="fix pause toggle">
+      <created>1674937012452</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1674937012453</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="working website" />
@@ -185,15 +221,15 @@
     <MESSAGE value="added additional graphics" />
     <MESSAGE value="add nextVideo button" />
     <MESSAGE value="add try catch safety" />
-    <option name="LAST_COMMIT_MESSAGE" value="add try catch safety" />
+    <MESSAGE value="fix pause toggle" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix pause toggle" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app/routes/Host.ts</url>
-          <line>70</line>
-          <properties lambdaOrdinal="-1" />
+          <line>79</line>
           <option name="timeStamp" value="25" />
         </line-breakpoint>
       </breakpoints>

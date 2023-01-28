@@ -27,8 +27,17 @@ router.post('/rejoin_room', function (req: any, res, next) {
 
 router.post('/create_room', function (req: any, res, next) {
     let roomId = roomManager.getUnusedId()
-    const room = roomManager.createRoom(roomId);
-    room.roomName = req.body.roomName;
+    let roomName = req.body.roomName
+
+    if (roomName.length > 16) {
+        roomName = roomName.substring(0, 16);
+    }else if (roomName.length === 0) {
+        roomName = roomManager.getRandomName();
+    }
+
+    roomManager.createRoom(roomId, roomName);
+
+
     req.session.roomId = roomId;
     req.session.owner = roomId;
 

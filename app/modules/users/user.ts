@@ -1,35 +1,20 @@
-abstract class User {
-    public readonly userId: string | null;
-    public username: string;
-}
+class User {
 
-class RealUser extends User {
-    public readonly userId: string | undefined;
+    public readonly userId: string;
     public username: string;
     constructor(userId: string, username: string) {
-        super();
         this.userId = userId;
         this.username = username;
     }
 }
 
-class NullUser extends User {
-    public readonly userId: string | undefined;
-    public readonly username: string;
-    constructor() {
-        super();
-        this.userId = null;
-        this.username = "Invalid Username";
-    }
-}
-
 class UserManager {
-    private _users: Map<string, User>;
+    private _users: Map<string | undefined, User>;
+    private _nullUser: User = new User("null", "null");
     private static _instance: UserManager;
 
     private constructor() {
         this._users = new Map<string, User>();
-        this._users.set(undefined, new NullUser());
     }
 
     public static getInstance(): UserManager {
@@ -41,7 +26,7 @@ class UserManager {
     }
 
     public createUser(userId: string, username: string): User {
-        let user = new RealUser(userId, username);
+        let user = new User(userId, username);
         this._users.set(userId, user);
         return user;
     }
@@ -59,7 +44,20 @@ class UserManager {
     }
 
     public getUser(userId: string): User {
-        return this._users.get(userId);
+        const user = this._users.get(userId);
+        if (user == undefined) {
+            return this._nullUser;
+        }else {
+            return user;
+        }
+    }
+
+    public getRandomName(): string {
+        let name = Math.random().toString(36).substring(2, 15);
+        while (this._users.has(name)) {
+            name = Math.random().toString(36).substring(2, 15);
+        }
+        return name;
     }
 }
 

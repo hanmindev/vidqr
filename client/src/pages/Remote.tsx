@@ -1,20 +1,29 @@
 import React, { useState, useEffect } from "react";
 import {useNavigate, useParams} from 'react-router-dom';
 import {VideoQueue} from "../components/video_queue";
-import { Button, TextInput } from '@mantine/core';
+import {Button, Loader, Stack, TextInput} from '@mantine/core';
 import {socket} from "../config/socket";
-import {API_URL} from "../config/url";
 import aFetch from "../config/axios";
 import {useSetState} from "@mantine/hooks";
-import {RemotePrompt} from "../components/prompt";
 
 function RemoteWrapper(params: any) {
     const [videoLink, setVideoLink] = useState('');
+    const [submitted, setSubmitted] = useState(false);
+    const [invalid, setInvalid] = useState(false);
 
     const textSubmit = () => {
         if (videoLink !== "") {
-            aFetch.post(`/api/remote/add_video`, {'roomId': params.roomId, 'videoLink': videoLink}).then(r => {});
-            setVideoLink("");
+            setSubmitted(true);
+            aFetch.post(`/api/remote/add_video`, {'roomId': params.roomId, 'videoLink': videoLink}).then(
+                response => {
+                    setSubmitted(false);
+                    if (response.data.validVideo) {
+                        setVideoLink("");
+                        setInvalid(false);
+                    }else{
+                        setInvalid(true);
+                    }
+                });
         } else {
             alert("Please Add A Valid Link");
         }
@@ -27,8 +36,10 @@ function RemoteWrapper(params: any) {
                   label="YouTube Link"
                   placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
                   value={videoLink}
-                  onChange={e => setVideoLink(e.target.value)}
+                  onChange={e => {setInvalid(false);setVideoLink(e.target.value)}}
                   onKeyDown={(e) => e.key === "Enter" ? textSubmit(): null}
+                  rightSection={submitted ? <Loader size={"xs"}/>: null}
+                  error={invalid ? "Invalid Video Link": null}
               />
               <Button
                   onClick={() => {textSubmit()}}
@@ -46,7 +57,7 @@ const Remote = () => {
     let params = useParams();
     let navigate = useNavigate();
 
-    const [username, setUsername] = useState('')
+    const [username, setUsername] = useState(undefined)
     const [usernameBox, setUsernameBox] = useState('')
     const [roomInfo, setRoomInfo] = useSetState({'roomName': undefined});
 
@@ -68,10 +79,15 @@ const Remote = () => {
     )}, []);
 
     const promptSubmit = () => {
+        if (usernameBox.length > 16){
+            return;
+        }
+
+
         aFetch.post(`/api/remote/join_room/${params.roomId}`, {'redirect': false, 'username': usernameBox}).then(response => {
             if (response.data.validRoom){
                 socket.emit("video:subscribe", {'roomId': response.data.roomId});
-                setUsername(usernameBox);
+                setUsername(response.data.username);
             }
         });
 
@@ -79,8 +95,25 @@ const Remote = () => {
 
     if (username === '' || username === undefined){
         return (
-            <div className="mainViewer">
-                <RemotePrompt roomName={roomInfo.roomName} setValue={setUsernameBox} submitPrompt={promptSubmit}/>
+            <div className="mainViewer"><div className="promptForm">
+                <div className="promptBox">
+                    <Stack >
+                        <b>You are trying to join room <mark>{roomInfo.roomName}</mark></b>
+
+                        <b>Pick an identifiable name</b>
+                        <TextInput
+                            placeholder="Username"
+                            onChange={(e) => {setUsernameBox(e.target.value)}}
+                            onKeyDown={(e) => e.key === "Enter" ? promptSubmit(): null}
+                            error={usernameBox.length > 16 ? "Usernames must be at most 16 characters": null}
+                        />
+                        {params.isLocked ? (
+                            <><b>This room is password-locked</b><TextInput
+                                placeholder="Room Secret"/></>): null}
+                        <Button variant="gradient" gradient={{ from: 'teal', to: 'cyan' }} onClick={promptSubmit}>Enter</Button>
+                    </Stack>
+                </div>
+            </div>
             </div>
         )
     }else{

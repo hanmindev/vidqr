@@ -9,21 +9,20 @@ import {
     CopyButton,
     Tooltip,
     ActionIcon,
-    Grid
+    Grid, Stack, TextInput, Button
 } from '@mantine/core';
 import {IconCopy, IconCheck, } from '@tabler/icons-react';
 import {useParams, useNavigate} from "react-router-dom";
 import {socket} from "../config/socket";
 import {CURRENT_URL} from "../config/url";
 import aFetch from "../config/axios";
-import {HostPrompt} from "../components/prompt";
 
 function HostVideoPlayer(params: any) {
     const [videoRef, setVideoRef] = useState('');
     const [videoPlaying, setVideoPlaying] = useState(true);
 
-    const nextVideo = () => {
-        socket.emit("video:nextVideo", {"roomId": params.link})
+    const nextVideo = (discard?: boolean) => {
+        socket.emit("video:nextVideo", {"roomId": params.link, "discard": discard});
     }
 
 
@@ -38,12 +37,12 @@ function HostVideoPlayer(params: any) {
     socket.on("video:nextVideo", (params: any) => {
         const videoLink = params.videoLink;
 
-
         if (videoLink !== videoRef) {
             setVideoRef(videoLink);
         }else{
             setVideoRef(videoLink + '?');
         }
+        setVideoPlaying(true);
     });
 
 
@@ -61,6 +60,7 @@ function HostVideoPlayer(params: any) {
                          playing={videoPlaying}
                          onStart={() => setVideoPlaying(true)}
                          onPause={() => setVideoPlaying(false)}
+                         onError={() => new Promise(res => setTimeout(res, 2000)).then(() => nextVideo(true))}
                          controls={true}
                          embedoptions={{cc_load_policy: 1, cc_lang_pref: "en"}}
                          width="100%"
@@ -208,6 +208,10 @@ const Host = () => {
     }, [navigate, params.roomId, invalidRoomId]);
 
     const promptSubmit = () => {
+        if (roomNameBox.length > 16){
+            return;
+        }
+
         aFetch.post(`/api/host/create_room/`, {'roomName': roomNameBox }).then(response => {
             if (response.data.roomId){
                 setRoomName(roomNameBox);
@@ -220,7 +224,25 @@ const Host = () => {
     if (params.roomId === 'create_room'){
         return (
             <div className="mainViewer">
-                <HostPrompt setValue={setRoomNameBox} submitPrompt={promptSubmit}/>
+                <div className="promptForm">
+                    <div className="promptBox">
+                        <Stack >
+                            <b>Pick a room name</b>
+                            <TextInput
+                                placeholder="Room Name"
+                                onChange={(e) => {setRoomNameBox(e.target.value)}}
+                                onKeyDown={(e) => e.key === "Enter" ? promptSubmit(): null}
+                                error={roomNameBox.length > 16 ? "Room names must be at most 16 characters": null}
+                            />
+                            {/*<b>Optional Password</b>*/}
+                            {/*<TextInput*/}
+                            {/*    placeholder="Password"*/}
+                            {/*    onChange={(e) => {}}*/}
+                            {/*/>*/}
+                            <Button variant="gradient" gradient={{ from: 'teal', to: 'cyan' }} onClick={promptSubmit}>Enter</Button>
+                        </Stack>
+                    </div>
+                </div>
             </div>
         )
     }else if (invalidRoomId || params.roomId === undefined) {

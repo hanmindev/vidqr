@@ -18,7 +18,7 @@ class VideoController {
         return VideoController._instance;
     }
 
-    public nextVideo(roomId: string): boolean{
+    public nextVideo(roomId: string, discard?: boolean): boolean{
         const room = roomManager.getRoom(roomId);
         if (!room) {
             return false;
@@ -32,7 +32,7 @@ class VideoController {
         }
 
         if (room.videoList.length > 0) {
-            room.shiftVideoList();
+            room.shiftVideoList(discard);
         }
 
         this._io.to(roomId).emit("video:videoList", {'videoList': room.videoList});
@@ -71,6 +71,17 @@ class VideoController {
         }
         if (room.videoList.length == 1 || force) {
             this._io.to(roomId).emit("video:nextVideo", {'videoLink': room.videoList[0].videoLink});
+        }
+
+        this.pingVideoList(roomId);
+
+        return true;
+    }
+
+    public pingVideoList(roomId: string): boolean{
+        const room = roomManager.getRoom(roomId);
+        if (!room) {
+            return false;
         }
 
         this._io.to(roomId).emit("video:videoList", {'videoList': room.videoList});

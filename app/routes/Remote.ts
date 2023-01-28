@@ -12,7 +12,7 @@ var router = express.Router();
 const roomManager = RoomManager.getInstance();
 const userManager = UserManager.getInstance();
 
-router.post('/get_username/:roomId', function (req, res, next) {
+router.post('/get_username/:roomId', function (req: any, res: any, next: any) {
     if (req.session.userId) {
         let username = userManager.getUser(req.session.userId).username;
         res.send({'username': username});
@@ -22,16 +22,21 @@ router.post('/get_username/:roomId', function (req, res, next) {
     req.session.userId = userManager.getUnusedId();
 });
 
-router.post('/join_room/:roomId', function (req, res, next) {
+router.post('/join_room/:roomId', function (req: any, res: any, next: any) {
     let roomId = req.params.roomId;
     let username = req.body.username;
     if (username !== undefined) {
+        if (username.length > 16) {
+            username = username.substring(0, 16);
+        }else if (username.length === 0) {
+            username = userManager.getRandomName();
+        }
 
         if (!roomManager.roomExists(roomId)) {
             res.status(404).send("Room does not exist");
 
 
-            res.send({'validRoom': false});
+            res.send({'username': username, 'validRoom': false});
             return;
         }
 
@@ -45,13 +50,13 @@ router.post('/join_room/:roomId', function (req, res, next) {
         roomManager.addUserToRoom(roomId, userManager.getUser(req.session.userId));
 
         console.log(username + " has joined a room with id: " + roomId);
-        res.send({'roomId': roomId, 'validRoom': true});
+        res.send({'roomId': roomId, 'username': username, 'validRoom': true});
     } else {
         res.send({'validRoom': false});
     }
 });
 
-router.post('/check_room/:roomId', function (req, res, next) {
+router.post('/check_room/:roomId', function (req: any, res: any, next: any) {
     let roomId = req.params.roomId;
     if (roomManager.roomExists(roomId)) {
         res.send({'validRoom': true});
@@ -60,7 +65,7 @@ router.post('/check_room/:roomId', function (req, res, next) {
     }
 });
 
-router.post('/add_video/', function (req, res, next) {
+router.post('/add_video/', function (req: any, res: any, next: any) {
 
     let videoLink = req.body.videoLink;
     let userId = req.session.userId;

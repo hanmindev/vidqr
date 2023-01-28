@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Navigate, useNavigate } from 'react-router-dom';
-import {Button, TextInput} from "@mantine/core";
-import {socket} from "../config/socket";
-import {API_URL} from "../config/url";
+import {Button, Stack, TextInput} from "@mantine/core";
 import aFetch from "../config/axios";
-import {MainPrompt} from "../components/prompt";
 
 
 
@@ -15,6 +12,7 @@ const Home = () => {
     }
 
     const [joinCode, setJoinCode] = useState('');
+    const [invalidCode, setInvalidCode] = useState(false);
 
     function hostRoom(){
         move(`/host/create_room`);
@@ -27,6 +25,8 @@ const Home = () => {
         aFetch.post(`/api/remote/check_room/${joinCode}`, {'redirect': true}).then(response => {
             if (response.data.validRoom){
                 move(`/${joinCode}`);
+            }else{
+                setInvalidCode(true);
             }
         });
     }
@@ -34,8 +34,23 @@ const Home = () => {
 
   return (
       <div className="mainViewer">
-          <MainPrompt setValue={setJoinCode} submitPrompt={joinRoom} hostRoom={hostRoom}/>
+          <div className="promptForm">
+              <div className="promptBox">
+                  <Stack >
+                      <b>Enter a Room Code</b>
+                      <TextInput
+                          placeholder="Room Code"
+                          onChange={(e) => {setInvalidCode(false);setJoinCode(e.target.value)}}
+                          onKeyDown={(e) => e.key === "Enter" ? joinRoom(): null}
+                            error={invalidCode ? "Invalid Room Code" : null}
+                      />
+                      <Button variant="gradient" gradient={{ from: 'teal', to: 'cyan' }} onClick={joinRoom}>Enter</Button>
 
+                      <p>Alternatively, make your own room</p>
+                      <Button compact onClick={hostRoom}>Host Room</Button>
+                  </Stack>
+              </div>
+          </div>
       </div>
   )
 }
