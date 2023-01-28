@@ -3,6 +3,8 @@ import {User, UserManager} from "../users/user";
 
 class Room {
     private _roomId: string;
+
+    public roomName: string;
     private _users: Map<string, User>;
     private _videoList: {videoLink: string, videoTitle: string, videoThumbnail: string, videoUsername: string, videoId: number}[];
     private _videoCount: number

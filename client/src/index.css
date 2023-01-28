@@ -19,11 +19,11 @@ code {
 }
 
 b {
-  color: white;
+  color: #e1e1e1;
 }
 
 p {
-  color: white;
+  color: #dddad6;
 }
 
 body > #root {
@@ -137,7 +137,8 @@ body > #root {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: azure;
+  background-color: #055252;
+  background-image: linear-gradient(-20deg, #6fe7d0, #065759);
 
   top: 50%;
   left: 50%;
@@ -152,4 +153,8 @@ body > #root {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+.mantine-TextInput-input {
+  border-color: #776f62;
 }

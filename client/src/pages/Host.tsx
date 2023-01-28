@@ -7,6 +7,7 @@ import {useParams, Navigate, Route, Routes, useNavigate} from "react-router-dom"
 import {socket} from "../config/socket";
 import {API_URL, CURRENT_URL} from "../config/url";
 import aFetch from "../config/axios";
+import {HostPrompt} from "../components/prompt";
 
 function HostVideoPlayer(params: any) {
     const [videoRef, setVideoRef] = useState('');
@@ -161,16 +162,55 @@ function HostMenu(props: { roomId: string; }) {
 const Host = () => {
     let params = useParams();
     const navigate = useNavigate();
-    const redirect = params.roomId === undefined || params.roomId === "" || isNaN(Number(params.roomId))
+    const invalidRoomId = params.roomId === undefined || params.roomId === "" || isNaN(Number(params.roomId))
+
+    const [roomName, setRoomName] = useState('');
+    const [roomNameBox, setRoomNameBox] = useState('');
 
     useEffect(() => {
-        if (redirect) {
-            navigate('/', {replace: true});
+        if (params.roomId === "create_room"){
+            aFetch.post('/api/host/rejoin_room').then(response => {
+                if (response.data.host){
+                    navigate(`/host/${response.data.roomId}`);
+                }
+                console.log(response.data);
+            })
+
+
+        }else if (invalidRoomId) {
+            navigate('/host/create_room', {replace: true});
+        }else{
+            aFetch.post(`/api/host/get_room_info`, {'roomId': params.roomId}).then(response => {
+                if (response.data.host){
+                    setRoomName(response.data.roomName);
+                }else{
+                    navigate('/host/create_room', {replace: true});
+                }
+            });
         }
 
-    }, [navigate, params.roomId, redirect]);
 
-    if (redirect || params.roomId === undefined) {
+
+
+    }, [navigate, params.roomId, invalidRoomId]);
+
+    const promptSubmit = () => {
+        aFetch.post(`/api/host/create_room/`, {'roomName': roomNameBox }).then(response => {
+            if (response.data.roomId){
+                setRoomName(roomNameBox);
+                navigate(`/host/${response.data.roomId}`)
+            }
+        });
+
+    }
+
+    if (params.roomId === 'create_room'){
+        return (
+            <div className="mainViewer">
+                <HostPrompt setValue={setRoomNameBox} submitPrompt={promptSubmit}/>
+            </div>
+        )
+    }else if (invalidRoomId || params.roomId === undefined) {
         return (
             <p>Redirecting...</p>
         )

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import {VideoQueue} from "../components/video_queue";
 import { Button, TextInput } from '@mantine/core';
 import {socket} from "../config/socket";
@@ -44,11 +44,22 @@ function RemoteWrapper(params: any) {
 }
 const Remote = () => {
     let params = useParams();
+    let navigate = useNavigate();
 
     const [username, setUsername] = useState('')
     const [usernameBox, setUsernameBox] = useState('')
+    const [roomInfo, setRoomInfo] = useSetState({'roomName': undefined});
 
     useEffect(() => {
+        aFetch.post(`/api/host/get_room_info/`, {'roomId': params.roomId}).then(response => {
+            if (response.data.roomName){
+                document.title = response.data.roomName;
+                setRoomInfo(response.data);
+            }else{
+                navigate('/');
+            }
+        });
+
         aFetch.post(`/api/remote/get_username/${params.roomId}`).then(response => {
             if (response.data.username){
                 setUsername(response.data.username);
@@ -60,16 +71,16 @@ const Remote = () => {
         aFetch.post(`/api/remote/join_room/${params.roomId}`, {'redirect': false, 'username': usernameBox}).then(response => {
             if (response.data.validRoom){
                 socket.emit("video:subscribe", {'roomId': response.data.roomId});
+                setUsername(usernameBox);
             }
         });
 
-        setUsername(usernameBox);
     }
 
     if (username === '' || username === undefined){
         return (
             <div className="mainViewer">
-                <RemotePrompt setUsername={setUsernameBox} submitPrompt={promptSubmit}/>
+                <RemotePrompt roomName={roomInfo.roomName} setValue={setUsernameBox} submitPrompt={promptSubmit}/>
             </div>
         )
     }else{

@@ -4,6 +4,7 @@ import {Button, TextInput} from "@mantine/core";
 import {socket} from "../config/socket";
 import {API_URL} from "../config/url";
 import aFetch from "../config/axios";
+import {MainPrompt} from "../components/prompt";
 
 
 
@@ -16,45 +17,23 @@ const Home = () => {
     const [joinCode, setJoinCode] = useState('');
 
     function hostRoom(){
-        aFetch.post('/api/host/create_room').then(response => {
-            move(`/host/${response.data.roomId}`);
-            console.log(response.data);
-        })
+        move(`/host/create_room`);
     }
 
     function joinRoom(){
         if (joinCode.length === 0){
             return;
         }
-        aFetch.post(`/api/remote/join_room/${joinCode}`, {'redirect': true}).then(response => {
+        aFetch.post(`/api/remote/check_room/${joinCode}`, {'redirect': true}).then(response => {
             if (response.data.validRoom){
-                move(`/${response.data.roomId}`);
-                socket.emit("video:subscribe", {'roomId': response.data['roomId']});
+                move(`/${joinCode}`);
             }
         });
     }
 
-    const handleJoinChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setJoinCode(event.target.value);
-    }
-
   return (
-      <div>
-
-        <Button onClick={hostRoom}>
-            Host Room
-        </Button>
-
-        <TextInput
-            value={joinCode}
-            onChange={handleJoinChange}
-            label="Room Link"
-            placeholder="123456"
-        />
-
-        <Button onClick={joinRoom}>
-            Join Room
-        </Button>
+      <div className="mainViewer">
+          <MainPrompt setValue={setJoinCode} submitPrompt={joinRoom} hostRoom={hostRoom}/>
 
       </div>
   )
