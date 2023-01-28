@@ -218,6 +218,7 @@ const Host = () => {
             <p>Redirecting...</p>
         )
     }else{
+        document.title = roomName;
         return (
             <>
 

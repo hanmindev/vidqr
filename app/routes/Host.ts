@@ -51,31 +51,39 @@ router.post('/get_room_info', function (req: any, res, next) {
 });
 
 router.post('/get_current_video/:roomId', function (req: any, res, next) {
-    const roomId = req.params.roomId;
-    const room = roomManager.getRoom(roomId);
+    try {
+        const roomId = req.params.roomId;
+        const room = roomManager.getRoom(roomId);
 
-    if (room === undefined) {
+        if (room === undefined) {
+            res.send({'video': []});
+            return;
+        }
+
+        res.send({'video': room.videoList[0]});
+    }catch (e) {
         res.send({'video': []});
-        return;
     }
-
-    res.send({'video': room.videoList[0]});
 });
 
 router.post('/mediaControl/', function (req: any, res, next) {
-    const action = req.body.action;
-    if (action === "play") {
-        res.send({'status': "Done"});
+    try {
+        const action = req.body.action;
+        if (action === "play") {
+            res.send({'status': "Done"});
 
-    }else if (action === "next") {
+        } else if (action === "next") {
 
-        const io = require('../../index');
-        require("./Video")(io).nextVideo({'roomId': req.session.roomId});
+            const io = require('../../index');
+            require("./Video")(io).nextVideo({'roomId': req.session.roomId});
 
-        res.send({'status': "Done"});
-    }else if (action === "prev") {
-        res.send({'status': "Done"});
-    }else{
+            res.send({'status': "Done"});
+        } else if (action === "prev") {
+            res.send({'status': "Done"});
+        } else {
+            res.send({'error': "Invalid action"});
+        }
+    }catch (e) {
         res.send({'error': "Invalid action"});
     }
 });

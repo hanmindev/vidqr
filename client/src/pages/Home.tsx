@@ -30,6 +30,7 @@ const Home = () => {
             }
         });
     }
+    document.title = "vidqr";
 
   return (
       <div className="mainViewer">

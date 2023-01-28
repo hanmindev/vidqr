@@ -4,22 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="551da139-04ea-45c3-bbf0-076ee8c48de8" name="Changes" comment="added additional graphics">
-      <change afterPath="$PROJECT_DIR$/client/src/components/video_queue.css" afterDir="false" />
+    <list default="true" id="551da139-04ea-45c3-bbf0-076ee8c48de8" name="Changes" comment="add nextVideo button">
+      <change afterPath="$PROJECT_DIR$/app/controllers/videoController.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/modules/rooms/room.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/modules/rooms/room.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/routes/Host.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/Host.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/routes/Remote.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/Remote.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/client/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/prompt.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/prompt.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/video_queue.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/video_queue.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Home.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/pages/Host.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Host.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -119,7 +123,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1674856043509</updated>
-      <workItem from="1674856045003" duration="27527000" />
+      <workItem from="1674856045003" duration="28833000" />
     </task>
     <task id="LOCAL-00001" summary="working website">
       <created>1674858528745</created>
@@ -163,7 +167,14 @@
       <option name="project" value="LOCAL" />
       <updated>1674918088041</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="add nextVideo button">
+      <created>1674929487499</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1674929487499</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -173,7 +184,8 @@
     <MESSAGE value="working website" />
     <MESSAGE value="working website?" />
     <MESSAGE value="added additional graphics" />
-    <option name="LAST_COMMIT_MESSAGE" value="added additional graphics" />
+    <MESSAGE value="add nextVideo button" />
+    <option name="LAST_COMMIT_MESSAGE" value="add nextVideo button" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -191,14 +203,8 @@
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/app/routes/Host.ts</url>
-          <line>18</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="17" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app/routes/Remote.ts</url>
-          <line>94</line>
+          <line>96</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="18" />
         </line-breakpoint>

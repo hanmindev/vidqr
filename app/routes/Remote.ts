@@ -76,26 +76,31 @@ router.post('/add_video/', function (req, res, next) {
         axios.get("https://noembed.com/embed?url=" + videoLink).then(response => {
             let videoTitle: string = response.data.title;
             let videoThumbnail: string = response.data.thumbnail_url.replace("hqdefault", "mqdefault");
-            let videoUser = userManager.getUser(userId);
 
-            const room = roomManager.getRoom(roomId);
-            let video = {
-                'videoLink': videoLink,
-                'videoTitle': videoTitle,
-                'videoThumbnail': videoThumbnail,
-                'videoUsername': videoUser.username
-            };
+            try {
+                let videoUser = userManager.getUser(userId);
+                const room = roomManager.getRoom(roomId);
 
-            room.addVideo(video);
+                let video = {
+                    'videoLink': videoLink,
+                    'videoTitle': videoTitle,
+                    'videoThumbnail': videoThumbnail,
+                    'videoUsername': videoUser.username
+                };
+
+                room.addVideo(video);
 
 
-            const io = require('../../index');
+                const io = require('../../index');
 
-            if (room.videoList.length == 1) {
-                io.to(roomId).emit("video:nextVideo", {'videoLink': videoLink});
+                if (room.videoList.length == 1) {
+                    io.to(roomId).emit("video:nextVideo", {'videoLink': videoLink});
+                }
+
+                io.to(roomId).emit("video:videoList", {'videoList': room.videoList});
+            } catch (e) {
+                return;
             }
-
-            io.to(roomId).emit("video:videoList", {'videoList': room.videoList});
         });
     } catch (e) {
         res.send({'validVideo': false});
