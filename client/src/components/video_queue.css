@@ -1,0 +1,54 @@
+
+.queueVideo {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.queueVideoWrapper {
+  border-style: solid;
+  background-color: #282828;
+  border-color: #525252;
+  border-width: 2px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.queueVideoStack {
+  background-color: #171717;
+  border-width: 2px;
+  border-radius: 5px;
+
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.videoPlayer {
+  width: 100%;
+  height: 100%;
+}
+
+.videoThumbnail {
+  width: 75px;
+  height: 75px;
+}
+
+.videoInformation{
+  width: 70%;
+  height: 100%;
+  margin-left: 2%;
+}
+
+.videoTitle {
+  width: 100%;
+  height: 50%;
+}
+
+.videoUser {
+  width: 100%;
+  height: 50%;
+}

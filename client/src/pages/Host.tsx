@@ -1,8 +1,18 @@
 import React, { useState, useEffect } from "react";
 import {VideoQueue} from "../components/video_queue";
 import ReactPlayer from 'react-player'
-import { AspectRatio, Switch, TransferList, TransferListData, CopyButton, Button, Tooltip, ActionIcon } from '@mantine/core';
-import { IconCopy, IconCheck } from '@tabler/icons-react';
+import {
+    AspectRatio,
+    Switch,
+    TransferList,
+    TransferListData,
+    CopyButton,
+    Button,
+    Tooltip,
+    ActionIcon,
+    UnstyledButton, Grid
+} from '@mantine/core';
+import {IconCopy, IconCheck, IconPlayerSkipForward, IconPlayerSkipBack, IconPlayerPause} from '@tabler/icons-react';
 import {useParams, Navigate, Route, Routes, useNavigate} from "react-router-dom";
 import {socket} from "../config/socket";
 import {API_URL, CURRENT_URL} from "../config/url";
@@ -38,6 +48,7 @@ function HostVideoPlayer(params: any) {
             <ReactPlayer url={videoRef}
                          playing={true}
                          controls={true}
+                         embedOptions={{cc_load_policy: 1, cc_lang_pref: "en"}}
                          width="100%"
                          height="100%"
                          onEnded={() => nextVideo()}
@@ -107,22 +118,14 @@ class AdminPanel extends React.Component<{}, {}>  {
     }
 }
 
-class ShareLink extends React.Component<{link: string | undefined}, {link: string}>  {
-  constructor(props: { link: string; }) {
-    super(props);
+
+
+function ShareLink(props: { link: string; }) {
     let full_link = CURRENT_URL + "/" + (props.link === undefined ? "" : props.link);
-
-    this.state = {
-        link: full_link
-    }
-
-  }
-
-  render() {
     return (
-        <>
-            <b>{this.state.link}</b>
-            <CopyButton value={this.state.link} timeout={2000}>
+        <div className="iconDisplay">
+            <b>{full_link}</b>
+            <CopyButton value={full_link} timeout={2000}>
                 {({ copied, copy }) => (
                     <Tooltip label={copied ? 'Copied' : 'Copy'} withArrow position="right">
                         <ActionIcon color={copied ? 'teal' : 'gray'} onClick={copy}>
@@ -131,12 +134,9 @@ class ShareLink extends React.Component<{link: string | undefined}, {link: strin
                     </Tooltip>
                 )}
             </CopyButton>
-        </>
-
+        </div>
     )
-  }
 }
-
 function HostMenu(props: { roomId: string; }) {
     return (
         <div className="mainViewer">
@@ -146,9 +146,12 @@ function HostMenu(props: { roomId: string; }) {
                         <HostVideoPlayer link={props.roomId}/>
                     </div>
                     <div className="hostSettings">
-                        {/*<UserList/>*/}
-                        {/*<AdminPanel/>*/}
-                        <ShareLink link={props.roomId}/>
+                        <Grid grow>
+                            {/*<Grid.Col span={4}>/!*<UserList/>*!/</Grid.Col>*/}
+                            {/*<Grid.Col span={4}>/!*<AdminPanel/>*!/</Grid.Col>*/}
+                            <Grid.Col span="content"></Grid.Col>
+                            <Grid.Col span="content"><ShareLink link={props.roomId}/></Grid.Col>
+                        </Grid>
                     </div>
                 </div>
                 <div className="secondary">
@@ -216,7 +219,18 @@ const Host = () => {
         )
     }else{
         return (
-            <HostMenu roomId={params.roomId}/>
+            <>
+
+                <div className="mainViewer">
+                    <div className="remoteHeader">
+                        <b>{roomName}</b>
+
+                        <b>{params.roomId}</b>
+                    </div>
+                    <HostMenu roomId={params.roomId}/>
+                </div>
+            </>
+
         );
     }
 };

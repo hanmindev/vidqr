@@ -29,16 +29,23 @@ class Room {
         this._users.delete(userId);
     }
 
-    public addVideo(video: {videoLink: string, videoTitle: string, videoThumbnail: string, videoUsername: string, videoId: number}): void {
-        this._videoList.push(video);
+    public addVideo(video: {videoLink: string, videoTitle: string, videoThumbnail: string, videoUsername: string}): void {
         this._videoCount++;
+        const newVideo = {
+            videoLink: video.videoLink,
+            videoTitle: video.videoTitle,
+            videoThumbnail: video.videoThumbnail,
+            videoUsername: video.videoUsername,
+            videoId: this._videoCount
+        }
+        this._videoList.push(newVideo);
     }
 
     public get videoList(): {videoLink: string, videoTitle: string, videoThumbnail: string, videoUsername: string, videoId: number}[] {
         return this._videoList;
     }
 
-    public getCurrentVideoCount(): number {
+    public getCumulativeVideoCount(): number {
         return this._videoCount;
     }
 

@@ -50,7 +50,7 @@ router.post('/get_room_info', function (req: any, res, next) {
     res.send({'roomName': roomName, 'host': roomId===req.session.owner});
 });
 
-router.post('/get_current_video/:roomId', function (req, res, next) {
+router.post('/get_current_video/:roomId', function (req: any, res, next) {
     const roomId = req.params.roomId;
     const room = roomManager.getRoom(roomId);
 
@@ -60,6 +60,24 @@ router.post('/get_current_video/:roomId', function (req, res, next) {
     }
 
     res.send({'video': room.videoList[0]});
+});
+
+router.post('/mediaControl/', function (req: any, res, next) {
+    const action = req.body.action;
+    if (action === "play") {
+        res.send({'status': "Done"});
+
+    }else if (action === "next") {
+
+        const io = require('../../index');
+        require("./Video")(io).nextVideo({'roomId': req.session.roomId});
+
+        res.send({'status': "Done"});
+    }else if (action === "prev") {
+        res.send({'status': "Done"});
+    }else{
+        res.send({'error': "Invalid action"});
+    }
 });
 
 module.exports = router;

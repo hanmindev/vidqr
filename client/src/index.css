@@ -20,10 +20,14 @@ code {
 
 b {
   color: #e1e1e1;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 p {
   color: #dddad6;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 body > #root {
@@ -51,49 +55,14 @@ body > #root {
 
 .primary {
   background: rgb(78, 78, 78);
-  width: 80vw;
+  width: 78vw;
   overflow: hidden;
-}
-
-.videoPlayer {
-  width: 100%;
-  height: 100%;
 }
 
 .secondary {
   background: rgb(26, 26, 26);
-  overflow-y: auto;
-  overflow-x: hidden;
   width: 17%;
   margin-left: 1%;
-}
-
-.queueVideo {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-}
-
-.videoThumbnail {
-  width: 40%;
-  min-width: 100px;
-  height: 100%;
-}
-
-.videoInformation{
-  width: 50%;
-  height: 100%;
-  margin-left: 2%;
-}
-
-.videoTitle {
-  width: 100%;
-  height: 50%;
-}
-
-.videoUser {
-  width: 100%;
-  height: 50%;
 }
 
 .hostSettings {
@@ -157,4 +126,14 @@ body > #root {
 
 .mantine-TextInput-input {
   border-color: #776f62;
+}
+
+.iconDisplay {
+  display: flex;
+  flex-direction: row;
+  border-style: solid;
+  background-color: #282828;
+  border-color: #525252;
+  border-width: 2px;
+  border-radius: 5px;
 }

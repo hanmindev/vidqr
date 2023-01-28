@@ -70,9 +70,12 @@ router.post('/add_video/', function (req, res, next) {
         videoLink = videoLink.match(/^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube(-nocookie)?\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/)[6];
         videoLink = "https://www.youtube.com/watch?v=" + videoLink;
 
+
+        res.send({'validVideo': true});
+
         axios.get("https://noembed.com/embed?url=" + videoLink).then(response => {
             let videoTitle: string = response.data.title;
-            let videoThumbnail: string = response.data.thumbnail_url;
+            let videoThumbnail: string = response.data.thumbnail_url.replace("hqdefault", "mqdefault");
             let videoUser = userManager.getUser(userId);
 
             const room = roomManager.getRoom(roomId);
@@ -80,8 +83,7 @@ router.post('/add_video/', function (req, res, next) {
                 'videoLink': videoLink,
                 'videoTitle': videoTitle,
                 'videoThumbnail': videoThumbnail,
-                'videoUsername': videoUser.username,
-                'videoId': room.getCurrentVideoCount()
+                'videoUsername': videoUser.username
             };
 
             room.addVideo(video);

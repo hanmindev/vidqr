@@ -33,11 +33,11 @@ function HostPrompt(params: any){
                         placeholder="Room Name"
                         onChange={(e) => {params.setValue(e.target.value)}}
                     />
-                    <b>Optional Password</b>
-                    <TextInput
-                        placeholder="Password"
-                        onChange={(e) => {}}
-                    />
+                    {/*<b>Optional Password</b>*/}
+                    {/*<TextInput*/}
+                    {/*    placeholder="Password"*/}
+                    {/*    onChange={(e) => {}}*/}
+                    {/*/>*/}
                     <Button variant="gradient" gradient={{ from: 'teal', to: 'cyan' }} onClick={params.submitPrompt}>Enter</Button>
                 </Stack>
             </div>
