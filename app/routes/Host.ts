@@ -25,7 +25,7 @@ router.post('/create_room', function (req: any, res, next) {
     res.send({'roomId': roomId});
 });
 
-router.get('/get_current_video/:roomId', function (req, res, next) {
+router.post('/get_current_video/:roomId', function (req, res, next) {
     const roomId = req.params.roomId;
     const room = roomManager.getRoom(roomId);
 

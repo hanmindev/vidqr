@@ -10,12 +10,12 @@ import {RemotePrompt} from "../components/prompt";
 
 function RemoteWrapper(params: any) {
     // const [videoRef, setVideoRef] = useState('dQw4w9WgXcQ');
-    const [videoLink, setVideoLink] = useState('');
+    const [videoLink, setVideoLink] = useState('https://www.youtube.com/watch?v=08htcOOeDoA');
 
     const textSubmit = () => {
         if (videoLink !== "") {
             socket.emit("video:addVideo", {'roomId': params.roomId, 'videoLink': videoLink});
-            setVideoLink("");
+            // setVideoLink("");
         } else {
             alert("Please Add A Valid Link");
         }
@@ -50,7 +50,7 @@ const Remote = () => {
     const [usernameBox, setUsernameBox] = useState('')
 
     useEffect(() => {
-        aFetch.get(`/api/remote/get_username/${params.roomId}`).then(response => {
+        aFetch.post(`/api/remote/get_username/${params.roomId}`).then(response => {
             if (response.data.username){
                 setUsername(response.data.username);
             }

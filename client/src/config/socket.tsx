@@ -5,6 +5,7 @@ const socket = io(API_URL, {
     extraHeaders: {
         "vidqr-header": "1.0"
     }
+
 });
 
 export { socket };

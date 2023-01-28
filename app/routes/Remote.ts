@@ -7,7 +7,7 @@ var router = express.Router();
 const roomManager = RoomManager.getInstance();
 const userManager = UserManager.getInstance();
 
-router.get('/get_username/:roomId', function (req, res, next) {
+router.post('/get_username/:roomId', function (req, res, next) {
     if (req.session.userId) {
         let username = userManager.getUser(req.session.userId).username;
         res.send({'username': username});

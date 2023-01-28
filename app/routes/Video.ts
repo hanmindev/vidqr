@@ -21,10 +21,10 @@ module.exports = (io) => {
 
     const addVideo = function (params: { videoLink: string, roomId: string }) {
         const req = this.request;
-        // this.request.session.reload((err) => {
-        //     if (err) {
-        //         return this.disconnect();
-        //     }
+        this.request.session.reload((err) => {
+            if (err) {
+                return this.disconnect();
+            }
 
 
             let videoLink = params.videoLink;
@@ -58,7 +58,7 @@ module.exports = (io) => {
 
                 io.to(roomId).emit("video:videoList", {'videoList': room.videoList});
             });
-        // });
+        });
     };
 
     const nextVideo = function (params) {
@@ -80,17 +80,9 @@ module.exports = (io) => {
 
     }
 
-    const disconnect = function (reason) {
-
-        const socket = this;
-        socket.leave()
-
-    }
-
     return {
         subscribe,
         addVideo,
-        nextVideo,
-        disconnect
+        nextVideo
     }
 }

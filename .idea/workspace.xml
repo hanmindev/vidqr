@@ -5,7 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="551da139-04ea-45c3-bbf0-076ee8c48de8" name="Changes" comment="working website">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes/Host.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/Host.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes/Remote.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/Remote.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes/Video.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/Video.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/client/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/config/socket.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/config/socket.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/config/url.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/config/url.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/Host.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Host.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/Remote.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Remote.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,7 +40,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Hanmin/Websites/vidqr/client",
+    "last_opened_file_path": "C:/Users/Hanmin/Websites/vidqr/client/public",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -38,7 +50,18 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="npm.start">
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Hanmin\Websites\vidqr\client\public" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Hanmin\Websites\vidqr\client\public" />
+    </key>
+  </component>
+  <component name="RunManager" selected="npm.dev">
+    <configuration name="test" type="NodeJSConfigurationType" working-dir="$PROJECT_DIR$">
+      <method v="2" />
+    </configuration>
     <configuration name="build" type="js.build_tools.npm" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -70,6 +93,7 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Node.js.test" />
       <item itemvalue="npm.dev" />
       <item itemvalue="npm.build" />
       <item itemvalue="npm.start" />
@@ -88,7 +112,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1674856043509</updated>
-      <workItem from="1674856045003" duration="2849000" />
+      <workItem from="1674856045003" duration="11862000" />
     </task>
     <task id="LOCAL-00001" summary="working website">
       <created>1674858528745</created>
@@ -104,7 +128,21 @@
       <option name="project" value="LOCAL" />
       <updated>1674858657564</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="working website">
+      <created>1674859141639</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1674859141639</updated>
+    </task>
+    <task id="LOCAL-00004" summary="working website">
+      <created>1674859264236</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1674859264236</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -113,5 +151,17 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="working website" />
     <option name="LAST_COMMIT_MESSAGE" value="working website" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/app/routes/Video.ts</url>
+          <line>25</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

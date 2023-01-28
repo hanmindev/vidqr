@@ -15,7 +15,7 @@ function HostVideoPlayer(params: any) {
         socket.emit("video:nextVideo", {"roomId": params.link})
     }
 
-    aFetch.get('/api/host/get_current_video/'+params.link).then(response => {
+    aFetch.post('/api/host/get_current_video/'+params.link).then(response => {
         setVideoRef(response.data.video.videoLink)
     })
 

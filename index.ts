@@ -41,7 +41,13 @@ const io = new Server(httpServer, {
     allowedHeaders: ["vidqr-header"],
     methods: ["GET", "POST"],
     credentials: true
-  }
+  },
+    cookie: {
+        name: "io",
+        path: "/",
+        httpOnly: true,
+        sameSite: "lax"
+    }
 });
 
 const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
@@ -67,26 +73,13 @@ app.use('/api/remote', remoteRouter);
 const { subscribe, addVideo, nextVideo, disconnect } = require("./app/routes/Video")(io);
 
 io.on("connection", (socket: any) => {
-      const req = socket.request;
+    // console.log(socket.request.session);
 
-      // socket.use((__, next) => {
-      //   req.session.reload((err) => {
-      //     if (err) {
-      //       socket.disconnect();
-      //
-      //     } else {
-      //       next();
-      //     }
-      //   });
-      // });
-
-      // console.log(socket.request.session);
-
-      console.log("a user connected");
-      socket.on("video:subscribe", subscribe);
-      socket.on("video:addVideo", addVideo);
-      socket.on("video:nextVideo", nextVideo);
-      // socket.on("disconnect", disconnect);
+    console.log("a user connected");
+    socket.on("video:subscribe", subscribe);
+    socket.on("video:addVideo", addVideo);
+    socket.on("video:nextVideo", nextVideo);
+    // socket.on("disconnect", disconnect);
 
 
     }
