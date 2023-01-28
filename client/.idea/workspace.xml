@@ -4,22 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2bb1927-ba76-4621-9d48-67240f038fa9" name="Changes" comment="added media button support">
+    <list default="true" id="a2bb1927-ba76-4621-9d48-67240f038fa9" name="Changes" comment="add input sanitation and bad input response">
       <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/controllers/VideoController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/controllers/VideoController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/modules/rooms/room.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/modules/rooms/room.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/modules/users/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/modules/users/user.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/routes/Host.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/routes/Host.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/routes/Remote.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/routes/Remote.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/routes/Video.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/routes/Video.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/prompt.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Home.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Host.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Host.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Remote.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Remote.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/../tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -94,7 +82,7 @@
       <option name="presentableId" value="Default" />
       <updated>1674856086189</updated>
       <workItem from="1674856087715" duration="36495000" />
-      <workItem from="1674944055755" duration="955000" />
+      <workItem from="1674944055755" duration="1913000" />
     </task>
     <task id="LOCAL-00001" summary="actually working version">
       <created>1674876501205</created>
@@ -110,7 +98,14 @@
       <option name="project" value="LOCAL" />
       <updated>1674935759299</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="add input sanitation and bad input response">
+      <created>1674945077931</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1674945077931</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -119,7 +114,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="actually working version" />
     <MESSAGE value="added media button support" />
-    <option name="LAST_COMMIT_MESSAGE" value="added media button support" />
+    <MESSAGE value="add input sanitation and bad input response" />
+    <option name="LAST_COMMIT_MESSAGE" value="add input sanitation and bad input response" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

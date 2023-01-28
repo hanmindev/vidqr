@@ -1,5 +1,4 @@
 import express from 'express';
-import {UserManager} from "../modules/users/user";
 import {RoomManager} from "../modules/rooms/room";
 import VideoController from "../controllers/VideoController";
 
@@ -8,10 +7,9 @@ const router = express.Router();
 
 
 const roomManager = RoomManager.getInstance();
-const userManager = UserManager.getInstance();
 
 
-router.post('/rejoin_room', function (req: any, res, next) {
+router.post('/rejoin_room', function (req: any, res: any) {
     let roomId;
     let roomName=null;
     if (req.session.roomId) {
@@ -25,7 +23,7 @@ router.post('/rejoin_room', function (req: any, res, next) {
     res.send({'roomId': roomId, 'host': roomName===req.session.owner});
 });
 
-router.post('/create_room', function (req: any, res, next) {
+router.post('/create_room', function (req: any, res: any) {
     let roomId = roomManager.getUnusedId()
     let roomName = req.body.roomName
 
@@ -46,7 +44,7 @@ router.post('/create_room', function (req: any, res, next) {
     res.send({'roomId': roomId});
 });
 
-router.post('/get_room_info', function (req: any, res, next) {
+router.post('/get_room_info', function (req: any, res: any) {
     let roomId = req.body.roomId;
     let roomName;
 
@@ -60,7 +58,7 @@ router.post('/get_room_info', function (req: any, res, next) {
     res.send({'roomName': roomName, 'host': roomId===req.session.owner});
 });
 
-router.post('/get_current_video/:roomId', function (req: any, res, next) {
+router.post('/get_current_video/:roomId', function (req: any, res: any) {
     try {
         const roomId = req.params.roomId;
         const room = roomManager.getRoom(roomId);
@@ -76,7 +74,7 @@ router.post('/get_current_video/:roomId', function (req: any, res, next) {
     }
 });
 
-router.post('/mediaControl/', function (req: any, res, next) {
+router.post('/mediaControl/', function (req: any, res: any) {
     try {
         const action = req.body.action;
         if (action === "play") {
