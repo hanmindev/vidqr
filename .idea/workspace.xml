@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="551da139-04ea-45c3-bbf0-076ee8c48de8" name="Changes" comment="add try catch safety">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/videoController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/VideoController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/modules/rooms/room.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/modules/rooms/room.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/routes/Host.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/Host.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/routes/Remote.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/Remote.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/routes/Video.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/Video.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/client/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/video_queue.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/video_queue.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/Host.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Host.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="551da139-04ea-45c3-bbf0-076ee8c48de8" name="Changes" comment="add try catch safety" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -125,7 +115,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1674856043509</updated>
-      <workItem from="1674856045003" duration="33302000" />
+      <workItem from="1674856045003" duration="33414000" />
     </task>
     <task id="LOCAL-00001" summary="working website">
       <created>1674858528745</created>

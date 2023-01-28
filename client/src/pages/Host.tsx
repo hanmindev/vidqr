@@ -7,10 +7,9 @@ import {
     TransferList,
     TransferListData,
     CopyButton,
-    Button,
     Tooltip,
     ActionIcon,
-    UnstyledButton, Grid
+    Grid
 } from '@mantine/core';
 import {IconCopy, IconCheck, } from '@tabler/icons-react';
 import {useParams, useNavigate} from "react-router-dom";
@@ -60,6 +59,8 @@ function HostVideoPlayer(params: any) {
         <AspectRatio ratio={16 / 9}>
             <ReactPlayer url={videoRef}
                          playing={videoPlaying}
+                         onStart={() => setVideoPlaying(true)}
+                         onPause={() => setVideoPlaying(false)}
                          controls={true}
                          embedoptions={{cc_load_policy: 1, cc_lang_pref: "en"}}
                          width="100%"
