@@ -1,6 +1,7 @@
 import {UserManager} from "../modules/users/user";
 import {RoomManager} from "../modules/rooms/room";
 import {default as axios} from "axios";
+import VideoController from "../controllers/VideoController";
 
 
 
@@ -71,13 +72,16 @@ router.post('/add_video/', function (req, res, next) {
         videoLink = "https://www.youtube.com/watch?v=" + videoLink;
 
 
-        res.send({'validVideo': true});
 
         axios.get("https://noembed.com/embed?url=" + videoLink).then(response => {
-            let videoTitle: string = response.data.title;
-            let videoThumbnail: string = response.data.thumbnail_url.replace("hqdefault", "mqdefault");
+            if (response.data.error) {
+                res.send({'validVideo': false});
+                return;
+            }
 
             try {
+                let videoTitle: string = response.data.title;
+                let videoThumbnail: string = response.data.thumbnail_url.replace("hqdefault", "mqdefault");
                 let videoUser = userManager.getUser(userId);
                 const room = roomManager.getRoom(roomId);
 
@@ -87,18 +91,13 @@ router.post('/add_video/', function (req, res, next) {
                     'videoThumbnail': videoThumbnail,
                     'videoUsername': videoUser.username
                 };
-
                 room.addVideo(video);
 
-
-                const io = require('../../index');
-
-                if (room.videoList.length == 1) {
-                    io.to(roomId).emit("video:nextVideo", {'videoLink': videoLink});
-                }
-
-                io.to(roomId).emit("video:videoList", {'videoList': room.videoList});
+                VideoController.getInstance().updateVideoList(roomId);
+                res.send({'validVideo': true});
             } catch (e) {
+
+                res.send({'validVideo': false});
                 return;
             }
         });

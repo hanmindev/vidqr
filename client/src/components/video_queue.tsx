@@ -89,8 +89,9 @@ function VideoQueue(params: { roomId: string; })  {
 
     const getVideoList = () => {
         socket.on("video:videoList", (data: any) => {
-            if (data.videoList !== undefined)
+            if (data.videoList !== undefined) {
                 setVideoList(data.videoList);
+            }
         });
     };
 

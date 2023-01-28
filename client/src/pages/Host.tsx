@@ -12,22 +12,28 @@ import {
     ActionIcon,
     UnstyledButton, Grid
 } from '@mantine/core';
-import {IconCopy, IconCheck, IconPlayerSkipForward, IconPlayerSkipBack, IconPlayerPause} from '@tabler/icons-react';
-import {useParams, Navigate, Route, Routes, useNavigate} from "react-router-dom";
+import {IconCopy, IconCheck, } from '@tabler/icons-react';
+import {useParams, useNavigate} from "react-router-dom";
 import {socket} from "../config/socket";
-import {API_URL, CURRENT_URL} from "../config/url";
+import {CURRENT_URL} from "../config/url";
 import aFetch from "../config/axios";
 import {HostPrompt} from "../components/prompt";
 
 function HostVideoPlayer(params: any) {
     const [videoRef, setVideoRef] = useState('');
+    const [videoPlaying, setVideoPlaying] = useState(true);
 
     const nextVideo = () => {
         socket.emit("video:nextVideo", {"roomId": params.link})
     }
 
+
     aFetch.post('/api/host/get_current_video/'+params.link).then(response => {
-        setVideoRef(response.data.video.videoLink)
+        if (response.data.video){
+            setVideoRef(response.data.video.videoLink)
+        }else{
+            setVideoRef('')
+        }
     })
 
     socket.on("video:nextVideo", (params: any) => {
@@ -43,12 +49,19 @@ function HostVideoPlayer(params: any) {
 
 
 
+    socket.on("video:toggleVideo", () => {
+        console.log("toggle video");
+        setVideoPlaying(!videoPlaying);
+    });
+
+
+
     return (
         <AspectRatio ratio={16 / 9}>
             <ReactPlayer url={videoRef}
-                         playing={true}
+                         playing={videoPlaying}
                          controls={true}
-                         embedOptions={{cc_load_policy: 1, cc_lang_pref: "en"}}
+                         embedoptions={{cc_load_policy: 1, cc_lang_pref: "en"}}
                          width="100%"
                          height="100%"
                          onEnded={() => nextVideo()}
@@ -191,10 +204,6 @@ const Host = () => {
                 }
             });
         }
-
-
-
-
     }, [navigate, params.roomId, invalidRoomId]);
 
     const promptSubmit = () => {

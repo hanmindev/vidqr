@@ -1,6 +1,7 @@
 import express from 'express';
 import {UserManager} from "../modules/users/user";
 import {RoomManager} from "../modules/rooms/room";
+import VideoController from "../controllers/VideoController";
 
 const router = express.Router();
 
@@ -60,7 +61,7 @@ router.post('/get_current_video/:roomId', function (req: any, res, next) {
             return;
         }
 
-        res.send({'video': room.videoList[0]});
+        res.send({'video': room.getCurrentVideo()});
     }catch (e) {
         res.send({'video': []});
     }
@@ -70,21 +71,16 @@ router.post('/mediaControl/', function (req: any, res, next) {
     try {
         const action = req.body.action;
         if (action === "play") {
-            res.send({'status': "Done"});
-
+            res.send({'success': VideoController.getInstance().toggleVideo(req.session.roomId)});
         } else if (action === "next") {
-
-            const io = require('../../index');
-            require("./Video")(io).nextVideo({'roomId': req.session.roomId});
-
-            res.send({'status': "Done"});
+            res.send({'success': VideoController.getInstance().nextVideo(req.session.roomId)});
         } else if (action === "prev") {
-            res.send({'status': "Done"});
+            res.send({'success': VideoController.getInstance().prevVideo(req.session.roomId)});
         } else {
-            res.send({'error': "Invalid action"});
+            res.send({'success': false});
         }
     }catch (e) {
-        res.send({'error': "Invalid action"});
+        res.send({'success': false});
     }
 });
 

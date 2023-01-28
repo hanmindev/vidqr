@@ -7,6 +7,7 @@ class Room {
     public roomName: string;
     private _users: Map<string, User>;
     private _videoList: {videoLink: string, videoTitle: string, videoThumbnail: string, videoUsername: string, videoId: number}[];
+    private _historicalVideoList: {videoLink: string, videoTitle: string, videoThumbnail: string, videoUsername: string, videoId: number}[];
     private _videoCount: number
 
 
@@ -14,6 +15,7 @@ class Room {
         this._roomId = roomId;
         this._users = new Map<string, User>();
         this._videoList = [];
+        this._historicalVideoList = [];
         this._videoCount = 0;
     }
 
@@ -43,6 +45,24 @@ class Room {
 
     public get videoList(): {videoLink: string, videoTitle: string, videoThumbnail: string, videoUsername: string, videoId: number}[] {
         return this._videoList;
+    }
+
+    public shiftVideoList(): void {
+        if (this._videoList.length > 0){
+            this._historicalVideoList.push(this._videoList.shift());
+        }
+    }
+
+    public unshiftVideoList(): boolean {
+        if (this._historicalVideoList.length > 0){
+            this._videoList.unshift(this._historicalVideoList.pop());
+            return true
+        }
+        return false
+    }
+
+    public getCurrentVideo(){
+        return this._videoList[0];
     }
 
     public getCumulativeVideoCount(): number {
