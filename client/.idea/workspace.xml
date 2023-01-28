@@ -6,16 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="a2bb1927-ba76-4621-9d48-67240f038fa9" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/routes/Host.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/routes/Host.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/routes/Remote.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/routes/Remote.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/routes/Video.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/routes/Video.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/axios.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/axios.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/config/socket.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/socket.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/url.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/url.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Host.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Host.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Remote.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Remote.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../index.ts" afterDir="false" />
     </list>
@@ -85,7 +80,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1674856086189</updated>
-      <workItem from="1674856087715" duration="8245000" />
+      <workItem from="1674856087715" duration="12440000" />
     </task>
     <servers />
   </component>
@@ -109,9 +104,27 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/Remote.tsx</url>
-          <line>16</line>
+          <line>15</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/pages/Home.tsx</url>
+          <line>20</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/pages/Home.tsx</url>
+          <line>19</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/pages/Home.tsx</url>
+          <line>18</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -1,5 +1,6 @@
 import {UserManager} from "../modules/users/user";
 import {RoomManager} from "../modules/rooms/room";
+import {default as axios} from "axios";
 
 var express = require('express');
 var router = express.Router();
@@ -43,6 +44,42 @@ router.post('/join_room/:roomId', function (req, res, next) {
     } else {
         res.send({'goodUsername': false});
     }
+});
+
+router.post('/add_video/', function (req, res, next) {
+
+    let videoLink = req.body.videoLink;
+    let userId = req.session.userId;
+    let roomId = req.body.roomId;
+
+    if (videoLink.includes("list")) {
+        videoLink = videoLink.split("&list")[0];
+    }
+
+    axios.get("https://noembed.com/embed?url=" + videoLink).then(response => {
+        let videoTitle: string = response.data.title;
+        let videoThumbnail: string = response.data.thumbnail_url;
+        let videoUser = userManager.getUser(userId);
+
+        const room = roomManager.getRoom(roomId);
+        let video = {
+            'videoLink': videoLink,
+            'videoTitle': videoTitle,
+            'videoThumbnail': videoThumbnail,
+            'videoUsername': videoUser.username,
+            'videoId': room.getCurrentVideoCount()
+        };
+
+        room.addVideo(video);
+
+        const io = require('../../index');
+
+        if (room.videoList.length == 1) {
+            io.to(roomId).emit("video:nextVideo", {'videoLink': videoLink});
+        }
+
+        io.to(roomId).emit("video:videoList", {'videoList': room.videoList});
+    });
 });
 
 module.exports = router;

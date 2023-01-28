@@ -20,42 +20,21 @@ app.use(cors({
     "credentials": true
 }));
 
-
-const oneDay = 1000 * 60 * 60 * 24;
-const sessionMiddleware = session({
-  secret: require('crypto').randomBytes(64).toString('hex'),
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    maxAge: oneDay,
-    secure: false
-  }
-});
-
-app.set('trust proxy', 1)
-app.use(sessionMiddleware);
+app.use(session({
+    secret: require('crypto').randomBytes(64).toString('hex'),
+    resave: false,
+    saveUninitialized: true
+}));
 
 const io = new Server(httpServer, {
   cors: {
     origin: "http://localhost:3000",
-    allowedHeaders: ["vidqr-header"],
     methods: ["GET", "POST"],
     credentials: true
-  },
-    cookie: {
-        name: "io",
-        path: "/",
-        httpOnly: true,
-        sameSite: "lax"
-    }
+  }
 });
 
-const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
 
-io.use(wrap(sessionMiddleware));
-
-
-// Move app.use() inside the conditional statement
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 
@@ -70,18 +49,13 @@ const remoteRouter = require('./app/routes/Remote');
 app.use('/api/host', hostRouter);
 app.use('/api/remote', remoteRouter);
 
-const { subscribe, addVideo, nextVideo, disconnect } = require("./app/routes/Video")(io);
+const { subscribe, nextVideo } = require("./app/routes/Video")(io);
 
 io.on("connection", (socket: any) => {
-    // console.log(socket.request.session);
 
     console.log("a user connected");
     socket.on("video:subscribe", subscribe);
-    socket.on("video:addVideo", addVideo);
     socket.on("video:nextVideo", nextVideo);
-    // socket.on("disconnect", disconnect);
-
-
     }
 );
 
@@ -90,3 +64,5 @@ const port = process.env.PORT || 5000;
 httpServer.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 });
+
+module.exports = io;

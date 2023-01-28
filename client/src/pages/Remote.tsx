@@ -9,13 +9,12 @@ import {useSetState} from "@mantine/hooks";
 import {RemotePrompt} from "../components/prompt";
 
 function RemoteWrapper(params: any) {
-    // const [videoRef, setVideoRef] = useState('dQw4w9WgXcQ');
-    const [videoLink, setVideoLink] = useState('https://www.youtube.com/watch?v=08htcOOeDoA');
+    const [videoLink, setVideoLink] = useState('');
 
     const textSubmit = () => {
         if (videoLink !== "") {
-            socket.emit("video:addVideo", {'roomId': params.roomId, 'videoLink': videoLink});
-            // setVideoLink("");
+            aFetch.post(`/api/remote/add_video`, {'roomId': params.roomId, 'videoLink': videoLink}).then(r => {});
+            setVideoLink("");
         } else {
             alert("Please Add A Valid Link");
         }
@@ -24,18 +23,18 @@ function RemoteWrapper(params: any) {
     return (
         <div className="hViewer">
           <div className="primary">
-            <TextInput
-                label="YouTube Link"
-                placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                value={videoLink}
-                onChange={e => setVideoLink(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" ? textSubmit(): null}
-            />
-            <Button
-                onClick={() => {textSubmit()}}
-            >
-              Submit
-            </Button>
+              <TextInput
+                  label="YouTube Link"
+                  placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                  value={videoLink}
+                  onChange={e => setVideoLink(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" ? textSubmit(): null}
+              />
+              <Button
+                  onClick={() => {textSubmit()}}
+              >
+                  Submit
+              </Button>
           </div>
           <div className="secondary">
             <VideoQueue roomId={params.roomId}/>
