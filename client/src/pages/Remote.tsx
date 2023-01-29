@@ -4,6 +4,8 @@ import {VideoQueue} from "../components/video_queue";
 import {Button, Loader, Stack, TextInput} from '@mantine/core';
 import {socket} from "../config/socket";
 import aFetch from "../config/axios";
+import "./remote.css";
+import {ShareLink} from "./Host";
 
 function RemoteWrapper(params: any) {
     const [videoLink, setVideoLink] = useState('');
@@ -24,15 +26,18 @@ function RemoteWrapper(params: any) {
                     }
                 });
         } else {
-            setInvalid(true);
+            setInvalid(false);
         }
     }
 
     return (
         <div className="hViewer">
           <div className="primary">
+              <div className="youtubeSearch">
+                  <b>WIP YouTube Search Interface</b>
+                  <p>Please use the link submission below.</p>
+              </div>
               <TextInput
-                  label="YouTube Link"
                   placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
                   value={videoLink}
                   onChange={e => {setInvalid(false);setVideoLink(e.target.value)}}
@@ -40,14 +45,11 @@ function RemoteWrapper(params: any) {
                   rightSection={submitted ? <Loader size={"xs"}/>: null}
                   error={invalid ? "Invalid Video Link": null}
               />
-              <Button
-                  onClick={() => {textSubmit()}}
-              >
-                  Submit
-              </Button>
+              <Button variant="gradient" gradient={{ from: 'indigo', to: 'cyan' }} onClick={() => {textSubmit()}}>Queue Video</Button>
+              <ShareLink link={params.roomId}/>
           </div>
           <div className="secondary">
-            <VideoQueue roomId={params.roomId}/>
+            <VideoQueue roomId={params.roomId} username={params.username}/>
           </div>
         </div>
     );
@@ -139,7 +141,7 @@ const Remote = () => {
                 </div>
 
 
-                <RemoteWrapper roomId={params.roomId}/>
+                <RemoteWrapper roomId={params.roomId} username={username}/>
             </div>
         );
     }
