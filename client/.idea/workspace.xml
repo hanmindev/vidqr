@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2bb1927-ba76-4621-9d48-67240f038fa9" name="Changes" comment="hide scrollbar for chrome">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="a2bb1927-ba76-4621-9d48-67240f038fa9" name="Changes" comment="set page to 1 after video search">
       <change beforePath="$PROJECT_DIR$/src/pages/Remote.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Remote.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -90,7 +89,7 @@
       <updated>1674856086189</updated>
       <workItem from="1674856087715" duration="36495000" />
       <workItem from="1674944055755" duration="28626000" />
-      <workItem from="1675016868020" duration="814000" />
+      <workItem from="1675016868020" duration="904000" />
     </task>
     <task id="LOCAL-00001" summary="actually working version">
       <created>1674876501205</created>
@@ -169,7 +168,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675017050327</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="set page to 1 after video search">
+      <created>1675018844345</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1675018844345</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -197,7 +203,8 @@
     <MESSAGE value="fix mobile css" />
     <MESSAGE value="remove video name length restriction" />
     <MESSAGE value="hide scrollbar for chrome" />
-    <option name="LAST_COMMIT_MESSAGE" value="hide scrollbar for chrome" />
+    <MESSAGE value="set page to 1 after video search" />
+    <option name="LAST_COMMIT_MESSAGE" value="set page to 1 after video search" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

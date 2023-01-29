@@ -210,7 +210,7 @@ const Remote = () => {
             }
 
         }
-    )}, []);
+    )}, [navigate, params.roomId]);
 
     const promptSubmit = () => {
         if (usernameBox.length > 16){
