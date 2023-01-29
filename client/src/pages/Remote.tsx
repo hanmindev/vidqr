@@ -47,6 +47,7 @@ function RemoteVideoSearcher(params: {queueVideo: any}) {
 
         aFetch.post('/api/remote/search/', {videoPlatform: 'youtube', query: searchQuery}).then(response => {
             setVideoResults(response.data);
+            setPage(1);
             setSubmitted(false);
         })
 
@@ -209,7 +210,7 @@ const Remote = () => {
             }
 
         }
-    )}, []);
+    )}, [navigate, params.roomId]);
 
     const promptSubmit = () => {
         if (usernameBox.length > 16){
