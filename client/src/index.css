@@ -54,7 +54,6 @@ body > #root {
 
 .primary {
   background: rgb(78, 78, 78);
-  /*overflow: hidden;*/
   width: 100%;
   min-width: 50%;
 }
@@ -63,7 +62,6 @@ body > #root {
   .hViewer {
     display: table-row-group;
     flex-direction: column;
-    overflow: hidden;
   }
 
   .primary {

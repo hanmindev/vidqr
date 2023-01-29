@@ -4,9 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="551da139-04ea-45c3-bbf0-076ee8c48de8" name="Changes" comment="add queue control">
+    <list default="true" id="551da139-04ea-45c3-bbf0-076ee8c48de8" name="Changes" comment="add YouTube search functionality">
+      <change afterPath="$PROJECT_DIR$/app/controllers/VideoSearchController.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/pages/search.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes/Remote.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/Remote.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/client/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/hooks/hooks.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/hooks/hooks.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/index.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/pages/Remote.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Remote.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/remote.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/remote.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,7 +134,7 @@
       <updated>1674856043509</updated>
       <workItem from="1674856045003" duration="37874000" />
       <workItem from="1674942625259" duration="954000" />
-      <workItem from="1674944044862" duration="7335000" />
+      <workItem from="1674944044862" duration="11267000" />
     </task>
     <task id="LOCAL-00001" summary="working website">
       <created>1674858528745</created>
@@ -211,7 +220,14 @@
       <option name="project" value="LOCAL" />
       <updated>1674969444126</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="add queue control">
+      <created>1674969533245</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1674969533245</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -238,7 +254,8 @@
     <MESSAGE value="update dependencies to fix docker" />
     <MESSAGE value="additional username checks" />
     <MESSAGE value="add queue control" />
-    <option name="LAST_COMMIT_MESSAGE" value="add queue control" />
+    <MESSAGE value="add YouTube search functionality" />
+    <option name="LAST_COMMIT_MESSAGE" value="add YouTube search functionality" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {socket} from "../config/socket";
-import {ActionIcon, Button, Stack} from "@mantine/core";
+import {ActionIcon, Button, Image} from "@mantine/core";
 import {
     IconArrowBarDown, IconArrowBarUp,
     IconPlayerPause,
@@ -15,9 +15,6 @@ import {useHover} from "../hooks/hooks";
 
 function QueueVideo(props: { index: number; videoLink: string; title: string; user: string; videoThumbnail: string; isCurrent: boolean; isMine?: boolean}) {
     let videoTitle = props.title;
-    if (videoTitle.length > 34) {
-        videoTitle = videoTitle.substring(0, 34) + "...";
-    }
     const [hoverRef, isHovered] = useHover<HTMLDivElement>();
 
     const queueControls = (action: any) => {
@@ -38,13 +35,18 @@ function QueueVideo(props: { index: number; videoLink: string; title: string; us
 
     const body = <>
         <div className="videoThumbnail" style={{position: "relative"}}>
-            <img src={props.videoThumbnail}
+            <Image src={props.videoThumbnail}
                  style={{objectFit: "cover"}}
-                 width="75px"
-                 height="75px" alt={videoTitle}/>
+                 width={75}
+                 height={75}
+                   withPlaceholder
+                   placeholder={<p/>}
+            />
         </div>
         <div className="videoInformation">
-            <b className="videoTitle">{videoTitle}</b>
+            <div className="videoTitle">
+                <b>{videoTitle}</b>
+            </div>
             <p className="videoUser">{"queued by: " + props.user}</p>
         </div>
         {isHovered ? <div className="queueOption">
@@ -131,7 +133,7 @@ function VideoQueue(params: { roomId: string; username?: string;})  {
         });
     };
 
-    let firstVideo = videoList.length === 0 ? {videoLink: "none", videoThumbnail: "none", videoTitle: "none", videoUsername: "none"} : videoList[0];
+    let firstVideo = videoList.length === 0 ? {videoLink: "", videoThumbnail: "", videoTitle: "No videos queued!", videoUsername: "none"} : videoList[0];
     return (
         <div>
             <div className="queueVideoWrapper">
