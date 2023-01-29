@@ -4,12 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2bb1927-ba76-4621-9d48-67240f038fa9" name="Changes" comment="fix mobile css">
+    <list default="true" id="a2bb1927-ba76-4621-9d48-67240f038fa9" name="Changes" comment="remove video name length restriction">
       <change afterPath="$PROJECT_DIR$/../app/controllers/VideoSearchController.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/search.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/routes/Remote.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/routes/Remote.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/video_queue.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/video_queue.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/video_queue.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/video_queue.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/hooks.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/hooks.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Remote.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Remote.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/remote.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/remote.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package.json" afterDir="false" />
     </list>
@@ -94,7 +98,7 @@
       <option name="presentableId" value="Default" />
       <updated>1674856086189</updated>
       <workItem from="1674856087715" duration="36495000" />
-      <workItem from="1674944055755" duration="17837000" />
+      <workItem from="1674944055755" duration="24226000" />
     </task>
     <task id="LOCAL-00001" summary="actually working version">
       <created>1674876501205</created>
@@ -159,7 +163,14 @@
       <option name="project" value="LOCAL" />
       <updated>1674957393588</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="remove video name length restriction">
+      <created>1675001706153</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1675001706153</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -185,7 +196,8 @@
     <MESSAGE value="made site mobile friendly" />
     <MESSAGE value="remove chat" />
     <MESSAGE value="fix mobile css" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix mobile css" />
+    <MESSAGE value="remove video name length restriction" />
+    <option name="LAST_COMMIT_MESSAGE" value="remove video name length restriction" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -202,7 +214,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/Remote.tsx</url>
-          <line>17</line>
+          <line>117</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -222,15 +234,21 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/Remote.tsx</url>
-          <line>77</line>
+          <line>185</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/Remote.tsx</url>
-          <line>78</line>
+          <line>186</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/pages/Remote.tsx</url>
+          <line>40</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

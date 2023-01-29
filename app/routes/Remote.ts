@@ -2,6 +2,7 @@ import {UserManager} from "../modules/users/user";
 import {RoomManager} from "../modules/rooms/room";
 import {default as axios} from "axios";
 import VideoController from "../controllers/VideoController";
+import VideoSearchController from "../controllers/VideoSearchController";
 
 
 
@@ -113,6 +114,48 @@ router.post('/add_video/', function (req: any, res: any) {
     } catch (e) {
         res.send({'validVideo': false});
         return;
+    }
+});
+
+
+interface Video {
+    title: string;
+    thumbnailLink: string;
+    channelName: string;
+    videoLink: string;
+}
+router.post('/search/', function (req: any, res: any) {
+    let roomId = req.session.roomId;
+    if (roomManager.roomExists(roomId)) {
+        const videoPlatform = req.body.videoPlatform;
+        const query = req.body.query;
+        VideoSearchController.getInstance().search(videoPlatform, query).then((response: any) => {
+            const videos: Video[] = [];
+            for (let i = 0; i < response.length; i++) {
+                let title = response[i].title;
+                let videoLink = response[i].url;
+
+                let thumbnailLink = "";
+                let channelName = "";
+
+                try {
+                    thumbnailLink = response[i].snippet.thumbnails.high.url;
+                }
+                catch (e) {
+                    thumbnailLink = "";
+                }
+
+                const video = {title: title, thumbnailLink: thumbnailLink, channelName: channelName, videoLink: videoLink};
+                videos.push(video);
+            }
+            res.send(videos);
+            // res.send(response);
+        });
+
+
+        // res.send({'validRoom': true});
+    }else{
+        res.send({'validRoom': false});
     }
 });
 
