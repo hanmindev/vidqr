@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a2bb1927-ba76-4621-9d48-67240f038fa9" name="Changes" comment="remove video name length restriction">
-      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Remote.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Remote.tsx" afterDir="false" />
     </list>
@@ -90,7 +89,7 @@
       <option name="presentableId" value="Default" />
       <updated>1674856086189</updated>
       <workItem from="1674856087715" duration="36495000" />
-      <workItem from="1674944055755" duration="24581000" />
+      <workItem from="1674944055755" duration="24865000" />
     </task>
     <task id="LOCAL-00001" summary="actually working version">
       <created>1674876501205</created>
@@ -206,7 +205,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/Remote.tsx</url>
-          <line>126</line>
+          <line>129</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -226,19 +225,19 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/Remote.tsx</url>
-          <line>194</line>
+          <line>201</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/Remote.tsx</url>
-          <line>195</line>
+          <line>202</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/Remote.tsx</url>
-          <line>45</line>
+          <line>48</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="16" />
         </line-breakpoint>

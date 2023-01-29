@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="551da139-04ea-45c3-bbf0-076ee8c48de8" name="Changes" comment="add YouTube search functionality">
+    <list default="true" id="551da139-04ea-45c3-bbf0-076ee8c48de8" name="Changes" comment="add YouTube delay">
       <change beforePath="$PROJECT_DIR$/client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/client/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/pages/Remote.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Remote.tsx" afterDir="false" />
     </list>
@@ -125,7 +125,7 @@
       <updated>1674856043509</updated>
       <workItem from="1674856045003" duration="37874000" />
       <workItem from="1674942625259" duration="954000" />
-      <workItem from="1674944044862" duration="11572000" />
+      <workItem from="1674944044862" duration="11872000" />
     </task>
     <task id="LOCAL-00001" summary="working website">
       <created>1674858528745</created>
@@ -225,7 +225,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675008318693</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="add YouTube delay">
+      <created>1675008779871</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1675008779871</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -253,7 +260,8 @@
     <MESSAGE value="additional username checks" />
     <MESSAGE value="add queue control" />
     <MESSAGE value="add YouTube search functionality" />
-    <option name="LAST_COMMIT_MESSAGE" value="add YouTube search functionality" />
+    <MESSAGE value="add YouTube delay" />
+    <option name="LAST_COMMIT_MESSAGE" value="add YouTube delay" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
