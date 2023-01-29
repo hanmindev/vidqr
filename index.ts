@@ -20,10 +20,17 @@ app.use(cors({
     "credentials": true
 }));
 
+
+const MemoryStore = require('memorystore')(session);
+
 app.use(session({
     secret: require('crypto').randomBytes(64).toString('hex'),
     resave: false,
-    saveUninitialized: true
+    cookie: { maxAge: 86400000 },
+    saveUninitialized: true,
+    store: new MemoryStore({
+        checkPeriod: 86400000 // prune expired entries every 24h
+    })
 }));
 
 const io = new Server(httpServer, {

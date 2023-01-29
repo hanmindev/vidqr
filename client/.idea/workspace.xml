@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2bb1927-ba76-4621-9d48-67240f038fa9" name="Changes" comment="set page to 1 after video search">
-      <change beforePath="$PROJECT_DIR$/src/pages/Remote.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Remote.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="a2bb1927-ba76-4621-9d48-67240f038fa9" name="Changes" comment="add missing dependencies to useEffect hook" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -89,7 +87,7 @@
       <updated>1674856086189</updated>
       <workItem from="1674856087715" duration="36495000" />
       <workItem from="1674944055755" duration="28626000" />
-      <workItem from="1675016868020" duration="904000" />
+      <workItem from="1675016868020" duration="1562000" />
     </task>
     <task id="LOCAL-00001" summary="actually working version">
       <created>1674876501205</created>
@@ -175,7 +173,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675018844345</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="add missing dependencies to useEffect hook">
+      <created>1675018917544</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1675018917544</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -204,7 +209,8 @@
     <MESSAGE value="remove video name length restriction" />
     <MESSAGE value="hide scrollbar for chrome" />
     <MESSAGE value="set page to 1 after video search" />
-    <option name="LAST_COMMIT_MESSAGE" value="set page to 1 after video search" />
+    <MESSAGE value="add missing dependencies to useEffect hook" />
+    <option name="LAST_COMMIT_MESSAGE" value="add missing dependencies to useEffect hook" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
