@@ -29,6 +29,16 @@
   overflow-x: hidden;
 }
 
+
+@media (max-width: 770px) {
+  .queueVideoStack {
+    position: relative;
+    overflow-y: hidden;
+    max-height: none;
+
+  }
+}
+
 .queueVideo {
   display: flex;
   flex-direction: row;
