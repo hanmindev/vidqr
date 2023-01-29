@@ -24,7 +24,7 @@ function RemoteWrapper(params: any) {
                     }
                 });
         } else {
-            alert("Please Add A Valid Link");
+            setInvalid(true);
         }
     }
 
