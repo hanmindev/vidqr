@@ -10,7 +10,7 @@
 }
 
 .queueVideoStack {
-  position: relative;
+  position: absolute;
   background-color: #171717;
   border-width: 2px;
   border-radius: 5px;
@@ -32,6 +32,7 @@
 
 @media (max-width: 770px) {
   .queueVideoStack {
+    position: relative;
     overflow-y: hidden;
     max-height: none;
 
