@@ -27,6 +27,11 @@
 
   overflow-y: auto;
   overflow-x: hidden;
+
+}
+
+.queueVideoStack::-webkit-scrollbar {
+  display: none;
 }
 
 
