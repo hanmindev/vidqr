@@ -142,9 +142,14 @@ function RemoteWrapper(params: any) {
         }
     }
 
-    const setVideoLinkAndFocus = (videoLink: string) => {
-        setVideoLink(videoLink);
+    const setVideoLinkAndFocus = (newVideoLink: string) => {
         setInvalid(false);
+        if (newVideoLink === videoLink) {
+            textSubmit();
+            return;
+        }
+
+        setVideoLink(newVideoLink);
 
         const videoLinkInput = document.getElementById("videoLinkInput");
         if (videoLinkInput) {
