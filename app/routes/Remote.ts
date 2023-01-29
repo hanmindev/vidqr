@@ -102,7 +102,7 @@ router.post('/add_video/', function (req: any, res: any) {
                 };
                 room.addVideo(video);
 
-                VideoController.getInstance().updateVideoList(roomId);
+                VideoController.getInstance().updateVideoList(roomId, room.videoList.length == 1);
                 res.send({'validVideo': true});
             } catch (e) {
 

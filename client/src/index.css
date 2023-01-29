@@ -38,10 +38,10 @@ body > #root {
   flex-direction: column;
   height: 100%;
   overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .vViewer {
-  display: flex;
   flex-direction: column;
   overflow: hidden;
   width: 100%;
@@ -50,12 +50,11 @@ body > #root {
 .hViewer {
   display: flex;
   flex-direction: row;
-  overflow: hidden;
 }
 
 .primary {
   background: rgb(78, 78, 78);
-  overflow: hidden;
+  /*overflow: hidden;*/
   width: 100%;
   min-width: 50%;
 }
@@ -78,47 +77,23 @@ body > #root {
 .secondary {
   background: rgb(26, 26, 26);
   float: right;
-  width: 330px;
-  min-width: 330px;
-  max-width: 330px;
+  width: 380px;
+  min-width: 380px;
+  max-width: 380px;
   margin-left: 1%;
 
   flex: 1;
 }
 
-.hostSettings {
-  background: rgb(26, 26, 26);
-  overflow: hidden;
-  margin: 1%;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
 
-
-}
-
-.userList {
-  width: 50%;
-  height: 10%;
-}
-
-.passwordEntry {
-  width: 10%;
-  height: 10%;
-}
-
-.shareLink {
-  width: 10%;
-  height: 10%;
-}
 
 .promptForm {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .promptBox {
@@ -139,18 +114,8 @@ body > #root {
 }
 
 .remoteHeader {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.iconDisplay {
+  width: 100%;
   display: flex;
   flex-direction: row;
-  border-style: solid;
-  background-color: #282828;
-  border-color: #525252;
-  border-width: 2px;
-  border-radius: 5px;
+  justify-content: space-between;
 }

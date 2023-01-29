@@ -69,8 +69,12 @@ class VideoController {
         if (!room) {
             return false;
         }
-        if (room.videoList.length == 1 || force) {
-            this._io.to(roomId).emit("video:nextVideo", {'videoLink': room.videoList[0].videoLink});
+        if (force) {
+            if (room.videoList.length > 0){
+                this._io.to(roomId).emit("video:nextVideo", {'videoLink': room.videoList[0].videoLink});
+            }else{
+                this._io.to(roomId).emit("video:nextVideo", {'videoLink': ''});
+            }
         }
 
         this.pingVideoList(roomId);
@@ -85,6 +89,35 @@ class VideoController {
         }
 
         this._io.to(roomId).emit("video:videoList", {'videoList': room.videoList});
+
+        return true;
+    }
+
+    public deleteVideo(roomId: string, index: number): boolean{
+        const room = roomManager.getRoom(roomId);
+        if (!room) {
+            return false;
+        }
+        if (room.videoList.length > index) {
+            room.videoList.splice(index, 1);
+            this.updateVideoList(roomId, index === 0);
+        }
+
+        return true;
+    }
+
+    public raiseVideo(roomId: string, index: number): boolean{
+        const room = roomManager.getRoom(roomId);
+        if (!room) {
+            return false;
+        }
+        if (room.videoList.length > index && index > 0) {
+            const temp = room.videoList[index - 1];
+            room.videoList[index - 1] = room.videoList[index];
+            room.videoList[index] = temp;
+
+            this.updateVideoList(roomId, index === 1);
+        }
 
         return true;
     }

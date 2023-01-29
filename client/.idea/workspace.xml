@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2bb1927-ba76-4621-9d48-67240f038fa9" name="Changes" comment="remove chat">
+    <list default="true" id="a2bb1927-ba76-4621-9d48-67240f038fa9" name="Changes" comment="fix mobile css">
       <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/video_queue.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/video_queue.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Remote.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Remote.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +37,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Hanmin/Websites/vidqr",
+    "last_opened_file_path": "C:/Users/Hanmin/Websites/vidqr/client/src/pages",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -51,10 +50,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Hanmin\Websites\vidqr\client\src\pages" />
       <recent name="C:\Users\Hanmin\Websites\vidqr\client\src\components" />
     </key>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.test">
+  <component name="RunManager" selected="npm.start">
     <configuration name="test" type="JavascriptDebugType" uri="http://localhost:3000">
       <method v="2" />
     </configuration>
@@ -90,7 +90,7 @@
       <option name="presentableId" value="Default" />
       <updated>1674856086189</updated>
       <workItem from="1674856087715" duration="36495000" />
-      <workItem from="1674944055755" duration="11810000" />
+      <workItem from="1674944055755" duration="15913000" />
     </task>
     <task id="LOCAL-00001" summary="actually working version">
       <created>1674876501205</created>
@@ -148,7 +148,14 @@
       <option name="project" value="LOCAL" />
       <updated>1674954923690</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="fix mobile css">
+      <created>1674957393588</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1674957393588</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -173,24 +180,25 @@
     <MESSAGE value="remove move function in Home" />
     <MESSAGE value="made site mobile friendly" />
     <MESSAGE value="remove chat" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove chat" />
+    <MESSAGE value="fix mobile css" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix mobile css" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/components/video_queue.tsx</url>
-          <line>105</line>
+          <line>126</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/components/video_queue.tsx</url>
-          <line>101</line>
+          <line>122</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/Remote.tsx</url>
-          <line>15</line>
+          <line>17</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -205,18 +213,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/components/video_queue.tsx</url>
-          <line>106</line>
+          <line>127</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/Remote.tsx</url>
-          <line>75</line>
+          <line>77</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/Remote.tsx</url>
-          <line>76</line>
+          <line>78</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="13" />
         </line-breakpoint>

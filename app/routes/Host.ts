@@ -83,6 +83,12 @@ router.post('/mediaControl/', function (req: any, res: any) {
             res.send({'success': VideoController.getInstance().nextVideo(req.session.roomId)});
         } else if (action === "prev") {
             res.send({'success': VideoController.getInstance().prevVideo(req.session.roomId)});
+        } else if (action === "raise") {
+            res.send({'success': VideoController.getInstance().raiseVideo(req.session.roomId, req.body.index)});
+        } else if (action === "lower") {
+            res.send({'success': VideoController.getInstance().raiseVideo(req.session.roomId, req.body.index + 1)});
+        } else if (action === "delete") {
+            res.send({'success': VideoController.getInstance().deleteVideo(req.session.roomId, req.body.index)});
         } else {
             res.send({'success': false});
         }

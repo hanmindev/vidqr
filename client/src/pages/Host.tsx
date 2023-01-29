@@ -16,6 +16,7 @@ import {useParams, useNavigate} from "react-router-dom";
 import {socket} from "../config/socket";
 import {CURRENT_URL} from "../config/url";
 import aFetch from "../config/axios";
+import "./host.css";
 
 function HostVideoPlayer(params: any) {
     const [videoRef, setVideoRef] = useState('');
@@ -137,17 +138,19 @@ class AdminPanel extends React.Component<{}, {}>  {
 function ShareLink(props: { link: string; }) {
     let full_link = CURRENT_URL + "/" + (props.link === undefined ? "" : props.link);
     return (
-        <div className="iconDisplay">
+        <div className="shareLink">
             <b>{full_link}</b>
-            <CopyButton value={full_link} timeout={2000}>
-                {({ copied, copy }) => (
-                    <Tooltip label={copied ? 'Copied' : 'Copy'} withArrow position="right">
-                        <ActionIcon color={copied ? 'teal' : 'gray'} onClick={copy}>
-                            {copied ? <IconCheck size={16} /> : <IconCopy size={16} />}
-                        </ActionIcon>
-                    </Tooltip>
-                )}
-            </CopyButton>
+            <div className="shareLinkButton">
+                <CopyButton value={full_link} timeout={2000}>
+                    {({ copied, copy }) => (
+                        <Tooltip label={copied ? 'Copied' : 'Copy'} withArrow position="right">
+                            <ActionIcon color={copied ? 'teal' : 'gray'} onClick={copy}>
+                                {copied ? <IconCheck size={16} /> : <IconCopy size={16} />}
+                            </ActionIcon>
+                        </Tooltip>
+                    )}
+                </CopyButton>
+            </div>
         </div>
     )
 }
@@ -160,12 +163,7 @@ function HostMenu(props: { roomId: string; }) {
                         <HostVideoPlayer link={props.roomId}/>
                     </div>
                     <div className="hostSettings">
-                        <Grid grow>
-                            {/*<Grid.Col span={4}>/!*<UserList/>*!/</Grid.Col>*/}
-                            {/*<Grid.Col span={4}>/!*<AdminPanel/>*!/</Grid.Col>*/}
-                            <Grid.Col span="content"></Grid.Col>
-                            <Grid.Col span="content"><ShareLink link={props.roomId}/></Grid.Col>
-                        </Grid>
+                        <ShareLink link={props.roomId}/>
                     </div>
                 </div>
                 <div className="secondary">
@@ -268,4 +266,5 @@ const Host = () => {
     }
 };
 
-export default Host
+export default Host;
+export {ShareLink};

@@ -13,12 +13,28 @@ import aFetch from "../config/axios";
 import {useHover} from "../hooks/hooks";
 
 
-function QueueVideo(props: { videoLink: string; title: string; user: string; videoThumbnail: string; isCurrent: boolean; }) {
+function QueueVideo(props: { index: number; videoLink: string; title: string; user: string; videoThumbnail: string; isCurrent: boolean; isMine?: boolean}) {
     let videoTitle = props.title;
-    if (videoTitle.length > 24) {
-        videoTitle = videoTitle.substring(0, 24) + "...";
+    if (videoTitle.length > 34) {
+        videoTitle = videoTitle.substring(0, 34) + "...";
     }
     const [hoverRef, isHovered] = useHover<HTMLDivElement>();
+
+    const queueControls = (action: any) => {
+        aFetch.post('/api/host/mediaControl/', {action: action, index: props.index}).then(response => {
+            // console.log(response.data);
+        })
+    }
+
+    const raiseVideo = () => {
+        queueControls("raise");
+    }
+    const lowerVideo = () => {
+        queueControls("lower");
+    }
+    const deleteVideo = () => {
+        queueControls("delete");
+    }
 
     const body = <>
         <div className="videoThumbnail" style={{position: "relative"}}>
@@ -32,20 +48,27 @@ function QueueVideo(props: { videoLink: string; title: string; user: string; vid
             <p className="videoUser">{"queued by: " + props.user}</p>
         </div>
         {isHovered ? <div className="queueOption">
-            <ActionIcon>
+            <ActionIcon onClick={raiseVideo}>
                 <IconArrowBarUp size={18} />
             </ActionIcon>
-            <ActionIcon>
+            <ActionIcon onClick={lowerVideo}>
                 <IconArrowBarDown size={18} />
             </ActionIcon>
-            <ActionIcon>
+            <ActionIcon onClick={deleteVideo}>
                 <IconTrash size={18} />
             </ActionIcon>
         </div>: undefined}
     </>
 
+    let style = undefined;
+    if (props.isCurrent) {
+        style = {background: 'rgb(48,197,38)'};
+    }else if (props.isMine) {
+        style = {background: 'rgb(206,108,108)'};
+    }
+
     return (
-        <div className="queueVideo" ref={hoverRef} style={props.isCurrent ? {background: 'rgb(48,197,38)'} : undefined}>
+        <div className="queueVideo" ref={hoverRef} style={style}>
             {body}
         </div>
     );
@@ -55,9 +78,8 @@ function QueueVideo(props: { videoLink: string; title: string; user: string; vid
 function MediaControls(){
     const mediaControls = (action: any) => {
         aFetch.post('/api/host/mediaControl/', {action: action}).then(response => {
-            console.log(response.data);
+            // console.log(response.data);
         })
-
     }
 
     const prevVideo = () => {
@@ -68,7 +90,6 @@ function MediaControls(){
     }
     const nextVideo = () => {
         mediaControls("next");
-
     }
 
 
@@ -89,7 +110,7 @@ function MediaControls(){
     )
 
 }
-function VideoQueue(params: { roomId: string; })  {
+function VideoQueue(params: { roomId: string; username?: string;})  {
 
     const [videoList, setVideoList] = useState([]);
     // params.roomId
@@ -114,7 +135,7 @@ function VideoQueue(params: { roomId: string; })  {
     return (
         <div>
             <div className="queueVideoWrapper">
-                <QueueVideo isCurrent={true} videoLink={firstVideo.videoLink} videoThumbnail={firstVideo.videoThumbnail} title={firstVideo.videoTitle} user={firstVideo.videoUsername} />
+                <QueueVideo index={0} isCurrent={true} videoLink={firstVideo.videoLink} videoThumbnail={firstVideo.videoThumbnail} title={firstVideo.videoTitle} user={firstVideo.videoUsername} />
                 <MediaControls/>
             </div>
             <p>Current Queue:</p>
@@ -123,7 +144,7 @@ function VideoQueue(params: { roomId: string; })  {
                     (
                         index===0 ? null :
                             <div className="queueVideoWrapper">
-                                <QueueVideo key={video.videoId} isCurrent={false} videoLink={video.videoLink} videoThumbnail={video.videoThumbnail} title={video.videoTitle} user={video.videoUsername} />
+                                <QueueVideo index={index} key={index} isCurrent={false} isMine={params.username===video.videoUsername} videoLink={video.videoLink} videoThumbnail={video.videoThumbnail} title={video.videoTitle} user={video.videoUsername} />
                             </div>
                     )
                 )}
