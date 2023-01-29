@@ -151,9 +151,13 @@ function RemoteWrapper(params: any) {
 
         setVideoLink(newVideoLink);
 
-        const videoLinkInput = document.getElementById("videoLinkInput");
-        if (videoLinkInput) {
-            videoLinkInput.focus();
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+        if (!isMobile) {
+            const videoLinkInput = document.getElementById("videoLinkInput");
+            if (videoLinkInput) {
+                videoLinkInput.focus();
+            }
         }
     }
 

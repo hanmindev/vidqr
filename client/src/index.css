@@ -36,9 +36,9 @@ body > #root {
 .mainViewer {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  min-height: 100%;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: hidden;
 }
 
 .vViewer {
@@ -50,6 +50,7 @@ body > #root {
 .hViewer {
   display: flex;
   flex-direction: row;
+  overflow: hidden;
 }
 
 .primary {
@@ -62,6 +63,7 @@ body > #root {
   .hViewer {
     display: table-row-group;
     flex-direction: column;
+    overflow: hidden;
   }
 
   .primary {
