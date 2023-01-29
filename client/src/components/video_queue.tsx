@@ -1,9 +1,16 @@
 import React, {useEffect, useState} from "react";
 import {socket} from "../config/socket";
 import {ActionIcon, Button, Stack} from "@mantine/core";
-import {IconPlayerPause, IconPlayerSkipBack, IconPlayerSkipForward} from "@tabler/icons-react";
+import {
+    IconArrowBarDown, IconArrowBarUp,
+    IconPlayerPause,
+    IconPlayerSkipBack,
+    IconPlayerSkipForward,
+    IconTrash
+} from "@tabler/icons-react";
 import "./video_queue.css";
 import aFetch from "../config/axios";
+import {useHover} from "../hooks/hooks";
 
 
 function QueueVideo(props: { videoLink: string; title: string; user: string; videoThumbnail: string; isCurrent: boolean; }) {
@@ -11,6 +18,7 @@ function QueueVideo(props: { videoLink: string; title: string; user: string; vid
     if (videoTitle.length > 24) {
         videoTitle = videoTitle.substring(0, 24) + "...";
     }
+    const [hoverRef, isHovered] = useHover<HTMLDivElement>();
 
     const body = <>
         <div className="videoThumbnail" style={{position: "relative"}}>
@@ -23,17 +31,24 @@ function QueueVideo(props: { videoLink: string; title: string; user: string; vid
             <b className="videoTitle">{videoTitle}</b>
             <p className="videoUser">{"queued by: " + props.user}</p>
         </div>
+        {isHovered ? <div className="queueOption">
+            <ActionIcon>
+                <IconArrowBarUp size={18} />
+            </ActionIcon>
+            <ActionIcon>
+                <IconArrowBarDown size={18} />
+            </ActionIcon>
+            <ActionIcon>
+                <IconTrash size={18} />
+            </ActionIcon>
+        </div>: undefined}
     </>
 
     return (
-        props.isCurrent ?
-            <div className="queueVideo" style={{background: 'rgb(48,197,38)'}}>
-                {body}
-            </div>:
-            <div className="queueVideo">
-                {body}
-            </div>
-);
+        <div className="queueVideo" ref={hoverRef} style={props.isCurrent ? {background: 'rgb(48,197,38)'} : undefined}>
+            {body}
+        </div>
+    );
 }
 
 

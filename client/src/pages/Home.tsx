@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Navigate, useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import {Button, Stack, TextInput} from "@mantine/core";
 import aFetch from "../config/axios";
 
@@ -7,15 +7,12 @@ import aFetch from "../config/axios";
 
 const Home = () => {
     const navigate = useNavigate();
-    const move = (path: string) => {
-        navigate(path);
-    }
 
     const [joinCode, setJoinCode] = useState('');
     const [invalidCode, setInvalidCode] = useState(false);
 
     function hostRoom(){
-        move(`/host/create_room`);
+        navigate(`/host/create_room`);
     }
 
     function joinRoom(){
@@ -24,7 +21,7 @@ const Home = () => {
         }
         aFetch.post(`/api/remote/check_room/${joinCode}`, {'redirect': true}).then(response => {
             if (response.data.validRoom){
-                move(`/${joinCode}`);
+                navigate(`/${joinCode}`);
             }else{
                 setInvalidCode(true);
             }

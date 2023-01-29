@@ -4,17 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2bb1927-ba76-4621-9d48-67240f038fa9" name="Changes" comment="add input sanitation and bad input response">
+    <list default="true" id="a2bb1927-ba76-4621-9d48-67240f038fa9" name="Changes" comment="remove chat">
       <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/modules/rooms/room.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/modules/rooms/room.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/routes/Remote.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/routes/Remote.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Remote.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Remote.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/video_queue.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/video_queue.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -27,21 +33,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Hanmin/Websites/vidqr&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Hanmin\\Websites\\vidqr\\client\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Hanmin/Websites/vidqr",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.github.copilot.settings.ApplicationConfigurable",
+    "ts.external.directory.path": "C:\\Users\\Hanmin\\Websites\\vidqr\\client\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Hanmin\Websites\vidqr\client\src\components" />
@@ -83,7 +90,7 @@
       <option name="presentableId" value="Default" />
       <updated>1674856086189</updated>
       <workItem from="1674856087715" duration="36495000" />
-      <workItem from="1674944055755" duration="4320000" />
+      <workItem from="1674944055755" duration="11810000" />
     </task>
     <task id="LOCAL-00001" summary="actually working version">
       <created>1674876501205</created>
@@ -106,60 +113,110 @@
       <option name="project" value="LOCAL" />
       <updated>1674945077931</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="minor html change in remote prompt">
+      <created>1674951315301</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1674951315301</updated>
+    </task>
+    <task id="LOCAL-00005" summary="remove move function in Home">
+      <created>1674951353322</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1674951353322</updated>
+    </task>
+    <task id="LOCAL-00006" summary="remove move function in Home">
+      <created>1674951364476</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1674951364476</updated>
+    </task>
+    <task id="LOCAL-00007" summary="made site mobile friendly">
+      <created>1674954900112</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1674954900112</updated>
+    </task>
+    <task id="LOCAL-00008" summary="remove chat">
+      <created>1674954923690</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1674954923690</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="actually working version" />
     <MESSAGE value="added media button support" />
     <MESSAGE value="add input sanitation and bad input response" />
-    <option name="LAST_COMMIT_MESSAGE" value="add input sanitation and bad input response" />
+    <MESSAGE value="minor html change in remote prompt" />
+    <MESSAGE value="remove move function in Home" />
+    <MESSAGE value="made site mobile friendly" />
+    <MESSAGE value="remove chat" />
+    <option name="LAST_COMMIT_MESSAGE" value="remove chat" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/components/video_queue.tsx</url>
-          <line>90</line>
+          <line>105</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/components/video_queue.tsx</url>
-          <line>86</line>
+          <line>101</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/Remote.tsx</url>
-          <line>16</line>
+          <line>15</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/Home.tsx</url>
-          <line>26</line>
+          <line>23</line>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/Home.tsx</url>
-          <line>25</line>
+          <line>22</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/components/video_queue.tsx</url>
-          <line>91</line>
+          <line>106</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/Remote.tsx</url>
-          <line>76</line>
+          <line>75</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/Remote.tsx</url>
-          <line>77</line>
+          <line>76</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="13" />
         </line-breakpoint>

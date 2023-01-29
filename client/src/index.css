@@ -20,8 +20,7 @@ code {
 
 b {
   color: #e1e1e1;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin: 0 10px;
 }
 
 p {
@@ -45,6 +44,7 @@ body > #root {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  width: 100%;
 }
 
 .hViewer {
@@ -55,14 +55,35 @@ body > #root {
 
 .primary {
   background: rgb(78, 78, 78);
-  width: 78vw;
   overflow: hidden;
+  width: 100%;
+  min-width: 50%;
 }
+
+@media (max-width: 770px) {
+  .hViewer {
+    display: table-row-group;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .primary {
+    background: rgb(78, 78, 78);
+    width: 100%;
+    overflow: hidden;
+  }
+}
+
 
 .secondary {
   background: rgb(26, 26, 26);
-  width: 17%;
+  float: right;
+  width: 330px;
+  min-width: 330px;
+  max-width: 330px;
   margin-left: 1%;
+
+  flex: 1;
 }
 
 .hostSettings {
