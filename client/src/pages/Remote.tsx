@@ -111,9 +111,9 @@ const Remote = () => {
             <div className="mainViewer"><div className="promptForm">
                 <div className="promptBox">
                     <Stack >
-                        <b>You are trying to join room <mark>{roomInfo.roomName}</mark></b>
+                        <b>You are trying to join room: <br/><mark>{roomInfo.roomName}</mark></b>
 
-                        <b>Pick an identifiable name</b>
+                        <b>Pick a username</b>
                         <TextInput
                             placeholder="Username"
                             onChange={(e) => {usernameEdit(e.target.value)}}
