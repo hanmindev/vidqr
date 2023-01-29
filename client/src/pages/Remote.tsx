@@ -36,10 +36,18 @@ function RemoteVideoSearcher(params: {queueVideo: any}) {
 
     const [searchQuery, setsearchQuery] = useState('');
 
+    const [lastQuery, setLastQuery] = useState('');
+
     const textSubmit = () => {
+        if (searchQuery === '' || lastQuery === searchQuery) {
+            return;
+        }
+        setSubmitted(true);
+        setLastQuery(searchQuery);
+
         aFetch.post('/api/remote/search/', {videoPlatform: 'youtube', query: searchQuery}).then(response => {
-            console.log(response.data)
             setVideoResults(response.data);
+            setSubmitted(false);
         })
 
     }
@@ -53,14 +61,16 @@ function RemoteVideoSearcher(params: {queueVideo: any}) {
 
     const [videoResults, setVideoResults] = useState([]);
     const [activePage, setPage] = useState(1);
+    const [submitted, setSubmitted] = useState(false);
 
     const vidPerColumn = width>=770? (width >= 1280 ? 5: 3) : 2;
     const vidPerPage = width>=1280 ? 10 : 6;
-    const totPage = Math.ceil(videoResults.length / vidPerPage)
+    const totPage = Math.max(Math.ceil(videoResults.length / vidPerPage), 1)
 
-    if (activePage > totPage) {
+    if (activePage > totPage || activePage < 1) {
         setPage(totPage)
     }
+
 
     return (
         <div className="videoSearch">
@@ -73,8 +83,9 @@ function RemoteVideoSearcher(params: {queueVideo: any}) {
                         value={searchQuery}
                         onChange={(e) => setsearchQuery(e.currentTarget.value)}
                         onKeyDown={(e) => e.key === "Enter" ? textSubmit(): null}
+                        rightSection={submitted ? <Loader size={"xs"}/>: null}
                     />
-                    <Button variant="gradient" gradient={{ from: '#ed6ea0', to: '#ec8c69', deg: 35 }} onClick={() => textSubmit}>Search</Button>
+                    <Button variant="gradient" gradient={{ from: '#ed6ea0', to: '#ec8c69', deg: 35 }} onClick={() => textSubmit()}>Search</Button>
                 </div>
             </div>
 
