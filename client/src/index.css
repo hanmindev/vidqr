@@ -44,6 +44,7 @@ body > #root {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  width: 100%;
 }
 
 .hViewer {
@@ -52,26 +53,37 @@ body > #root {
   overflow: hidden;
 }
 
+.primary {
+  background: rgb(78, 78, 78);
+  overflow: hidden;
+  width: 100%;
+  min-width: 50%;
+}
+
 @media (max-width: 770px) {
   .hViewer {
-    display: inline;
-    flex-direction: row;
+    display: table-row-group;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .primary {
+    background: rgb(78, 78, 78);
+    width: 100%;
     overflow: hidden;
   }
 }
 
-.primary {
-  background: rgb(78, 78, 78);
-  width: 100%;
-  overflow: hidden;
-}
 
 .secondary {
   background: rgb(26, 26, 26);
   float: right;
   width: 330px;
   min-width: 330px;
+  max-width: 330px;
   margin-left: 1%;
+
+  flex: 1;
 }
 
 .hostSettings {
