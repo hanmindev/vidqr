@@ -11,16 +11,14 @@ const roomManager = RoomManager.getInstance();
 
 router.post('/rejoin_room', function (req: any, res: any) {
     let roomId;
-    let roomName=null;
     if (req.session.roomId) {
         roomId = req.session.roomId;
-        roomName = roomManager.getRoom(roomId).roomName;
         console.log("A host has joined a room with id: " + roomId);
     } else {
         roomId = undefined;
     }
 
-    res.send({'roomId': roomId, 'host': roomName===req.session.owner});
+    res.send({'roomId': roomId, 'host': roomId !== undefined && roomId===req.session.owner});
 });
 
 router.post('/create_room', function (req: any, res: any) {
