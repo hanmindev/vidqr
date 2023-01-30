@@ -24,6 +24,7 @@
     "express-session": "^1.17.3",
     "memorystore": "^1.6.7",
     "redis": "^4.6.3",
+    "sanitize": "^2.1.2",
     "socket.io": "^4.5.4",
     "youtube-search-without-api-key": "^1.0.7"
   },

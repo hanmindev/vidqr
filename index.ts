@@ -32,6 +32,7 @@ app.use(session({
         checkPeriod: 86400000 // prune expired entries every 24h
     })
 }));
+app.use(require('sanitize').middleware);
 
 const io = new Server(httpServer, {
   cors: {
