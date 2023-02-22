@@ -39,7 +39,6 @@ function VideoPlayer(params: any) {
 
 
     socket.on("video:toggleVideo", () => {
-        console.log("toggle video");
         setVideoPlaying(!videoPlaying);
     });
 

@@ -11,78 +11,16 @@ import {IconCopy, IconCheck, } from '@tabler/icons-react';
 import {useNavigate} from "react-router-dom";
 import {CURRENT_URL} from "../config/url";
 import aFetch from "../config/axios";
-import "./Host.css";
-import {PromptBox, RoomNamePrompt} from "../components/PromptBox";
-
-
-class UserList extends React.Component<{}, {data: TransferListData}>  {
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      data: [[{value: 'test', label: 'test'}],[]]
-    }
-  }
-
-
-  render() {
-    return (
-      <div className="userList">
-        <b>List of connected users:</b>
-
-        <TransferList
-            value={this.state.data}
-            onChange={(st) => this.setState({ data: st })}
-            searchPlaceholder="Search..."
-            nothingFound="Nothing here"
-            titles={['Standard users', 'Admins']}
-            breakpoint="sm"
-        />
-      </div>
-    )
-  }
-}
-
-class PasswordEntry extends React.Component<{}, {}>  {
-  constructor(props: any) {
-    super(props);
-  }
-  render() {
-    return (
-      <div className="passwordEntry"><b>Optional Password: </b><input type="password"></input></div>
-    )
-  }
-}
-
-class AdminPanel extends React.Component<{}, {}>  {
-    constructor(props: any) {
-        super(props);
-
-    }
-    render() {
-      return (
-          <div>
-            <Switch.Group
-                defaultValue={['media', 'kick']}
-                orientation="vertical"
-                label="Administrator Permissions"
-                spacing="sm"
-                offset="sm"
-            >
-              <Switch value="media" label="Media Controls" />
-              <Switch value="kick" label="Kick Users" />
-            </Switch.Group>
-          </div>
-
-      );
-    }
-}
-
-
+import {PromptBox, RoomNamePrompt, SubmitButton} from "../components/PromptBox";
 
 function ShareLink(props: { link: string; }) {
     let full_link = CURRENT_URL + "/" + (props.link === undefined ? "" : props.link);
     return (
-        <div className="shareLink">
+        <div className="flex flex-row border-solid bg-gray-900 border-gray-700 border-2 rounded float-right
+        w-96
+        md:w-fit
+
+        ">
             <b>{full_link}</b>
             <div className="shareLinkButton">
                 <CopyButton value={full_link} timeout={2000}>
@@ -127,6 +65,7 @@ const Host = () => {
             {/*    placeholder="Password"*/}
             {/*    onChange={(e) => {}}*/}
             {/*/>*/}
+            <SubmitButton text="Create Room"/>
         </PromptBox>
     )
 };

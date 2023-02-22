@@ -1,5 +1,6 @@
-import {Button, Stack, TextInput} from "@mantine/core";
+import {Stack, TextInput} from "@mantine/core";
 import React, {createContext, ReactNode, useContext} from "react";
+import Button from "./Button";
 
 const SubmitContext = createContext(() => {});
 
@@ -59,16 +60,20 @@ function RoomUserNamePrompt({roomId, usernameState, errorState}: {roomId: string
     )
 }
 
+function SubmitButton(props: {text: string}) {
+    const promptSubmit = useContext(SubmitContext);
+    return <Button className="bg-gradient-to-r from-green-400 to-blue-500" onClick={promptSubmit}>{props.text}</Button>
+}
+
 function PromptBox(props: {children: ReactNode; promptSubmit: () => void}) {
 
     return (
         <SubmitContext.Provider value={props.promptSubmit}>
-            <div className="mainViewer">
-                <div className="promptForm">
-                    <div className="promptBox">
+            <div className="flex flex-col min-h-full overflow-x-hidden overflow-y-hidden">
+                <div className="w-full h-screen min-h-full flex flex-col justify-center items-center">
+                    <div className="flex flex-col justify-center items-center p-4 rounded bg-gradient-to-tl from-teal-300 to-teal-900">
                         <Stack style={{width: "80%"}}>
                             {props.children}
-                            <Button variant="gradient" gradient={{ from: 'teal', to: 'cyan' }} onClick={props.promptSubmit}>Enter</Button>
                         </Stack>
                     </div>
                 </div>
@@ -77,4 +82,4 @@ function PromptBox(props: {children: ReactNode; promptSubmit: () => void}) {
     )
 }
 
-export {PromptBox, RoomNamePrompt, RoomUserNamePrompt};
+export {PromptBox, RoomNamePrompt, RoomUserNamePrompt, SubmitButton};

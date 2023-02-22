@@ -1,24 +1,25 @@
 import {useWindowDimensions} from "../hooks/hooks";
 import React, {useState} from "react";
 import aFetch from "../config/axios";
-import {Button, Loader, Pagination, SimpleGrid, TextInput} from "@mantine/core";
+import {Loader, Pagination, SimpleGrid, TextInput} from "@mantine/core";
 import {ShareLink} from "../pages/Host";
+import Button from "./Button";
 
 function VideoIcon(params: {thumbnailLink: string, title: string, channelName: string, videoLink: string, queueVideo: any}) {
 
     return (
-        <div className="videoIcon" onClick={() => params.queueVideo(params.videoLink)}>
+        <div className="w-full bg-gray-800 m-0 rounded-xl min-h-[80%]" onClick={() => params.queueVideo(params.videoLink)}>
             <img
                 src={params.thumbnailLink}
                 style={{objectFit: "cover", width: "100%", height: "60%"}}
                 alt={params.videoLink}
             />
-            <div className="videoIconOverlayText">
-                <div className="videoIconOverlayTitle">
-                    <b className="videoSearchText">{params.title}</b>
+            <div className="m-0.5">
+                <div className="h-12 overflow-hidden">
+                    <b className="text-xs xl:text-base">{params.title}</b>
                 </div>
-                <div className="videoIconOverlaySubtext">
-                    <p className="videoSearchText">{params.channelName}</p>
+                <div className="h-6 overflow-hidden">
+                    <p className="text-xs xl:text-base">{params.channelName}</p>
                 </div>
             </div>
         </div>
@@ -69,25 +70,26 @@ function RemoteVideoSearcher(params: {queueVideo: any}) {
 
 
     return (
-        <div className="videoSearch">
-            <div className="videoSearchHeader">
+        <div className="flex flex-col items-center justify-center w-full bg-black">
+            <div className="h-20 w-3/5 flex flex-col items-center">
                 <b>Search for a video</b>
-                <div className="videoSearchHeaderSearch">
+                <div className="flex flex-row items-center justify-center w-full bg-black m-0">
                     <TextInput
-                        className="videoSearchInput"
+                        className="w-4/5"
                         placeholder="Query"
                         value={searchQuery}
                         onChange={(e) => setsearchQuery(e.currentTarget.value)}
                         onKeyDown={(e) => e.key === "Enter" ? textSubmit(): null}
                         rightSection={submitted ? <Loader size={"xs"}/>: null}
                     />
-                    <Button variant="gradient" gradient={{ from: '#ed6ea0', to: '#ec8c69', deg: 35 }} onClick={() => textSubmit()}>Search</Button>
+                    <Button className="py-2 px-4" onClick={textSubmit}>Search</Button>
+                    {/*<Button variant="gradient" gradient={{ from: '#ed6ea0', to: '#ec8c69', deg: 35 }} onClick={() => textSubmit()}>Search</Button>*/}
                 </div>
             </div>
 
-            <div className="videoSearchBody">
+            <div className="flex flex-row items-center justify-center w-full h-4/5 min-h-[550px]">
                 <SimpleGrid
-                    className="videoSearchGrid"
+                    className="w-full h-full m-2"
                     cols={vidPerColumn}>
                     {videoResults.map((video: Video, index) => {
                         if ((activePage-1) * vidPerPage <= index && index < activePage * vidPerPage){
@@ -168,12 +170,10 @@ function VideoSearcher(params: {roomId: string}) {
             }}
             onKeyDown={(e) => e.key === "Enter" ? textSubmit() : null}
             rightSection={submitted ? <Loader size={"xs"}/> : null}
-            error={invalid ? "Invalid Video Link" : null}/><Button variant="gradient"
-                                                                   gradient={{from: 'indigo', to: 'cyan'}}
-                                                                   onClick={() => {
-                                                                       textSubmit();
-                                                                   }}>Queue Video</Button><ShareLink
-            link={params.roomId}/>
+            error={invalid ? "Invalid Video Link" : null}/>
+
+            <Button className="py-2 px-4" onClick={textSubmit}>Queue Video</Button>
+            <ShareLink link={params.roomId}/>
         </>
     )
 }

@@ -2,10 +2,8 @@ import React, { useState, useEffect } from "react";
 import {useNavigate, useParams} from 'react-router-dom';
 import {socket} from "../config/socket";
 import aFetch from "../config/axios";
-import "./Remote.css";
-import "./search.css";
 import Dashboard from "../components/Dashboard";
-import {PromptBox, RoomUserNamePrompt} from "../components/PromptBox";
+import {PromptBox, RoomUserNamePrompt, SubmitButton} from "../components/PromptBox";
 import {Skeleton} from "@mui/material";
 
 const Room = () => {
@@ -76,6 +74,7 @@ const Room = () => {
                 {/*{props.isLocked ? (*/}
                 {/*    <><b>This room is password-locked</b><TextInput*/}
                 {/*        placeholder="Room Secret"/></>): null}*/}
+                <SubmitButton text="Join Room"/>
             </PromptBox>
         )
     }else {
