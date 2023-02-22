@@ -12,7 +12,7 @@ const Home = () => {
     const [invalidCode, setInvalidCode] = useState(false);
 
     function hostRoom(){
-        navigate(`/host/create_room`);
+        navigate(`/create_room`);
     }
 
     function joinRoom(){

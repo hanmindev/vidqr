@@ -9,8 +9,7 @@ class Room {
     private readonly _usernames: Set<string>;
     private readonly _videoList: {videoLink: string, videoTitle: string, videoThumbnail: string, videoUsername: string, videoId: number}[];
     private readonly _historicalVideoList: {videoLink: string, videoTitle: string, videoThumbnail: string, videoUsername: string, videoId: number}[];
-    private _videoCount: number
-    private _userManager: UserManager;
+    private _videoCount: number;
 
 
     constructor(roomId: string, roomName: string | undefined) {
@@ -21,7 +20,6 @@ class Room {
         this._videoList = [];
         this._historicalVideoList = [];
         this._videoCount = 0;
-        this._userManager = new UserManager();
     }
 
     public get roomId(): string {
@@ -39,6 +37,7 @@ class Room {
 
     public removeUser(userId: string): void {
         this._users.delete(userId);
+        this._usernames.delete(UserManager.getInstance().getUser(userId).username);
     }
 
     public addVideo(video: {videoLink: string, videoTitle: string, videoThumbnail: string, videoUsername: string}): void {
@@ -83,10 +82,6 @@ class Room {
 
     public getCumulativeVideoCount(): number {
         return this._videoCount;
-    }
-
-    public getUserManager(): UserManager {
-        return this._userManager;
     }
 
 

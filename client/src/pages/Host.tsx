@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {VideoQueue} from "../components/video_queue";
+import {VideoQueue} from "../components/VideoQueue";
 import ReactPlayer from 'react-player'
 import {
     AspectRatio,
@@ -18,6 +18,7 @@ import aFetch from "../config/axios";
 import "./Host.css";
 import {PromptBox, RoomNamePrompt, RoomUserNamePrompt} from "../components/PromptBox";
 import VideoPlayer from "../components/VideoPlayer";
+import {Skeleton} from "@mui/material";
 
 
 class UserList extends React.Component<{}, {data: TransferListData}>  {
@@ -103,58 +104,11 @@ function ShareLink(props: { link: string; }) {
         </div>
     )
 }
-function HostMenu(props: { roomId: string; }) {
-    return (
-        <div className="mainViewer">
-            <div className="hViewer">
-                <div className="vViewer">
-                    <div className="primary">
-                        <VideoPlayer link={props.roomId}/>
-                    </div>
-                    <div className="hostSettings">
-                        <ShareLink link={props.roomId}/>
-                    </div>
-                </div>
-                <div className="secondary">
-                    <VideoQueue roomId={props.roomId}/>
-                </div>
-            </div>
-        </div>
-    )
-}
-
 const Host = () => {
-    let params = useParams();
     const navigate = useNavigate();
-    const invalidRoomId = params.roomId === undefined || params.roomId === "" || isNaN(Number(params.roomId))
 
-    const [roomName, setRoomName] = useState('');
     const [roomNameBox, setRoomNameBox] = useState('');
     const [roomNameError, setRoomNameError] = useState('');
-
-    useEffect(() => {
-        if (params.roomId === "create_room"){
-            aFetch.post('/api/room/rejoin_room').then(response => {
-                if (response.data.host){
-                    navigate(`/host/${response.data.roomId}`);
-                }
-                console.log(response.data);
-            })
-
-
-        }else if (invalidRoomId) {
-            navigate('/host/create_room', {replace: true});
-        }else{
-            aFetch.post(`/api/room/get_room_info`, {'roomId': params.roomId}).then(response => {
-                if (response.data.host){
-                    setRoomName(response.data.roomName);
-                }else{
-                    navigate('/host/create_room', {replace: true});
-                }
-            });
-        }
-    }, [navigate, params.roomId, invalidRoomId]);
-
 
     const promptSubmit = () => {
         if (roomNameBox.length > 16 || roomNameBox.length === 0){
@@ -166,39 +120,21 @@ const Host = () => {
 
         aFetch.post(`/api/room/create_room/`, {'roomName': roomNameBox }).then(response => {
             if (response.data.roomId){
-                setRoomName(roomNameBox);
                 navigate(`/${response.data.roomId}`)
             }
         });
     }
 
-    if (params.roomId === 'create_room'){
-        return (
-            <PromptBox promptSubmit={promptSubmit}>
-                <RoomNamePrompt roomNameState={[roomNameBox, setRoomNameBox]} errorState={[roomNameError, setRoomNameError]}/>
-                {/*<b>Optional Password</b>*/}
-                {/*<TextInput*/}
-                {/*    placeholder="Password"*/}
-                {/*    onChange={(e) => {}}*/}
-                {/*/>*/}
-            </PromptBox>
-        )
-    }else if (invalidRoomId || params.roomId === undefined) {
-        return (
-            <p>Redirecting...</p>
-        )
-    }else{
-        document.title = roomName;
-        return (
-            <div className="mainViewer">
-                <div className="remoteHeader">
-                    <b>{roomName}</b>
-                    <b>{params.roomId}</b>
-                </div>
-                <HostMenu roomId={params.roomId}/>
-            </div>
-        );
-    }
+    return (
+        <PromptBox promptSubmit={promptSubmit}>
+            <RoomNamePrompt roomNameState={[roomNameBox, setRoomNameBox]} errorState={[roomNameError, setRoomNameError]}/>
+            {/*<b>Optional Password</b>*/}
+            {/*<TextInput*/}
+            {/*    placeholder="Password"*/}
+            {/*    onChange={(e) => {}}*/}
+            {/*/>*/}
+        </PromptBox>
+    )
 };
 
 export default Host;

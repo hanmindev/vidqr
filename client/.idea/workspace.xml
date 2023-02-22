@@ -4,32 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2bb1927-ba76-4621-9d48-67240f038fa9" name="Changes" comment="sanitize inputs">
-      <change afterPath="$PROJECT_DIR$/../app/routes/User.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/PromptBox.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/VideoPlayer.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/VideoSearch.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/Remote.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/Room.tsx" afterDir="false" />
+    <list default="true" id="a2bb1927-ba76-4621-9d48-67240f038fa9" name="Changes" comment="refactor to merge host and remote clients">
       <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/modules/rooms/room.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/modules/rooms/room.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/modules/users/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/modules/users/user.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/routes/Host.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/routes/Remote.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/routes/Room.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/routes/Video.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/routes/Video.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/routes/Room.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/routes/Room.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/routes/User.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/routes/User.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/video_queue.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/video_queue.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Dashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dashboard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/video_queue.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/VideoQueue.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/video_queue.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/VideoQueue.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Home.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Host.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Host.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Remote.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/host.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Host.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/remote.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dashboard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Room.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Room.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +112,7 @@
       <workItem from="1675991596973" duration="59000" />
       <workItem from="1676064551513" duration="35000" />
       <workItem from="1677028611975" duration="3328000" />
-      <workItem from="1677032079043" duration="6832000" />
+      <workItem from="1677032079043" duration="9500000" />
     </task>
     <task id="LOCAL-00001" summary="actually working version">
       <created>1674876501205</created>
@@ -224,7 +212,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675104730899</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="refactor to merge host and remote clients">
+      <created>1677039108496</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1677039108496</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -255,18 +250,19 @@
     <MESSAGE value="set page to 1 after video search" />
     <MESSAGE value="add missing dependencies to useEffect hook" />
     <MESSAGE value="sanitize inputs" />
-    <option name="LAST_COMMIT_MESSAGE" value="sanitize inputs" />
+    <MESSAGE value="refactor to merge host and remote clients" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor to merge host and remote clients" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/components/video_queue.tsx</url>
+          <url>file://$PROJECT_DIR$/src/components/VideoQueue.tsx</url>
           <line>128</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/components/video_queue.tsx</url>
+          <url>file://$PROJECT_DIR$/src/components/VideoQueue.tsx</url>
           <line>124</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
@@ -281,7 +277,7 @@
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/components/video_queue.tsx</url>
+          <url>file://$PROJECT_DIR$/src/components/VideoQueue.tsx</url>
           <line>129</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>

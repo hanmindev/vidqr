@@ -1,4 +1,4 @@
-import {UserManager} from "../modules/users/user";
+import {User, UserManager} from "../modules/users/user";
 import {RoomManager} from "../modules/rooms/room";
 import {default as axios} from "axios";
 import VideoController from "../controllers/VideoController";
@@ -9,9 +9,9 @@ const express = require('express');
 const router = express.Router();
 
 const roomManager = RoomManager.getInstance();
+const userManager = UserManager.getInstance();
 
 router.post('/get_username/:roomId', function (req: any, res: any) {
-    const userManager = roomManager.getRoom(req.params.roomId).getUserManager();
 
 
     if (req.session.userId) {
@@ -24,7 +24,6 @@ router.post('/get_username/:roomId', function (req: any, res: any) {
 });
 
 router.post('/join_room/:roomId', function (req: any, res: any) {
-    const userManager = roomManager.getRoom(req.params.roomId).getUserManager();
 
     let roomId = req.params.roomId;
     let username = req.body.username;

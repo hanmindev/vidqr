@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {useNavigate, useParams} from 'react-router-dom';
-import {TextInput, } from '@mantine/core';
 import {socket} from "../config/socket";
 import aFetch from "../config/axios";
 import "./Remote.css";
@@ -63,7 +62,7 @@ const Room = () => {
     }
 
 
-    if (username === undefined){
+    if (username === undefined || roomInfo.roomName === undefined){
         return (
             <Skeleton variant="rectangular" width={"100%"} height={"100%"} />
         )

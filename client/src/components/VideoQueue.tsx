@@ -8,7 +8,7 @@ import {
     IconPlayerSkipForward,
     IconTrash
 } from "@tabler/icons-react";
-import "./video_queue.css";
+import "./VideoQueue.css";
 import aFetch from "../config/axios";
 import {useHover} from "../hooks/hooks";
 

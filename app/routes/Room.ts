@@ -3,12 +3,14 @@ import {RoomManager} from "../modules/rooms/room";
 import VideoController from "../controllers/VideoController";
 import {default as axios} from "axios";
 import VideoSearchController from "../controllers/VideoSearchController";
+import {UserManager} from "../modules/users/user";
 
 const router = express.Router();
 
 
 
 const roomManager = RoomManager.getInstance();
+const userManager = UserManager.getInstance();
 
 
 router.post('/rejoin_room', function (req: any, res: any) {
@@ -114,7 +116,6 @@ router.post('/check_room/:roomId', function (req: any, res: any) {
 });
 
 router.post('/add_video/', function (req: any, res: any) {
-    const userManager = roomManager.getRoom(req.params.roomId).getUserManager();
 
     let videoLink = req.body.videoLink;
     let userId = req.session.userId;
