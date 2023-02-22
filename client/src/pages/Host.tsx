@@ -1,8 +1,5 @@
-import React, { useState, useEffect } from "react";
-import {VideoQueue} from "../components/VideoQueue";
-import ReactPlayer from 'react-player'
+import React, { useState } from "react";
 import {
-    AspectRatio,
     Switch,
     TransferList,
     TransferListData,
@@ -11,14 +8,11 @@ import {
     ActionIcon,
 } from '@mantine/core';
 import {IconCopy, IconCheck, } from '@tabler/icons-react';
-import {useParams, useNavigate} from "react-router-dom";
-import {socket} from "../config/socket";
+import {useNavigate} from "react-router-dom";
 import {CURRENT_URL} from "../config/url";
 import aFetch from "../config/axios";
 import "./Host.css";
-import {PromptBox, RoomNamePrompt, RoomUserNamePrompt} from "../components/PromptBox";
-import VideoPlayer from "../components/VideoPlayer";
-import {Skeleton} from "@mui/material";
+import {PromptBox, RoomNamePrompt} from "../components/PromptBox";
 
 
 class UserList extends React.Component<{}, {data: TransferListData}>  {

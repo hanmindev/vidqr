@@ -6,16 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="551da139-04ea-45c3-bbf0-076ee8c48de8" name="Changes" comment="fix memory leak in production using MemoryStore">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/modules/rooms/room.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/modules/rooms/room.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/modules/users/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/modules/users/user.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/routes/Room.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/Room.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/routes/User.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/User.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/client/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Dashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Dashboard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/VideoPlayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/VideoPlayer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/pages/Host.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Host.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/Room.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Room.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,7 +133,7 @@
       <workItem from="1675731571801" duration="609000" />
       <workItem from="1675733346003" duration="1822000" />
       <workItem from="1677028591717" duration="1299000" />
-      <workItem from="1677032063788" duration="6914000" />
+      <workItem from="1677032063788" duration="7803000" />
     </task>
     <task id="LOCAL-00001" summary="working website">
       <created>1674858528745</created>

@@ -8,7 +8,10 @@ function VideoPlayer(params: any) {
     const [videoRef, setVideoRef] = useState('');
     const [videoPlaying, setVideoPlaying] = useState(true);
 
+    const [timeoutVideoSkip, setTimeoutVideoSkip] = useState(setTimeout(() => {}, 0));
+
     const nextVideo = (discard?: boolean) => {
+        CancelInvalidVideoSkip();
         socket.emit("video:nextVideo", {"roomId": params.link, "discard": discard});
     }
 
@@ -22,6 +25,7 @@ function VideoPlayer(params: any) {
     })
 
     socket.on("video:nextVideo", (params: any) => {
+        CancelInvalidVideoSkip();
         const videoLink = params.videoLink;
 
         if (videoLink !== videoRef) {
@@ -39,6 +43,14 @@ function VideoPlayer(params: any) {
         setVideoPlaying(!videoPlaying);
     });
 
+    const InvalidVideo = () => {
+        setTimeoutVideoSkip(setTimeout(() => nextVideo(true), 2000));
+    }
+
+    const CancelInvalidVideoSkip = () => {
+        clearTimeout(timeoutVideoSkip);
+    }
+
 
 
     return (
@@ -47,7 +59,7 @@ function VideoPlayer(params: any) {
             playing={videoPlaying}
             onStart={() => setVideoPlaying(true)}
             onPause={() => setVideoPlaying(false)}
-            onError={() => new Promise(res => setTimeout(res, 2000)).then(() => nextVideo(true))}
+            onError={InvalidVideo}
             controls={true}
             embedoptions={{cc_load_policy: 1, cc_lang_pref: "en"}}
             width="100%"
