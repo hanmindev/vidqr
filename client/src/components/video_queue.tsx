@@ -18,7 +18,7 @@ function QueueVideo(props: { index: number; videoLink: string; title: string; us
     const [hoverRef, isHovered] = useHover<HTMLDivElement>();
 
     const queueControls = (action: any) => {
-        aFetch.post('/api/host/mediaControl/', {action: action, index: props.index}).then(response => {
+        aFetch.post('/api/room/mediaControl/', {action: action, index: props.index}).then(response => {
             // console.log(response.data);
         })
     }
@@ -79,7 +79,7 @@ function QueueVideo(props: { index: number; videoLink: string; title: string; us
 
 function MediaControls(){
     const mediaControls = (action: any) => {
-        aFetch.post('/api/host/mediaControl/', {action: action}).then(response => {
+        aFetch.post('/api/room/mediaControl/', {action: action}).then(response => {
             // console.log(response.data);
         })
     }

@@ -1,65 +1,108 @@
-import {UserManager} from "../modules/users/user";
+import express from 'express';
 import {RoomManager} from "../modules/rooms/room";
-import {default as axios} from "axios";
 import VideoController from "../controllers/VideoController";
+import {default as axios} from "axios";
 import VideoSearchController from "../controllers/VideoSearchController";
 
+const router = express.Router();
 
 
-
-var express = require('express');
-var router = express.Router();
 
 const roomManager = RoomManager.getInstance();
-const userManager = UserManager.getInstance();
 
-router.post('/get_username/:roomId', function (req: any, res: any) {
-    if (req.session.userId) {
-        let username = userManager.getUser(req.session.userId).username;
-        res.send({'username': username});
+
+router.post('/rejoin_room', function (req: any, res: any) {
+    let roomId;
+    if (req.session.roomId) {
+        roomId = req.session.roomId;
+        console.log("A host has joined a room with id: " + roomId);
     } else {
-        res.send({'username': undefined});
+        roomId = undefined;
     }
-    req.session.userId = userManager.getUnusedId();
+
+    res.send({'roomId': roomId, 'host': roomId !== undefined && roomId===req.session.owner});
 });
 
-router.post('/join_room/:roomId', function (req: any, res: any) {
-    let roomId = req.params.roomId;
-    let username = req.body.username;
-    if (username !== undefined) {
-        username = username.trim();
-        if (username.length > 16) {
-            username = username.substring(0, 16);
-        }
-        if (username.length === 0) {
-            username = userManager.getRandomName();
+router.post('/create_room', function (req: any, res: any) {
+    let roomId = roomManager.getUnusedId()
+    let roomName = req.body.roomName
+
+    if (roomName !== undefined) {
+        roomName = roomName.trim();
+        if (roomName.length > 16) {
+            roomName = roomName.substring(0, 16);
+        } else if (roomName.length === 0) {
+            roomName = roomManager.getRandomName();
         }
 
-        if (!roomManager.roomExists(roomId)) {
-            res.send({'username': username, 'validRoom': false});
-            return;
-        }
+        roomManager.createRoom(roomId, roomName);
 
-        if (roomManager.getRoom(roomId).usernameExists(username)) {
-            res.send({'username': undefined, 'validRoom': true});
-            return;
-        }
 
-        if (!req.session.userId) {
-            req.session.userId = userManager.getUnusedId();
-            userManager.createUser(req.session.userId, username);
-        }
         req.session.roomId = roomId;
+        req.session.owner = roomId;
 
 
-        roomManager.addUserToRoom(roomId, userManager.getUser(req.session.userId));
-
-        console.log(username + " has joined a room with id: " + roomId);
-        res.send({'roomId': roomId, 'username': username, 'validRoom': true});
+        console.log("A host has made a room with id: " + roomId);
+        res.send({'roomId': roomId});
     } else {
-        res.send({'validRoom': false});
+        res.send({'roomId': null});
     }
 });
+
+router.post('/get_room_info', function (req: any, res: any) {
+    let roomId = req.body.roomId;
+    let roomName;
+
+    try {
+        roomName = roomManager.getRoom(roomId).roomName;
+    }
+    catch (e) {
+        roomName = undefined;
+    }
+
+    res.send({'roomName': roomName, 'host': roomId===req.session.owner});
+});
+
+router.post('/get_current_video/:roomId', function (req: any, res: any) {
+    try {
+        const roomId = req.params.roomId;
+        const room = roomManager.getRoom(roomId);
+
+        if (room === undefined) {
+            res.send({'video': []});
+            return;
+        }
+
+        res.send({'video': room.getCurrentVideo()});
+    }catch (e) {
+        res.send({'video': []});
+    }
+});
+
+router.post('/mediaControl/', function (req: any, res: any) {
+    try {
+        const action = req.body.action;
+        if (action === "play") {
+            res.send({'success': VideoController.getInstance().toggleVideo(req.session.roomId)});
+        } else if (action === "next") {
+            res.send({'success': VideoController.getInstance().nextVideo(req.session.roomId)});
+        } else if (action === "prev") {
+            res.send({'success': VideoController.getInstance().prevVideo(req.session.roomId)});
+        } else if (action === "raise") {
+            res.send({'success': VideoController.getInstance().raiseVideo(req.session.roomId, req.body.index)});
+        } else if (action === "lower") {
+            res.send({'success': VideoController.getInstance().raiseVideo(req.session.roomId, req.body.index + 1)});
+        } else if (action === "delete") {
+            res.send({'success': VideoController.getInstance().deleteVideo(req.session.roomId, req.body.index)});
+        } else {
+            res.send({'success': false});
+        }
+    }catch (e) {
+        res.send({'success': false});
+    }
+});
+
+
 
 router.post('/check_room/:roomId', function (req: any, res: any) {
     let roomId = req.params.roomId;
@@ -71,6 +114,7 @@ router.post('/check_room/:roomId', function (req: any, res: any) {
 });
 
 router.post('/add_video/', function (req: any, res: any) {
+    const userManager = roomManager.getRoom(req.params.roomId).getUserManager();
 
     let videoLink = req.body.videoLink;
     let userId = req.session.userId;

@@ -5,11 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="551da139-04ea-45c3-bbf0-076ee8c48de8" name="Changes" comment="fix memory leak in production using MemoryStore">
+      <change afterPath="$PROJECT_DIR$/app/routes/User.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/PromptBox.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/VideoPlayer.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/VideoSearch.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/pages/Remote.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/pages/Room.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/modules/rooms/room.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/modules/rooms/room.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/modules/users/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/modules/users/user.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes/Host.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes/Remote.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/Room.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes/Video.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/Video.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/client/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/video_queue.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/video_queue.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/Host.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Host.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/Remote.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/host.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Host.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/remote.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Dashboard.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,21 +59,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Hanmin/Websites/vidqr/client&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Hanmin\\Websites\\vidqr\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Hanmin/Websites/vidqr/client",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "C:\\Users\\Hanmin\\Websites\\vidqr\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Hanmin\Websites\vidqr\client\public" />
@@ -129,7 +149,12 @@
       <workItem from="1674856045003" duration="37874000" />
       <workItem from="1674942625259" duration="954000" />
       <workItem from="1674944044862" duration="18534000" />
-      <workItem from="1675104160832" duration="415000" />
+      <workItem from="1675104160832" duration="682000" />
+      <workItem from="1675109517016" duration="600000" />
+      <workItem from="1675731571801" duration="609000" />
+      <workItem from="1675733346003" duration="1822000" />
+      <workItem from="1677028591717" duration="1299000" />
+      <workItem from="1677032063788" duration="4687000" />
     </task>
     <task id="LOCAL-00001" summary="working website">
       <created>1674858528745</created>
@@ -311,8 +336,8 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/app/routes/Host.ts</url>
-          <line>75</line>
+          <url>file://$PROJECT_DIR$/app/routes/Room.ts</url>
+          <line>83</line>
           <option name="timeStamp" value="25" />
         </line-breakpoint>
       </breakpoints>

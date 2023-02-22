@@ -19,7 +19,7 @@ const Home = () => {
         if (joinCode.length === 0){
             return;
         }
-        aFetch.post(`/api/remote/check_room/${joinCode}`, {'redirect': true}).then(response => {
+        aFetch.post(`/api/room/check_room/${joinCode}`, {'redirect': true}).then(response => {
             if (response.data.validRoom){
                 navigate(`/${joinCode}`);
             }else{

@@ -4,9 +4,32 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2bb1927-ba76-4621-9d48-67240f038fa9" name="Changes" comment="add missing dependencies to useEffect hook">
+    <list default="true" id="a2bb1927-ba76-4621-9d48-67240f038fa9" name="Changes" comment="sanitize inputs">
+      <change afterPath="$PROJECT_DIR$/../app/routes/User.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/PromptBox.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/VideoPlayer.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/VideoSearch.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/Remote.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/Room.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/modules/rooms/room.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/modules/rooms/room.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/modules/users/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/modules/users/user.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/routes/Host.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/routes/Remote.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/routes/Room.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/routes/Video.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/routes/Video.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/video_queue.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/video_queue.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Host.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Host.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Remote.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/host.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Host.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/remote.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dashboard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +40,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>
@@ -31,26 +55,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Hanmin/Websites/vidqr/client&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.github.copilot.settings.ApplicationConfigurable&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Hanmin\\Websites\\vidqr\\client\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Hanmin/Websites/vidqr/client",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.github.copilot.settings.ApplicationConfigurable",
+    "ts.external.directory.path": "C:\\Users\\Hanmin\\Websites\\vidqr\\client\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Hanmin\Websites\vidqr\client\src\pages" />
       <recent name="C:\Users\Hanmin\Websites\vidqr\client\src\components" />
+      <recent name="C:\Users\Hanmin\Websites\vidqr\client\src\pages" />
     </key>
   </component>
   <component name="RunManager" selected="npm.start">
@@ -91,6 +115,16 @@
       <workItem from="1674856087715" duration="36495000" />
       <workItem from="1674944055755" duration="28626000" />
       <workItem from="1675016868020" duration="2189000" />
+      <workItem from="1675104595571" duration="1924000" />
+      <workItem from="1675798884576" duration="700000" />
+      <workItem from="1675799961368" duration="592000" />
+      <workItem from="1675811458211" duration="594000" />
+      <workItem from="1675908167927" duration="1038000" />
+      <workItem from="1675991452346" duration="95000" />
+      <workItem from="1675991596973" duration="59000" />
+      <workItem from="1676064551513" duration="35000" />
+      <workItem from="1677028611975" duration="3328000" />
+      <workItem from="1677032079043" duration="6832000" />
     </task>
     <task id="LOCAL-00001" summary="actually working version">
       <created>1674876501205</created>
@@ -183,7 +217,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675018917544</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="sanitize inputs">
+      <created>1675104730899</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1675104730899</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -213,7 +254,8 @@
     <MESSAGE value="hide scrollbar for chrome" />
     <MESSAGE value="set page to 1 after video search" />
     <MESSAGE value="add missing dependencies to useEffect hook" />
-    <option name="LAST_COMMIT_MESSAGE" value="add missing dependencies to useEffect hook" />
+    <MESSAGE value="sanitize inputs" />
+    <option name="LAST_COMMIT_MESSAGE" value="sanitize inputs" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -229,11 +271,6 @@
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/pages/Remote.tsx</url>
-          <line>130</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/Home.tsx</url>
           <line>23</line>
           <option name="timeStamp" value="9" />
@@ -247,21 +284,6 @@
           <url>file://$PROJECT_DIR$/src/components/video_queue.tsx</url>
           <line>129</line>
           <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/pages/Remote.tsx</url>
-          <line>207</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/pages/Remote.tsx</url>
-          <line>208</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/pages/Remote.tsx</url>
-          <line>48</line>
-          <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

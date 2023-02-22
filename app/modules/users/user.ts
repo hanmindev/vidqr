@@ -11,18 +11,9 @@ class User {
 class UserManager {
     private _users: Map<string | undefined, User>;
     private _nullUser: User = new User("null", "null");
-    private static _instance: UserManager;
 
-    private constructor() {
+    public constructor() {
         this._users = new Map<string, User>();
-    }
-
-    public static getInstance(): UserManager {
-        if (UserManager._instance == null) {
-            UserManager._instance = new UserManager();
-        }
-
-        return UserManager._instance;
     }
 
     public createUser(userId: string, username: string): User {

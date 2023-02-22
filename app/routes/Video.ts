@@ -7,7 +7,6 @@ import {RoomManager} from "../modules/rooms/room";
 import VideoController from "../controllers/VideoController";
 
 const roomManager = RoomManager.getInstance();
-const userManager = UserManager.getInstance();
 
 module.exports = (io: Server) => {
     const subscribe = function (this: any, params: any) {

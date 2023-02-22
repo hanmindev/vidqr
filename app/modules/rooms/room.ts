@@ -1,4 +1,4 @@
-import {User} from "../users/user";
+import {User, UserManager} from "../users/user";
 
 
 class Room {
@@ -10,6 +10,7 @@ class Room {
     private readonly _videoList: {videoLink: string, videoTitle: string, videoThumbnail: string, videoUsername: string, videoId: number}[];
     private readonly _historicalVideoList: {videoLink: string, videoTitle: string, videoThumbnail: string, videoUsername: string, videoId: number}[];
     private _videoCount: number
+    private _userManager: UserManager;
 
 
     constructor(roomId: string, roomName: string | undefined) {
@@ -20,6 +21,7 @@ class Room {
         this._videoList = [];
         this._historicalVideoList = [];
         this._videoCount = 0;
+        this._userManager = new UserManager();
     }
 
     public get roomId(): string {
@@ -81,6 +83,10 @@ class Room {
 
     public getCumulativeVideoCount(): number {
         return this._videoCount;
+    }
+
+    public getUserManager(): UserManager {
+        return this._userManager;
     }
 
 

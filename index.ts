@@ -51,11 +51,11 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-const hostRouter = require('./app/routes/Host');
-const remoteRouter = require('./app/routes/Remote');
+const roomRouter = require('./app/routes/Room');
+const userRouter = require('./app/routes/User');
 
-app.use('/api/host', hostRouter);
-app.use('/api/remote', remoteRouter);
+app.use('/api/room', roomRouter);
+app.use('/api/user', userRouter);
 
 const { subscribe, nextVideo } = require("./app/routes/Video")(io);
 
