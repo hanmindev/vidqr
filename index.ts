@@ -5,6 +5,8 @@ import session from "express-session";
 import { createServer } from "http";
 import { Server } from "socket.io";
 import cors from "cors";
+import clearMemoryLoop from "./app/modules/memory_manager/memory_manager";
+
 
 dotenv.config();
 
@@ -23,7 +25,7 @@ app.use(cors({
 
 const MemoryStore = require('memorystore')(session);
 
-app.use(session({
+const sessionMiddleware = session({
     secret: require('crypto').randomBytes(64).toString('hex'),
     resave: false,
     cookie: { maxAge: 86400000 },
@@ -31,17 +33,31 @@ app.use(session({
     store: new MemoryStore({
         checkPeriod: 86400000 // prune expired entries every 24h
     })
-}));
+});
+
+app.use(sessionMiddleware);
+
+
+
 app.use(require('sanitize').middleware);
 
 const io = new Server(httpServer, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000", "https://admin.socket.io"],
     methods: ["GET", "POST"],
     credentials: true
   }
 });
 
+const wrap = (middleware: any) => (socket: any, next: any) => middleware(socket.request, {}, next);
+
+io.use(wrap(sessionMiddleware));
+
+const { instrument } = require("@socket.io/admin-ui");
+instrument(io, {
+    auth: false,
+    mode: "development",
+});
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
@@ -51,19 +67,22 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-const hostRouter = require('./app/routes/Host');
-const remoteRouter = require('./app/routes/Remote');
+const roomRouter = require('./app/routes/Room');
+const userRouter = require('./app/routes/User');
 
-app.use('/api/host', hostRouter);
-app.use('/api/remote', remoteRouter);
+app.use('/api/room', roomRouter);
+app.use('/api/user', userRouter);
 
 const { subscribe, nextVideo } = require("./app/routes/Video")(io);
 
 io.on("connection", (socket: any) => {
-
     console.log("a user connected");
     socket.on("video:subscribe", subscribe);
     socket.on("video:nextVideo", nextVideo);
+
+    socket.on('disconnect', function () {
+        console.log('a user disconnected');
+    });
     }
 );
 
@@ -72,5 +91,7 @@ const port = process.env.PORT || 5000;
 httpServer.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 });
+
+clearMemoryLoop();
 
 module.exports = io;

@@ -1,4 +1,5 @@
-import {User} from "../users/user";
+import {User, UserManager} from "../users/user";
+import {TIMEOUT} from "../memory_manager/memory_manager";
 
 
 class Room {
@@ -6,36 +7,61 @@ class Room {
 
     public readonly roomName: string | undefined;
     private readonly _users: Map<string, User>;
+    private _hostId: string;
     private readonly _usernames: Set<string>;
     private readonly _videoList: {videoLink: string, videoTitle: string, videoThumbnail: string, videoUsername: string, videoId: number}[];
     private readonly _historicalVideoList: {videoLink: string, videoTitle: string, videoThumbnail: string, videoUsername: string, videoId: number}[];
-    private _videoCount: number
+    private _videoCount: number;
+    private _lastUsed: Date;
 
 
-    constructor(roomId: string, roomName: string | undefined) {
+    constructor(roomId: string, roomName: string | undefined, hostId: string) {
         this._roomId = roomId;
         this.roomName = roomName;
         this._users = new Map<string, User>();
+        this._hostId = hostId;
         this._usernames = new Set<string>();
         this._videoList = [];
         this._historicalVideoList = [];
         this._videoCount = 0;
+        this._lastUsed = new Date();
+    }
+
+    public useRoom(): void {
+        this._lastUsed = new Date();
+    }
+
+    public get lastUsed(): Date {
+        return this._lastUsed;
     }
 
     public get roomId(): string {
         return this._roomId;
     }
 
-    public addUser(user: User): void {
+    public get hostId(): string {
+        return this._hostId;
+    }
+
+    public addUser(user: User, username: string): void {
+        user.joinRoom(this._roomId, username);
+        this._usernames.add(username);
         this._users.set(user.userId, user);
-        this._usernames.add(user.username);
     }
 
     public usernameExists(username: string): boolean {
         return this._usernames.has(username);
     }
 
-    public removeUser(userId: string): void {
+    public removeUser(userId: string, leaveRoom: boolean = true): void {
+        const user = this._users.get(userId);
+        if (user !== undefined && leaveRoom) {
+            const username = user.getUsername(this._roomId);
+            if (username !== undefined) {
+                this._usernames.delete(username);
+            }
+            user.leaveRoom(this._roomId);
+        }
         this._users.delete(userId);
     }
 
@@ -83,12 +109,16 @@ class Room {
         return this._videoCount;
     }
 
+    public getUsers(): Map<string, User> {
+        return this._users;
+    }
+
 
 }
 
 class RoomManager {
     private _rooms: Map<string, Room>;
-    private nullRoom = new Room("null", undefined);
+    private nullRoom = new Room("null", undefined, "null");
     private static _instance: RoomManager;
 
     private constructor() {
@@ -103,8 +133,8 @@ class RoomManager {
         return RoomManager._instance;
     }
 
-    public createRoom(roomId: string, roomName: string): Room {
-        let room = new Room(roomId, roomName);
+    public createRoom(roomId: string, roomName: string, owner: string): Room {
+        let room = new Room(roomId, roomName, owner);
         this._rooms.set(roomId, room);
         return room;
     }
@@ -117,25 +147,35 @@ class RoomManager {
         return id;
     }
 
-    public addUserToRoom(roomId: string, user: User): void {
-        this.getRoom(roomId).addUser(user);
+    public addUserToRoom(roomId: string, user: User, username: string): void {
+        this.getRoom(roomId).addUser(user, username);
     }
 
     public removeUserFromRoom(roomId: string, userId: string): void {
         this.getRoom(roomId).removeUser(userId);
     }
 
-    public getRoom(roomId: string): Room {
+    public getRoom(roomId: string, use: boolean=true): Room {
         const room = this._rooms.get(roomId);
         if (room == undefined) {
             return this.nullRoom;
         }else{
+            if (use) {
+                room.useRoom();
+            }
             return room;
         }
     }
 
     public deleteRoom(roomId: string): void {
-        this._rooms.delete(roomId);
+        const room = this._rooms.get(roomId);
+        if (room) {
+            for (const user of room.getUsers()) {
+                user[1].leaveRoom(roomId);
+            }
+
+            this._rooms.delete(roomId);
+        }
     }
 
     public roomExists(roomId: string): boolean {
@@ -147,6 +187,16 @@ class RoomManager {
 
     public getRandomName(): string {
         return "Uncreative Room Name";
+    }
+
+    public clearUnusedRooms(): void {
+        const now = new Date();
+        this._rooms.forEach((room, roomId) => {
+            if (now.getTime() - room.lastUsed.getTime() > TIMEOUT
+            ) {
+                this.deleteRoom(roomId);
+            }
+        });
     }
 }
 

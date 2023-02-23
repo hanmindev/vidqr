@@ -4,7 +4,11 @@
   "private": true,
   "proxy": "http://localhost:5000",
   "dependencies": {
+    "@auth0/auth0-react": "^2.0.0",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
     "@mantine/core": "^5.10.2",
+    "@mui/material": "^5.11.10",
     "@tabler/icons-react": "^2.1.2",
     "@types/node": "^16.18.11",
     "@types/react": "^18.0.27",
@@ -42,5 +46,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.2.7"
   }
 }
