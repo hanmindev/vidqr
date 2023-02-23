@@ -5,17 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="551da139-04ea-45c3-bbf0-076ee8c48de8" name="Changes" comment="allow joining of old rooms">
-      <change afterPath="$PROJECT_DIR$/app/modules/memory_manager/memory_manager.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/modules/rooms/room.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/modules/rooms/room.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/modules/users/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/modules/users/user.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/routes/User.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/User.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/client/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Dashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Dashboard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/VideoQueue.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/VideoQueue.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/VideoSearch.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/VideoSearch.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Home.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,7 +131,7 @@
       <workItem from="1675731571801" duration="609000" />
       <workItem from="1675733346003" duration="1822000" />
       <workItem from="1677028591717" duration="1299000" />
-      <workItem from="1677032063788" duration="32243000" />
+      <workItem from="1677032063788" duration="32654000" />
     </task>
     <task id="LOCAL-00001" summary="working website">
       <created>1674858528745</created>
