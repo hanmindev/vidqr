@@ -26,16 +26,16 @@ class VideoController {
 
         if (room.videoList.length > 1) {
             const nextVideoObject = room.videoList[1];
-            this._io.to(roomId).emit("video:nextVideo", {'video': nextVideoObject});
+            this._io.to(roomId).emit("video:nextVideo", {'roomId': roomId, 'video': nextVideoObject});
         }else{
-            this._io.to(roomId).emit("video:nextVideo", {'video': ''});
+            this._io.to(roomId).emit("video:nextVideo", {'roomId': roomId, 'video': ''});
         }
 
         if (room.videoList.length > 0) {
             room.shiftVideoList(discard);
         }
 
-        this._io.to(roomId).emit("video:videoList", {'videoList': room.videoList});
+        this._io.to(roomId).emit("video:videoList", {'roomId': roomId, 'videoList': room.videoList});
 
         return true;
     }
@@ -46,7 +46,7 @@ class VideoController {
             return false;
         }
         if (room.videoList.length > 0) {
-            this._io.to(roomId).emit("video:toggleVideo", {});
+            this._io.to(roomId).emit("video:toggleVideo", {'roomId': roomId });
         }
 
         return true;
@@ -71,9 +71,9 @@ class VideoController {
         }
         if (force) {
             if (room.videoList.length > 0){
-                this._io.to(roomId).emit("video:nextVideo", {'videoLink': room.videoList[0].videoLink});
+                this._io.to(roomId).emit("video:nextVideo", {'roomId': roomId, 'videoLink': room.videoList[0].videoLink});
             }else{
-                this._io.to(roomId).emit("video:nextVideo", {'videoLink': ''});
+                this._io.to(roomId).emit("video:nextVideo", {'roomId': roomId, 'videoLink': ''});
             }
         }
 
@@ -88,7 +88,7 @@ class VideoController {
             return false;
         }
 
-        this._io.to(roomId).emit("video:videoList", {'videoList': room.videoList});
+        this._io.to(roomId).emit("video:videoList", {'roomId': roomId, 'videoList': room.videoList});
 
         return true;
     }

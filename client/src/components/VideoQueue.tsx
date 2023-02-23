@@ -73,9 +73,9 @@ function QueueVideo(props: { index: number; videoLink: string; title: string; us
 }
 
 
-function MediaControls(){
+function MediaControls(params: { roomId: string; }){
     const mediaControls = (action: any) => {
-        aFetch.post('/api/room/mediaControl/', {action: action}).then(response => {
+        aFetch.post(`/api/room/mediaControl/${params.roomId}`, {action: action}).then(response => {
             // console.log(response.data);
         })
     }
@@ -115,11 +115,13 @@ function VideoQueue(params: { roomId: string; username?: string;})  {
 
     useEffect(() => {
         getVideoList();
-    }, [videoList.length]);
+    }, []);
 
     useEffect(() => {
-        socket.emit("video:subscribe", {'roomId': params.roomId});
-    }, []);
+        if (params.roomId) {
+            socket.emit("video:subscribe", {'roomId': params.roomId});
+        }
+    }, [params.roomId]);
 
     const getVideoList = () => {
         socket.on("video:videoList", (data: any) => {
@@ -131,21 +133,21 @@ function VideoQueue(params: { roomId: string; username?: string;})  {
 
     let firstVideo = videoList.length === 0 ? {videoLink: "", videoThumbnail: "", videoTitle: "No videos queued!", videoUsername: "none"} : videoList[0];
     return (
-        <div className="bg-gray-900 right-0 flex h-full w-96 min-w-[24rem]">
-            <div className="bg-gray-900 rounded flex flex-col min-h-0 max-h-full overflow-x-hidden
+        <div className="bg-gray-900 right-0 h-full w-96 min-w-[24rem] max-w-[24rem]">
+            <div className="bg-gray-900 rounded flex flex-col min-h-0 max-h-full overflow-x-hidden min-w-[24rem] max-w-[24rem]
             md:absolute md:overflow-y-auto
             relative overflow-y-hidden">
 
-                <div className="border-solid bg-gray-900 border-gray-700 border-2 rounded mb-2 max-w-sm min-w-sm">
+                <div className="border-solid bg-gray-900 border-gray-700 border-2 rounded mb-2">
                     <QueueVideo index={0} isCurrent={true} videoLink={firstVideo.videoLink} videoThumbnail={firstVideo.videoThumbnail} title={firstVideo.videoTitle} user={firstVideo.videoUsername} />
-                    <MediaControls/>
+                    <MediaControls roomId={params.roomId}/>
                 </div>
                 <p>Current Queue:</p>
 
                 {videoList.map((video: {videoLink: string, videoTitle: string, videoThumbnail: string, videoUsername: string, videoId: number}, index: number) =>
                     (
                         index===0 ? null :
-                            <div className="border-solid bg-gray-900 border-gray-700 border-2 rounded mb-2 max-w-sm min-w-sm" key={index}>
+                            <div className="border-solid bg-gray-900 border-gray-700 border-2 rounded mb-2" key={index}>
                                 <QueueVideo index={index} key={index} isCurrent={false} isMine={params.username===video.videoUsername} videoLink={video.videoLink} videoThumbnail={video.videoThumbnail} title={video.videoTitle} user={video.videoUsername} />
                             </div>
                     )

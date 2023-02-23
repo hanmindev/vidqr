@@ -41,7 +41,7 @@ function HostMenu(props: {roomId: string, username: string}) {
                     </div>
                     <div className="bg-gray-900 overflow-hidden mt-1">
                         <ShareLink link={props.roomId}/>
-                        <UserList/>
+                        {/*<UserList/>*/}
                     </div>
                 </div>
 

@@ -4,6 +4,7 @@ import {TextInput} from "@mantine/core";
 import aFetch from "../config/axios";
 import {PromptBox} from "../components/PromptBox";
 import Button from "../components/Button";
+import {socket} from "../config/socket";
 
 
 
@@ -44,7 +45,6 @@ const Home = () => {
               <Button className="bg-gradient-to-r from-green-400 to-blue-500" onClick={joinRoom}>Enter</Button>
 
               <p className="text-white">Alternatively, make your own room</p>
-              {/*<Button compact onClick={hostRoom}>Host Room</Button>*/}
               <Button className="bg-gradient-to-r from-green-300 to-blue-400" onClick={hostRoom}>Host Room</Button>
 
           </PromptBox>

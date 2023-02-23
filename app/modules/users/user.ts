@@ -1,18 +1,36 @@
 class User {
 
     public readonly userId: string;
-    public username: string;
-    constructor(userId: string, username: string) {
+    private _usernames: Map<string, string>;
+    private _currentRoomId: string;
+    constructor(userId: string) {
         this.userId = userId;
-        this.username = username;
+        this._usernames = new Map<string, string>();
+        this._currentRoomId = "";
     }
 
+    public get currentRoomId(): string {
+        return this._currentRoomId;
+    }
+
+    public joinRoom(roomId: string, username: string) {
+        this._usernames.set(roomId, username);
+        this._currentRoomId = roomId;
+    }
+
+    public getUsername(roomId: string): string | undefined {
+        return this._usernames.get(roomId);
+    }
+
+    public leaveRoom(roomId: string): void {
+        this._usernames.delete(roomId);
+        this._currentRoomId = "";
+    }
 
 }
 
 class UserManager {
     private _users: Map<string | undefined, User>;
-    private _nullUser: User = new User("null", "null");
     private static _instance: UserManager;
 
     private constructor() {
@@ -27,8 +45,8 @@ class UserManager {
         return UserManager._instance;
     }
 
-    public createUser(userId: string, username: string): User {
-        let user = new User(userId, username);
+    private createUser(userId: string): User {
+        let user = new User(userId);
         this._users.set(userId, user);
         return user;
     }
@@ -48,7 +66,7 @@ class UserManager {
     public getUser(userId: string): User {
         const user = this._users.get(userId);
         if (user == undefined) {
-            return this._nullUser;
+            return this.createUser(userId);
         }else {
             return user;
         }

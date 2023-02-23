@@ -12,15 +12,11 @@ const roomManager = RoomManager.getInstance();
 const userManager = UserManager.getInstance();
 
 router.post('/get_username/:roomId', function (req: any, res: any) {
+    let roomId = req.params.roomId;
 
+    const username = userManager.getUser(req.session.id).getUsername(roomId);
 
-    if (req.session.userId) {
-        let username = userManager.getUser(req.session.userId).username;
-        res.send({'username': username});
-    } else {
-        res.send({'username': undefined});
-    }
-    req.session.userId = userManager.getUnusedId();
+    res.send({'username': username});
 });
 
 router.post('/join_room/:roomId', function (req: any, res: any) {
@@ -47,14 +43,9 @@ router.post('/join_room/:roomId', function (req: any, res: any) {
             return;
         }
 
-        if (!req.session.userId) {
-            req.session.userId = userManager.getUnusedId();
-            userManager.createUser(req.session.userId, username);
-        }
-        req.session.roomId = roomId;
+        let user = userManager.getUser(req.session.id)
 
-
-        roomManager.addUserToRoom(roomId, userManager.getUser(req.session.userId));
+        roomManager.addUserToRoom(roomId, user, username);
 
         console.log(username + " has joined a room with id: " + roomId);
         res.send({'roomId': roomId, 'username': username, 'validRoom': true});

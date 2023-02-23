@@ -12,19 +12,6 @@ const router = express.Router();
 const roomManager = RoomManager.getInstance();
 const userManager = UserManager.getInstance();
 
-
-router.post('/rejoin_room', function (req: any, res: any) {
-    let roomId;
-    if (req.session.roomId) {
-        roomId = req.session.roomId;
-        console.log("A host has joined a room with id: " + roomId);
-    } else {
-        roomId = undefined;
-    }
-
-    res.send({'roomId': roomId, 'host': roomId !== undefined && roomId===req.session.owner});
-});
-
 router.post('/create_room', function (req: any, res: any) {
     let roomId = roomManager.getUnusedId()
     let roomName = req.body.roomName
@@ -37,11 +24,7 @@ router.post('/create_room', function (req: any, res: any) {
             roomName = roomManager.getRandomName();
         }
 
-        roomManager.createRoom(roomId, roomName);
-
-
-        req.session.roomId = roomId;
-        req.session.owner = roomId;
+        roomManager.createRoom(roomId, roomName, req.session.id);
 
 
         console.log("A host has made a room with id: " + roomId);
@@ -53,16 +36,11 @@ router.post('/create_room', function (req: any, res: any) {
 
 router.post('/get_room_info', function (req: any, res: any) {
     let roomId = req.body.roomId;
-    let roomName;
 
-    try {
-        roomName = roomManager.getRoom(roomId).roomName;
-    }
-    catch (e) {
-        roomName = undefined;
-    }
 
-    res.send({'roomName': roomName, 'host': roomId===req.session.owner});
+    const room = roomManager.getRoom(roomId);
+    res.send({'roomName': room.roomName, 'host': req.session.id === room.hostId});
+
 });
 
 router.post('/get_current_video/:roomId', function (req: any, res: any) {
@@ -81,21 +59,22 @@ router.post('/get_current_video/:roomId', function (req: any, res: any) {
     }
 });
 
-router.post('/mediaControl/', function (req: any, res: any) {
+router.post('/mediaControl/:roomId', function (req: any, res: any) {
     try {
+        const roomId = req.params.roomId;
         const action = req.body.action;
         if (action === "play") {
-            res.send({'success': VideoController.getInstance().toggleVideo(req.session.roomId)});
+            res.send({'success': VideoController.getInstance().toggleVideo(roomId)});
         } else if (action === "next") {
-            res.send({'success': VideoController.getInstance().nextVideo(req.session.roomId)});
+            res.send({'success': VideoController.getInstance().nextVideo(roomId)});
         } else if (action === "prev") {
-            res.send({'success': VideoController.getInstance().prevVideo(req.session.roomId)});
+            res.send({'success': VideoController.getInstance().prevVideo(roomId)});
         } else if (action === "raise") {
-            res.send({'success': VideoController.getInstance().raiseVideo(req.session.roomId, req.body.index)});
+            res.send({'success': VideoController.getInstance().raiseVideo(roomId, req.body.index)});
         } else if (action === "lower") {
-            res.send({'success': VideoController.getInstance().raiseVideo(req.session.roomId, req.body.index + 1)});
+            res.send({'success': VideoController.getInstance().raiseVideo(roomId, req.body.index + 1)});
         } else if (action === "delete") {
-            res.send({'success': VideoController.getInstance().deleteVideo(req.session.roomId, req.body.index)});
+            res.send({'success': VideoController.getInstance().deleteVideo(roomId, req.body.index)});
         } else {
             res.send({'success': false});
         }
@@ -118,7 +97,7 @@ router.post('/check_room/:roomId', function (req: any, res: any) {
 router.post('/add_video/', function (req: any, res: any) {
 
     let videoLink = req.body.videoLink;
-    let userId = req.session.userId;
+    let userId = req.session.id;
     let roomId = req.body.roomId;
 
     try {
@@ -144,7 +123,7 @@ router.post('/add_video/', function (req: any, res: any) {
                     'videoLink': videoLink,
                     'videoTitle': videoTitle,
                     'videoThumbnail': videoThumbnail,
-                    'videoUsername': videoUser.username
+                    'videoUsername': videoUser.getUsername(roomId) || "Unknown User"
                 };
                 room.addVideo(video);
 
@@ -170,38 +149,30 @@ interface Video {
     videoLink: string;
 }
 router.post('/search/', function (req: any, res: any) {
-    let roomId = req.session.roomId;
-    if (roomManager.roomExists(roomId)) {
-        const videoPlatform = req.body.videoPlatform;
-        const query = req.body.query;
-        VideoSearchController.getInstance().search(videoPlatform, query).then((response: any) => {
-            const videos: Video[] = [];
-            for (let i = 0; i < response.length; i++) {
-                let title = response[i].title;
-                let videoLink = response[i].url;
+    const videoPlatform = req.body.videoPlatform;
+    const query = req.body.query;
+    VideoSearchController.getInstance().search(videoPlatform, query).then((response: any) => {
+        const videos: Video[] = [];
+        for (let i = 0; i < response.length; i++) {
+            let title = response[i].title;
+            let videoLink = response[i].url;
 
-                let thumbnailLink = "";
-                let channelName = "";
+            let thumbnailLink = "";
+            let channelName = "";
 
-                try {
-                    thumbnailLink = response[i].snippet.thumbnails.high.url;
-                }
-                catch (e) {
-                    thumbnailLink = "";
-                }
-
-                const video = {title: title, thumbnailLink: thumbnailLink, channelName: channelName, videoLink: videoLink};
-                videos.push(video);
+            try {
+                thumbnailLink = response[i].snippet.thumbnails.high.url;
             }
-            res.send(videos);
-            // res.send(response);
-        });
+            catch (e) {
+                thumbnailLink = "";
+            }
 
-
-        // res.send({'validRoom': true});
-    }else{
-        res.send({'validRoom': false});
-    }
+            const video = {title: title, thumbnailLink: thumbnailLink, channelName: channelName, videoLink: videoLink};
+            videos.push(video);
+        }
+        res.send(videos);
+        // res.send(response);
+    });
 });
 
 module.exports = router;

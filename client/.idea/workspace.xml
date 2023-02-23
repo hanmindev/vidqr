@@ -4,25 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2bb1927-ba76-4621-9d48-67240f038fa9" name="Changes" comment="fix invalid video skip not cancelling when interacting">
-      <change afterPath="$PROJECT_DIR$/src/components/UserList.tsx" afterDir="false" />
+    <list default="true" id="a2bb1927-ba76-4621-9d48-67240f038fa9" name="Changes" comment="tailwind migration">
       <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/controllers/VideoController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/controllers/VideoController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/modules/rooms/room.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/modules/rooms/room.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/modules/users/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/modules/users/user.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/routes/Room.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/routes/Room.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/routes/User.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/routes/User.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/routes/Video.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/routes/Video.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Dashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dashboard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PromptBox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PromptBox.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/VideoPlayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/VideoPlayer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/VideoQueue.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/VideoQueue.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/VideoQueue.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/VideoQueue.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/VideoSearch.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/VideoSearch.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/socket.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/socket.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Home.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Host.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Host.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Host.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Remote.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Button.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Room.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Room.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/search.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +118,7 @@
       <workItem from="1675991596973" duration="59000" />
       <workItem from="1676064551513" duration="35000" />
       <workItem from="1677028611975" duration="3328000" />
-      <workItem from="1677032079043" duration="21881000" />
+      <workItem from="1677032079043" duration="32601000" />
     </task>
     <task id="LOCAL-00001" summary="actually working version">
       <created>1674876501205</created>
@@ -240,7 +239,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677081234057</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="tailwind migration">
+      <created>1677093683118</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1677093683118</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -274,7 +280,8 @@
     <MESSAGE value="refactor to merge host and remote clients" />
     <MESSAGE value="refactoring to clean up code after host-remote merge" />
     <MESSAGE value="fix invalid video skip not cancelling when interacting" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix invalid video skip not cancelling when interacting" />
+    <MESSAGE value="tailwind migration" />
+    <option name="LAST_COMMIT_MESSAGE" value="tailwind migration" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -291,12 +298,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/Home.tsx</url>
-          <line>25</line>
+          <line>26</line>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/Home.tsx</url>
-          <line>24</line>
+          <line>25</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">

@@ -6,16 +6,18 @@ class Room {
 
     public readonly roomName: string | undefined;
     private readonly _users: Map<string, User>;
+    private _hostId: string;
     private readonly _usernames: Set<string>;
     private readonly _videoList: {videoLink: string, videoTitle: string, videoThumbnail: string, videoUsername: string, videoId: number}[];
     private readonly _historicalVideoList: {videoLink: string, videoTitle: string, videoThumbnail: string, videoUsername: string, videoId: number}[];
     private _videoCount: number;
 
 
-    constructor(roomId: string, roomName: string | undefined) {
+    constructor(roomId: string, roomName: string | undefined, hostId: string) {
         this._roomId = roomId;
         this.roomName = roomName;
         this._users = new Map<string, User>();
+        this._hostId = hostId;
         this._usernames = new Set<string>();
         this._videoList = [];
         this._historicalVideoList = [];
@@ -26,9 +28,14 @@ class Room {
         return this._roomId;
     }
 
-    public addUser(user: User): void {
+    public get hostId(): string {
+        return this._hostId;
+    }
+
+    public addUser(user: User, username: string): void {
+        user.joinRoom(this._roomId, username);
+        this._usernames.add(username);
         this._users.set(user.userId, user);
-        this._usernames.add(user.username);
     }
 
     public usernameExists(username: string): boolean {
@@ -36,8 +43,15 @@ class Room {
     }
 
     public removeUser(userId: string): void {
+        const user = this._users.get(userId);
+        if (user !== undefined) {
+            const username = user.getUsername(this._roomId);
+            if (username !== undefined) {
+                this._usernames.delete(username);
+            }
+            user.leaveRoom(this._roomId);
+        }
         this._users.delete(userId);
-        this._usernames.delete(UserManager.getInstance().getUser(userId).username);
     }
 
     public addVideo(video: {videoLink: string, videoTitle: string, videoThumbnail: string, videoUsername: string}): void {
@@ -89,7 +103,7 @@ class Room {
 
 class RoomManager {
     private _rooms: Map<string, Room>;
-    private nullRoom = new Room("null", undefined);
+    private nullRoom = new Room("null", undefined, "null");
     private static _instance: RoomManager;
 
     private constructor() {
@@ -104,8 +118,8 @@ class RoomManager {
         return RoomManager._instance;
     }
 
-    public createRoom(roomId: string, roomName: string): Room {
-        let room = new Room(roomId, roomName);
+    public createRoom(roomId: string, roomName: string, owner: string): Room {
+        let room = new Room(roomId, roomName, owner);
         this._rooms.set(roomId, room);
         return room;
     }
@@ -118,8 +132,8 @@ class RoomManager {
         return id;
     }
 
-    public addUserToRoom(roomId: string, user: User): void {
-        this.getRoom(roomId).addUser(user);
+    public addUserToRoom(roomId: string, user: User, username: string): void {
+        this.getRoom(roomId).addUser(user, username);
     }
 
     public removeUserFromRoom(roomId: string, userId: string): void {

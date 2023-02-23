@@ -1,8 +1,5 @@
 import React, { useState } from "react";
 import {
-    Switch,
-    TransferList,
-    TransferListData,
     CopyButton,
     Tooltip,
     ActionIcon,
