@@ -1,12 +1,21 @@
+import {RoomManager} from "../rooms/room";
+import {TIMEOUT} from "../memory_manager/memory_manager";
+
 class User {
 
     public readonly userId: string;
     private _usernames: Map<string, string>;
     private readonly _rooms: Set<string>;
+    private _lastUsed: Date;
     constructor(userId: string) {
         this.userId = userId;
         this._usernames = new Map<string, string>();
         this._rooms = new Set<string>();
+        this._lastUsed = new Date();
+    }
+
+    public useUser(): void {
+        this._lastUsed = new Date();
     }
 
     public joinRoom(roomId: string, username: string) {
@@ -20,16 +29,25 @@ class User {
 
     public leaveRoom(roomId: string): void {
         this._usernames.delete(roomId);
-        this._rooms.delete(roomId);
+
+        const room = RoomManager.getInstance().getRoom(roomId);
+        if (room) {
+            room.removeUser(this.userId, false);
+            this._rooms.delete(roomId);
+        }
     }
 
     public get rooms(): Set<string> {
         return this._rooms;
     }
+
+    public lastUsed(): Date {
+        return this._lastUsed;
+    }
 }
 
 class UserManager {
-    private _users: Map<string | undefined, User>;
+    private _users: Map<string, User>;
     private static _instance: UserManager;
 
     private constructor() {
@@ -59,7 +77,15 @@ class UserManager {
     }
 
     public deleteUser(userId: string): void {
-        this._users.delete(userId);
+        const user = this._users.get(userId);
+        if (user) {
+            for (const roomId of user.rooms) {
+                user.leaveRoom(roomId);
+            }
+
+            this._users.delete(userId);
+        }
+
     }
 
     public getUser(userId: string): User {
@@ -67,6 +93,7 @@ class UserManager {
         if (user == undefined) {
             return this.createUser(userId);
         }else {
+            user.useUser();
             return user;
         }
     }
@@ -77,6 +104,17 @@ class UserManager {
             name = Math.random().toString(36).substring(2, 15);
         }
         return name;
+    }
+
+
+    public clearUnusedUsers(): void {
+        const now = new Date();
+        this._users.forEach((user, userId) => {
+            if (now.getTime() - user.lastUsed().getTime() > TIMEOUT
+            ) {
+                this.deleteUser(userId);
+            }
+        });
     }
 }
 

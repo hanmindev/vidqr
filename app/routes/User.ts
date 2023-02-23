@@ -21,12 +21,12 @@ router.post('/get_rooms/', function (req: any, res: any) {
 
     const rooms: {roomId: string; roomName: string; users: number}[] = Array.from(roomSet).map(roomId =>
     {
-        const room = roomManager.getRoom(roomId)
+        const room = roomManager.getRoom(roomId, false)
 
         return {
             roomId: roomId,
             roomName: room.roomName || "Unknown Room Name",
-            users: room.getUserCount()
+            users: room.getUsers().size
         }
     });
 

@@ -5,6 +5,7 @@ import session from "express-session";
 import { createServer } from "http";
 import { Server } from "socket.io";
 import cors from "cors";
+import clearMemoryLoop from "./app/modules/memory_manager/memory_manager";
 
 
 dotenv.config();
@@ -90,5 +91,7 @@ const port = process.env.PORT || 5000;
 httpServer.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 });
+
+clearMemoryLoop();
 
 module.exports = io;

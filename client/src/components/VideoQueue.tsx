@@ -13,12 +13,12 @@ import aFetch from "../config/axios";
 import {useHover} from "../hooks/hooks";
 
 
-function QueueVideo(props: { index: number; videoLink: string; title: string; user: string; videoThumbnail: string; isCurrent: boolean; isMine?: boolean}) {
+function QueueVideo(props: { index: number; videoLink: string; title: string; user: string; videoThumbnail: string; isCurrent: boolean; roomId: string; isMine?: boolean}) {
     let videoTitle = props.title;
     const [hoverRef, isHovered] = useHover<HTMLDivElement>();
 
     const queueControls = (action: any) => {
-        aFetch.post('/api/room/mediaControl/', {action: action, index: props.index}).then(response => {
+        aFetch.post(`/api/room/mediaControl/${props.roomId}`, {action: action, index: props.index}).then(response => {
             // console.log(response.data);
         })
     }
@@ -57,7 +57,7 @@ function QueueVideo(props: { index: number; videoLink: string; title: string; us
                 </div>
                 <p className="w-full">{"queued by: " + props.user}</p>
             </div>
-            {isHovered ? <div className="float-right">
+            {isHovered ? <div className="absolute ml-[354px] float-right">
                 <ActionIcon onClick={raiseVideo}>
                     <IconArrowBarUp size={18} />
                 </ActionIcon>
@@ -108,7 +108,7 @@ function MediaControls(params: { roomId: string; }){
     )
 
 }
-function VideoQueue(params: { roomId: string; username?: string;})  {
+function VideoQueue(props: { roomId: string; username?: string;})  {
 
     const [videoList, setVideoList] = useState([]);
     // params.roomId
@@ -118,10 +118,10 @@ function VideoQueue(params: { roomId: string; username?: string;})  {
     }, []);
 
     useEffect(() => {
-        if (params.roomId) {
-            socket.emit("video:subscribe", {'roomId': params.roomId});
+        if (props.roomId) {
+            socket.emit("video:subscribe", {'roomId': props.roomId});
         }
-    }, [params.roomId]);
+    }, [props.roomId]);
 
     const getVideoList = () => {
         socket.on("video:videoList", (data: any) => {
@@ -133,14 +133,14 @@ function VideoQueue(params: { roomId: string; username?: string;})  {
 
     let firstVideo = videoList.length === 0 ? {videoLink: "", videoThumbnail: "", videoTitle: "No videos queued!", videoUsername: "none"} : videoList[0];
     return (
-        <div className="bg-gray-900 right-0 h-full w-96 min-w-[24rem] max-w-[24rem]">
+        <div className="bg-gray-900 right-0 h-full w-96 min-w-[24rem] max-w-[24rem] float-right">
             <div className="bg-gray-900 rounded flex flex-col min-h-0 max-h-full overflow-x-hidden min-w-[24rem] max-w-[24rem]
             md:absolute md:overflow-y-auto
             relative overflow-y-hidden">
 
                 <div className="border-solid bg-gray-900 border-gray-700 border-2 rounded mb-2">
-                    <QueueVideo index={0} isCurrent={true} videoLink={firstVideo.videoLink} videoThumbnail={firstVideo.videoThumbnail} title={firstVideo.videoTitle} user={firstVideo.videoUsername} />
-                    <MediaControls roomId={params.roomId}/>
+                    <QueueVideo index={0} roomId={props.roomId} isCurrent={true} videoLink={firstVideo.videoLink} videoThumbnail={firstVideo.videoThumbnail} title={firstVideo.videoTitle} user={firstVideo.videoUsername} />
+                    <MediaControls roomId={props.roomId}/>
                 </div>
                 <p>Current Queue:</p>
 
@@ -148,7 +148,7 @@ function VideoQueue(params: { roomId: string; username?: string;})  {
                     (
                         index===0 ? null :
                             <div className="border-solid bg-gray-900 border-gray-700 border-2 rounded mb-2" key={index}>
-                                <QueueVideo index={index} key={index} isCurrent={false} isMine={params.username===video.videoUsername} videoLink={video.videoLink} videoThumbnail={video.videoThumbnail} title={video.videoTitle} user={video.videoUsername} />
+                                <QueueVideo index={index} roomId={props.roomId} key={index} isCurrent={false} isMine={props.username===video.videoUsername} videoLink={video.videoLink} videoThumbnail={video.videoThumbnail} title={video.videoTitle} user={video.videoUsername} />
                             </div>
                     )
                 )}

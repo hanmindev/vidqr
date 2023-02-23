@@ -2,7 +2,6 @@ import {useWindowDimensions} from "../hooks/hooks";
 import React, {useState} from "react";
 import aFetch from "../config/axios";
 import {Loader, Pagination, SimpleGrid, TextInput} from "@mantine/core";
-import {ShareLink} from "../pages/Host";
 import Button from "./Button";
 
 function VideoIcon(params: {thumbnailLink: string, title: string, channelName: string, videoLink: string, queueVideo: any}) {
@@ -116,7 +115,7 @@ function RemoteVideoSearcher(params: {queueVideo: any}) {
     )
 }
 
-function VideoSearcher(params: {roomId: string}) {
+function VideoSearcher(props: {roomId: string}) {
     const [videoLink, setVideoLink] = useState('');
     const [submitted, setSubmitted] = useState(false);
     const [invalid, setInvalid] = useState(false);
@@ -124,7 +123,7 @@ function VideoSearcher(params: {roomId: string}) {
     const textSubmit = () => {
         if (videoLink !== "") {
             setSubmitted(true);
-            aFetch.post(`/api/room/add_video`, {'roomId': params.roomId, 'videoLink': videoLink}).then(
+            aFetch.post(`/api/room/add_video`, {'roomId': props.roomId, 'videoLink': videoLink}).then(
                 response => {
                     setSubmitted(false);
                     if (response.data.validVideo) {
@@ -173,7 +172,6 @@ function VideoSearcher(params: {roomId: string}) {
             error={invalid ? "Invalid Video Link" : null}/>
 
             <Button className="py-2 px-4" onClick={textSubmit}>Queue Video</Button>
-            <ShareLink link={params.roomId}/>
         </>
     )
 }

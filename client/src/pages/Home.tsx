@@ -15,7 +15,7 @@ function Room(props: {roomId: string, roomName: string, users: number}) {
                 <h3>{props.roomName}: {props.roomId}</h3>
                 <p>{props.users} {props.users === 1? "user": "users"}</p>
             </div>
-            <Button className="ml-auto w-12 h-12 relative bg-gray-700 right-0 float-right" onClick={() => navigate(`/${props.roomId}`)}>Rejoin</Button>
+            <Button className="ml-auto w-12 h-12 relative bg-gray-700 right-0 float-right" onClick={() => navigate(`/${props.roomId}`)}>Join</Button>
         </div>
     )
 

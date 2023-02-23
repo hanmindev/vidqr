@@ -4,17 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2bb1927-ba76-4621-9d48-67240f038fa9" name="Changes" comment="tailwind migration">
+    <list default="true" id="a2bb1927-ba76-4621-9d48-67240f038fa9" name="Changes" comment="added memory manager to clean up unused rooms and users">
+      <change afterPath="$PROJECT_DIR$/../app/modules/memory_manager/memory_manager.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/modules/rooms/room.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/modules/rooms/room.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/modules/users/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/modules/users/user.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/routes/User.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/routes/User.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Button.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PromptBox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PromptBox.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Dashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dashboard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/VideoQueue.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/VideoQueue.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/VideoSearch.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/VideoSearch.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Home.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Host.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Host.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Room.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Room.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +112,7 @@
       <workItem from="1675991596973" duration="59000" />
       <workItem from="1676064551513" duration="35000" />
       <workItem from="1677028611975" duration="3328000" />
-      <workItem from="1677032079043" duration="37709000" />
+      <workItem from="1677032079043" duration="41109000" />
     </task>
     <task id="LOCAL-00001" summary="actually working version">
       <created>1674876501205</created>
@@ -274,7 +275,8 @@
     <MESSAGE value="refactoring to clean up code after host-remote merge" />
     <MESSAGE value="fix invalid video skip not cancelling when interacting" />
     <MESSAGE value="tailwind migration" />
-    <option name="LAST_COMMIT_MESSAGE" value="tailwind migration" />
+    <MESSAGE value="added memory manager to clean up unused rooms and users" />
+    <option name="LAST_COMMIT_MESSAGE" value="added memory manager to clean up unused rooms and users" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
