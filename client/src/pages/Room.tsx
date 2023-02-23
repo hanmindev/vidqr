@@ -66,16 +66,18 @@ const Room = () => {
         )
     }else if (username === ''){
         return (
-            <PromptBox promptSubmit={promptSubmit}>
-                <b>You are trying to join room: <br/><mark>{roomInfo.roomName}</mark></b>
+            <div className="flex flex-col min-h-full overflow-x-hidden overflow-y-hidden flex flex-col justify-center items-center min-h-full h-screen">
+                <PromptBox promptSubmit={promptSubmit}>
+                    <b>You are trying to join room: <br/><mark>{roomInfo.roomName}</mark></b>
 
-                <RoomUserNamePrompt roomId={params.roomId} usernameState={[usernameBox, setUsernameBox]} errorState={[usernameError, setUsernameError]}/>
+                    <RoomUserNamePrompt roomId={params.roomId} usernameState={[usernameBox, setUsernameBox]} errorState={[usernameError, setUsernameError]}/>
 
-                {/*{props.isLocked ? (*/}
-                {/*    <><b>This room is password-locked</b><TextInput*/}
-                {/*        placeholder="Room Secret"/></>): null}*/}
-                <SubmitButton text="Join Room"/>
-            </PromptBox>
+                    {/*{props.isLocked ? (*/}
+                    {/*    <><b>This room is password-locked</b><TextInput*/}
+                    {/*        placeholder="Room Secret"/></>): null}*/}
+                    <SubmitButton text="Join Room"/>
+                </PromptBox>
+            </div>
         )
     }else {
         return (

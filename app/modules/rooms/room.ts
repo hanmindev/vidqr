@@ -98,6 +98,10 @@ class Room {
         return this._videoCount;
     }
 
+    public getUserCount(): number {
+        return this._users.size;
+    }
+
 
 }
 

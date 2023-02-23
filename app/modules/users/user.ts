@@ -2,20 +2,16 @@ class User {
 
     public readonly userId: string;
     private _usernames: Map<string, string>;
-    private _currentRoomId: string;
+    private readonly _rooms: Set<string>;
     constructor(userId: string) {
         this.userId = userId;
         this._usernames = new Map<string, string>();
-        this._currentRoomId = "";
-    }
-
-    public get currentRoomId(): string {
-        return this._currentRoomId;
+        this._rooms = new Set<string>();
     }
 
     public joinRoom(roomId: string, username: string) {
         this._usernames.set(roomId, username);
-        this._currentRoomId = roomId;
+        this._rooms.add(roomId);
     }
 
     public getUsername(roomId: string): string | undefined {
@@ -24,9 +20,12 @@ class User {
 
     public leaveRoom(roomId: string): void {
         this._usernames.delete(roomId);
-        this._currentRoomId = "";
+        this._rooms.delete(roomId);
     }
 
+    public get rooms(): Set<string> {
+        return this._rooms;
+    }
 }
 
 class UserManager {

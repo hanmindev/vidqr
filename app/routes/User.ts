@@ -1,8 +1,5 @@
-import {User, UserManager} from "../modules/users/user";
+import {UserManager} from "../modules/users/user";
 import {RoomManager} from "../modules/rooms/room";
-import {default as axios} from "axios";
-import VideoController from "../controllers/VideoController";
-import VideoSearchController from "../controllers/VideoSearchController";
 
 
 const express = require('express');
@@ -17,6 +14,25 @@ router.post('/get_username/:roomId', function (req: any, res: any) {
     const username = userManager.getUser(req.session.id).getUsername(roomId);
 
     res.send({'username': username});
+});
+
+router.post('/get_rooms/', function (req: any, res: any) {
+    const roomSet = userManager.getUser(req.session.id).rooms
+
+    const rooms: {roomId: string; roomName: string; users: number}[] = Array.from(roomSet).map(roomId =>
+    {
+        const room = roomManager.getRoom(roomId)
+
+        return {
+            roomId: roomId,
+            roomName: room.roomName || "Unknown Room Name",
+            users: room.getUserCount()
+        }
+    });
+
+
+
+    res.send({rooms: rooms});
 });
 
 router.post('/join_room/:roomId', function (req: any, res: any) {

@@ -69,14 +69,10 @@ function PromptBox(props: {children: ReactNode; promptSubmit: () => void}) {
 
     return (
         <SubmitContext.Provider value={props.promptSubmit}>
-            <div className="flex flex-col min-h-full overflow-x-hidden overflow-y-hidden">
-                <div className="w-full h-screen min-h-full flex flex-col justify-center items-center">
-                    <div className="flex flex-col justify-center items-center p-4 rounded bg-gradient-to-tl from-teal-300 to-teal-900">
-                        <Stack style={{width: "80%"}}>
-                            {props.children}
-                        </Stack>
-                    </div>
-                </div>
+            <div className="flex flex-col items-center p-4 rounded bg-gradient-to-tl from-teal-300 to-teal-900 w-72 h-64">
+                <Stack className="w-4/5">
+                    {props.children}
+                </Stack>
             </div>
         </SubmitContext.Provider>
     )

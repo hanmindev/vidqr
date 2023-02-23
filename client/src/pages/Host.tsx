@@ -55,15 +55,17 @@ const Host = () => {
     }
 
     return (
-        <PromptBox promptSubmit={promptSubmit}>
-            <RoomNamePrompt roomNameState={[roomNameBox, setRoomNameBox]} errorState={[roomNameError, setRoomNameError]}/>
-            {/*<b>Optional Password</b>*/}
-            {/*<TextInput*/}
-            {/*    placeholder="Password"*/}
-            {/*    onChange={(e) => {}}*/}
-            {/*/>*/}
-            <SubmitButton text="Create Room"/>
-        </PromptBox>
+        <div className="flex flex-col min-h-full overflow-x-hidden overflow-y-hidden flex flex-col justify-center items-center min-h-full h-screen">
+            <PromptBox promptSubmit={promptSubmit}>
+                <RoomNamePrompt roomNameState={[roomNameBox, setRoomNameBox]} errorState={[roomNameError, setRoomNameError]}/>
+                {/*<b>Optional Password</b>*/}
+                {/*<TextInput*/}
+                {/*    placeholder="Password"*/}
+                {/*    onChange={(e) => {}}*/}
+                {/*/>*/}
+                <SubmitButton text="Create Room"/>
+            </PromptBox>
+        </div>
     )
 };
 
