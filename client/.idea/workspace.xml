@@ -5,17 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a2bb1927-ba76-4621-9d48-67240f038fa9" name="Changes" comment="added memory manager to clean up unused rooms and users">
-      <change afterPath="$PROJECT_DIR$/../app/modules/memory_manager/memory_manager.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/modules/rooms/room.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/modules/rooms/room.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/modules/users/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/modules/users/user.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/routes/User.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/routes/User.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Dashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dashboard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/VideoQueue.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/VideoQueue.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/VideoSearch.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/VideoSearch.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Home.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +103,7 @@
       <workItem from="1675991596973" duration="59000" />
       <workItem from="1676064551513" duration="35000" />
       <workItem from="1677028611975" duration="3328000" />
-      <workItem from="1677032079043" duration="41109000" />
+      <workItem from="1677032079043" duration="41699000" />
     </task>
     <task id="LOCAL-00001" summary="actually working version">
       <created>1674876501205</created>
@@ -240,7 +231,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677093683118</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="added memory manager to clean up unused rooms and users">
+      <created>1677128144197</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1677128144197</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
