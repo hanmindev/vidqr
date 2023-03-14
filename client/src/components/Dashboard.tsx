@@ -2,7 +2,7 @@ import React from "react";
 import VideoSearcher from "./VideoSearch";
 import {VideoQueue} from "./VideoQueue";
 import VideoPlayer from "./VideoPlayer";
-import {ShareLink} from "../pages/Host";
+import ShareLink from "./ShareLink";
 
 function Header(props: {username: string}) {
     return (
