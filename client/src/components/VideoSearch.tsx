@@ -1,5 +1,4 @@
-import {useWindowDimensions} from "../hooks/hooks";
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import aFetch from "../config/axios";
 import {Loader, Pagination, SimpleGrid, TextInput} from "@mantine/core";
 import Button from "./Button";
@@ -27,7 +26,21 @@ function VideoIcon(params: {thumbnailLink: string, title: string, channelName: s
 
 
 function RemoteVideoSearcher(params: {queueVideo: any}) {
-    const { width } = useWindowDimensions();
+    const heightRef = useRef<any>(null)
+    const [width, setWidth] = useState(0);
+    useEffect(() => {
+        if (heightRef.current) setWidth(heightRef.current.offsetWidth);
+    }, [heightRef]);
+
+    const ref = useRef<HTMLInputElement>(null)
+
+    useEffect(() => {
+        ref.current && ref.current.focus();
+    }, [ref])
+
+
+
+    window.addEventListener('resize', () => setWidth(heightRef.current.offsetWidth));
 
     const [searchQuery, setsearchQuery] = useState('');
 
@@ -69,11 +82,12 @@ function RemoteVideoSearcher(params: {queueVideo: any}) {
 
 
     return (
-        <div className="flex flex-col items-center justify-center w-full bg-black">
+        <div className="flex flex-col items-center justify-center w-full bg-black" ref={heightRef}>
             <div className="h-20 w-3/5 flex flex-col items-center">
                 <b>Search for a video</b>
                 <div className="flex flex-row items-center justify-center w-full bg-black m-0">
                     <TextInput
+                        ref={ref}
                         className="w-4/5"
                         placeholder="Query"
                         value={searchQuery}
@@ -158,21 +172,22 @@ function VideoSearcher(props: {roomId: string}) {
         }
     }
     return (
-        <>
-            <RemoteVideoSearcher queueVideo={setVideoLinkAndFocus}/><TextInput
-            id="videoLinkInput"
-            placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-            value={videoLink}
-            onChange={e => {
-                setInvalid(false);
-                setVideoLink(e.target.value);
-            }}
-            onKeyDown={(e) => e.key === "Enter" ? textSubmit() : null}
-            rightSection={submitted ? <Loader size={"xs"}/> : null}
-            error={invalid ? "Invalid Video Link" : null}/>
+        <div className="relative">
+            <RemoteVideoSearcher queueVideo={setVideoLinkAndFocus}/>
+            <TextInput
+                id="videoLinkInput"
+                placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                value={videoLink}
+                onChange={e => {
+                    setInvalid(false);
+                    setVideoLink(e.target.value);
+                }}
+                onKeyDown={(e) => e.key === "Enter" ? textSubmit() : null}
+                rightSection={submitted ? <Loader size={"xs"}/> : null}
+                error={invalid ? "Invalid Video Link" : null}/>
 
             <Button className="py-2 px-4" onClick={textSubmit}>Queue Video</Button>
-        </>
+        </div>
     )
 }
 

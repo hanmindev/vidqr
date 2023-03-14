@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2bb1927-ba76-4621-9d48-67240f038fa9" name="Changes" comment="added memory manager to clean up unused rooms and users">
-      <change afterPath="$PROJECT_DIR$/src/components/ShareLink.tsx" afterDir="false" />
+    <list default="true" id="a2bb1927-ba76-4621-9d48-67240f038fa9" name="Changes" comment="move Share Link button to separate file">
       <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Dashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dashboard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/VideoQueue.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/VideoQueue.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Host.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Host.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/VideoPlayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/VideoPlayer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/VideoSearch.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/VideoSearch.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Home.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +49,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "configurable.group.editor",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "ts.external.directory.path": "C:\\Users\\Hanmin\\Websites\\vidqr\\client\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
@@ -242,7 +242,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677128144197</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="move Share Link button to separate file">
+      <created>1678755608987</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1678755608987</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -278,7 +285,8 @@
     <MESSAGE value="fix invalid video skip not cancelling when interacting" />
     <MESSAGE value="tailwind migration" />
     <MESSAGE value="added memory manager to clean up unused rooms and users" />
-    <option name="LAST_COMMIT_MESSAGE" value="added memory manager to clean up unused rooms and users" />
+    <MESSAGE value="move Share Link button to separate file" />
+    <option name="LAST_COMMIT_MESSAGE" value="move Share Link button to separate file" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -295,12 +303,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/Home.tsx</url>
-          <line>58</line>
+          <line>57</line>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/Home.tsx</url>
-          <line>57</line>
+          <line>56</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">

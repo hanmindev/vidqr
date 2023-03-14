@@ -3,8 +3,10 @@ import VideoSearcher from "./VideoSearch";
 import {VideoQueue} from "./VideoQueue";
 import VideoPlayer from "./VideoPlayer";
 import ShareLink from "./ShareLink";
+import {ActionIcon} from "@mantine/core";
+import {IconSearch, IconX} from "@tabler/icons-react";
 
-function Header(props: {username: string}) {
+function Header(props: { username: string }) {
     return (
         <div className="w-full flex flex-row justify-between h-10">
             <b>{props.username}</b>
@@ -12,7 +14,7 @@ function Header(props: {username: string}) {
     )
 }
 
-function RemoteMenu(props: {roomId: string, username: string}) {
+function RemoteMenu(props: { roomId: string, username: string }) {
     return (
         <div className="flex flex-col min-h-full overflow-x-hidden overflow-y-hidden">
             <Header username={props.username}/>
@@ -29,10 +31,23 @@ function RemoteMenu(props: {roomId: string, username: string}) {
     )
 }
 
-function HostMenu(props: {roomId: string, username: string}) {
+function HostMenu(props: { roomId: string, username: string }) {
+    const [isSearching, setIsSearching] = React.useState(false);
+
     return (
         <div className="flex flex-col min-h-full overflow-x-hidden overflow-y-hidden">
             <Header username={props.username}/>
+            <div className="absolute w-96 z-10 top-0 right-1">
+                <ActionIcon className="mt-1 mb-2" color={'white'} onClick={() => {
+                    setIsSearching(!isSearching)
+                }}>
+                    {isSearching ? <IconX size={16}/> : <IconSearch size={16}/>}
+                </ActionIcon>
+                {isSearching ?
+                    <div className="border-2 bg-black border-slate-50">
+                        <VideoSearcher roomId={props.roomId}/>
+                    </div> : null}
+            </div>
             <div className="table-row-group flex-column md:flex md:flex-row min-w-full w-full">
 
                 <div className="flex-col w-full overflow-hidden mr-2">
@@ -51,13 +66,12 @@ function HostMenu(props: {roomId: string, username: string}) {
     )
 }
 
-function Dashboard(props: {roomId: string, username: string, isHost: boolean}) {
-        if (props.isHost){
-            return <HostMenu roomId={props.roomId} username={props.username}/>
-        }
-        else{
-            return <RemoteMenu roomId={props.roomId} username={props.username}/>
-        }
+function Dashboard(props: { roomId: string, username: string, isHost: boolean }) {
+    if (props.isHost) {
+        return <HostMenu roomId={props.roomId} username={props.username}/>
+    } else {
+        return <RemoteMenu roomId={props.roomId} username={props.username}/>
+    }
 }
 
 export default Dashboard;
