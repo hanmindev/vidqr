@@ -14,10 +14,10 @@ function ShareLink(props: { link: string; }) {
             <b>{full_link}</b>
             <div className="shareLinkButton">
                 <CopyButton value={full_link} timeout={2000}>
-                    {({ copied, copy }) => (
+                    {({copied, copy}) => (
                         <Tooltip label={copied ? 'Copied' : 'Copy'} withArrow position="right">
                             <ActionIcon color={copied ? 'teal' : 'gray'} onClick={copy}>
-                                {copied ? <IconCheck size={16} /> : <IconCopy size={16} />}
+                                {copied ? <IconCheck size={16}/> : <IconCopy size={16}/>}
                             </ActionIcon>
                         </Tooltip>
                     )}

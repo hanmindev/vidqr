@@ -6,10 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="551da139-04ea-45c3-bbf0-076ee8c48de8" name="Changes" comment="allow joining of old rooms">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/VideoController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/VideoController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes/Room.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/Room.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/client/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/Dashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Dashboard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/VideoPlayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/VideoPlayer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/VideoSearch.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/VideoSearch.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/ShareLink.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/ShareLink.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/VideoQueue.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/VideoQueue.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/pages/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Home.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

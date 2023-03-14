@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import { MantineProvider } from '@mantine/core';
+import {MantineProvider} from '@mantine/core';
 import {Auth0Provider} from "@auth0/auth0-react";
 import {createTheme, ThemeProvider} from "@mui/material";
 
@@ -36,8 +36,7 @@ root.render(
             redirect_uri: window.location.origin
         }}
     >
-        <React.StrictMode>
-            <ThemeProvider theme={MuiTheme}>
+        <ThemeProvider theme={MuiTheme}>
             <MantineProvider
                 withGlobalStyles
                 withNormalizeCSS
@@ -45,9 +44,8 @@ root.render(
                     colorScheme: 'dark'
                 }}
             >
-                <App />
+                <App/>
             </MantineProvider>
         </ThemeProvider>
-        </React.StrictMode>
     </Auth0Provider>
 );
