@@ -75,6 +75,8 @@ router.post('/mediaControl/:roomId', function (req: any, res: any) {
             res.send({'success': VideoController.getInstance().raiseVideo(roomId, req.body.index + 1)});
         } else if (action === "delete") {
             res.send({'success': VideoController.getInstance().deleteVideo(roomId, req.body.index)});
+        } else if (action === "moveTo") {
+            res.send({'success': VideoController.getInstance().moveTo(roomId, req.body.index, req.body.to)});
         } else {
             res.send({'success': false});
         }

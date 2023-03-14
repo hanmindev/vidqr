@@ -121,6 +121,35 @@ class VideoController {
 
         return true;
     }
+
+    moveTo(roomId: string, index: number, to: number) {
+        const room = roomManager.getRoom(roomId);
+        if (!room) {
+            return false;
+        }
+
+        if (room.videoList.length <= index || room.videoList.length <= to) {
+            return false;
+        }
+
+        const force = index === 0 || to === 0;
+
+        while (index != to) {
+            if (index < to) {
+                const temp = room.videoList[index];
+                room.videoList[index] = room.videoList[index + 1];
+                room.videoList[index + 1] = temp;
+                index++;
+            }else{
+                const temp = room.videoList[index];
+                room.videoList[index] = room.videoList[index - 1];
+                room.videoList[index - 1] = temp;
+                index--;
+            }
+        }
+        this.updateVideoList(roomId, force);
+        return true;
+    }
 }
 
 export default VideoController;
