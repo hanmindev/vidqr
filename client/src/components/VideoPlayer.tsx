@@ -53,19 +53,21 @@ function VideoPlayer(params: any) {
 
 
     return (
-        <AspectRatio ratio={16 / 9}>
-            <ReactPlayer url={videoRef}
-            playing={videoPlaying}
-            onStart={() => setVideoPlaying(true)}
-            onPause={() => setVideoPlaying(false)}
-            onError={InvalidVideo}
-            controls={true}
-            embedoptions={{cc_load_policy: 1, cc_lang_pref: "en"}}
-            width="100%"
-            height="100%"
-            onEnded={() => nextVideo()}
-            />
-        </AspectRatio>
+        <div>
+            <AspectRatio ratio={16 / 9}>
+                <ReactPlayer url={videoRef}
+                playing={videoPlaying}
+                onStart={() => setVideoPlaying(true)}
+                onPause={() => setVideoPlaying(false)}
+                onError={InvalidVideo}
+                controls={true}
+                embedoptions={{cc_load_policy: 1, cc_lang_pref: "en"}}
+                width="100%"
+                height="100%"
+                onEnded={() => nextVideo()}
+                />
+            </AspectRatio>
+        </div>
     );
 }
 

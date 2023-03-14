@@ -4,7 +4,6 @@ import {TextInput} from "@mantine/core";
 import aFetch from "../config/axios";
 import {PromptBox} from "../components/PromptBox";
 import Button from "../components/Button";
-import {socket} from "../config/socket";
 
 function Room(props: {roomId: string, roomName: string, users: number}) {
     const navigate = useNavigate();

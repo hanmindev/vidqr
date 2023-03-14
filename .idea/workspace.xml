@@ -7,7 +7,10 @@
     <list default="true" id="551da139-04ea-45c3-bbf0-076ee8c48de8" name="Changes" comment="allow joining of old rooms">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/client/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/VideoQueue.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/VideoQueue.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Dashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Dashboard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/VideoPlayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/VideoPlayer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/VideoSearch.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/VideoSearch.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Home.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
