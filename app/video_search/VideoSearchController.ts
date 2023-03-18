@@ -1,4 +1,5 @@
 import {YouTubeSearch} from "./YouTube";
+import {SoundCloudSearch} from "./SoundCloud";
 
 export interface VideoPlatformSearch {
     search: (search: string) => Promise<VideoPlatformSearchResult[]>;
@@ -19,6 +20,7 @@ class VideoSearchController {
     private constructor() {
         this._platforms = new Map<string, VideoPlatformSearch>();
         this._platforms.set("youtube", new YouTubeSearch());
+        this._platforms.set("soundcloud", new SoundCloudSearch());
     }
 
     public static getInstance(): VideoSearchController {
