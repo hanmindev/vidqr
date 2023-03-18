@@ -96,7 +96,8 @@ function RemoteVideoSearcher(params: {queueVideo: any}) {
                         rightSection={submitted ? <Loader size={"xs"}/>: null}
                     />
                     <Button className="py-2 px-4" onClick={textSubmit}>Search</Button>
-                    {/*<Button variant="gradient" gradient={{ from: '#ed6ea0', to: '#ec8c69', deg: 35 }} onClick={() => textSubmit()}>Search</Button>*/}
+
+
                 </div>
             </div>
 
@@ -123,7 +124,7 @@ function RemoteVideoSearcher(params: {queueVideo: any}) {
             </div>
 
             <div className="videoSearchFooter">
-                <Pagination page={activePage} onChange={setPage} total={totPage} color="violet" />
+                <Pagination value={activePage} onChange={setPage} total={totPage} color="violet" />
             </div>
         </div>
     )

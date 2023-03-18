@@ -4,29 +4,12 @@ import './index.css';
 import App from './App';
 import {MantineProvider} from '@mantine/core';
 import {Auth0Provider} from "@auth0/auth0-react";
-import {createTheme, ThemeProvider} from "@mui/material";
+import {ThemeProvider} from "@mui/material";
+import {MuiTheme} from "./themes";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
-
-const MuiTheme = createTheme({
-    palette: {
-        mode: 'dark',
-        text: {
-            primary: "#dadada",
-            secondary: "#dadada",
-            disabled: "#dadada"
-        }
-    },
-    components: {
-        MuiLink: {
-            defaultProps: {
-                color: "#3ea0fd",
-            }
-        }
-    }
-});
 
 root.render(
     <Auth0Provider
