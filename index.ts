@@ -15,11 +15,11 @@ const httpServer = createServer(app);
 
 app.use(express.json());
 app.use(cors({
-    "origin": "http://localhost:3000",
-    "methods": "GET,POST",
-    "preflightContinue": false,
-    "optionsSuccessStatus": 204,
-    "credentials": true
+    origin: ["http://localhost:3000", "http://localhost:6006"],
+    methods: "GET,POST",
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+    credentials: true
 }));
 
 

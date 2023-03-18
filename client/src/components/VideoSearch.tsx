@@ -90,7 +90,7 @@ const RemoteVideoSearcher = forwardRef(function RemoteVideoSearcher(props: { que
             videoLink: string;
         }
 
-        const [videoResults, setVideoResults] = useState([]);
+        const [videoResults, setVideoResults] = useState<Video[]>([]);
         const [activePage, setPage] = useState(1);
         const [submitted, setSubmitted] = useState(false);
 
