@@ -33,7 +33,7 @@ class VideoSearchController {
         const platformSearch = this._platforms.get(platform);
         if (platformSearch == undefined) {
             throw new Error("Platform not found");
-        }else{
+        } else {
             return platformSearch.search(search);
         }
 
