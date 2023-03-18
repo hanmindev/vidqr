@@ -5,17 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="551da139-04ea-45c3-bbf0-076ee8c48de8" name="Changes" comment="allow joining of old rooms">
+      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/video_search/YouTube.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vidqr.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vidqr.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/VideoController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/VideoController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/VideoSearchController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/video_search/VideoSearchController.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/routes/Room.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/Room.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/client/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Dashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Dashboard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/ShareLink.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/ShareLink.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/VideoQueue.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/VideoQueue.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,6 +64,7 @@
       <recent name="C:\Users\Hanmin\Websites\vidqr\client\public" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Hanmin\Websites\vidqr\app\video_search" />
       <recent name="C:\Users\Hanmin\Websites\vidqr\client\public" />
     </key>
   </component>
@@ -142,6 +142,7 @@
       <workItem from="1675733346003" duration="1822000" />
       <workItem from="1677028591717" duration="1299000" />
       <workItem from="1677032063788" duration="32654000" />
+      <workItem from="1679103808100" duration="3042000" />
     </task>
     <task id="LOCAL-00001" summary="working website">
       <created>1674858528745</created>
@@ -302,6 +303,9 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName=".env" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">

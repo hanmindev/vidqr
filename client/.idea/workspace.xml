@@ -4,17 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2bb1927-ba76-4621-9d48-67240f038fa9" name="Changes" comment="add search for host">
+    <list default="true" id="a2bb1927-ba76-4621-9d48-67240f038fa9" name="Changes" comment="make queue draggable">
+      <change afterPath="$PROJECT_DIR$/../.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/video_search/YouTube.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/vidqr.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/vidqr.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/controllers/VideoController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/controllers/VideoController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/controllers/VideoSearchController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/video_search/VideoSearchController.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/routes/Room.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/routes/Room.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Dashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dashboard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ShareLink.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ShareLink.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/VideoQueue.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/VideoQueue.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,6 +113,7 @@
       <workItem from="1677028611975" duration="3328000" />
       <workItem from="1677032079043" duration="41699000" />
       <workItem from="1678769535433" duration="229000" />
+      <workItem from="1679103897687" duration="2747000" />
     </task>
     <task id="LOCAL-00001" summary="actually working version">
       <created>1674876501205</created>
@@ -279,7 +280,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="host-videoplayer" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
