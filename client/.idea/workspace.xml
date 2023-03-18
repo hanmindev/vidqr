@@ -4,19 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2bb1927-ba76-4621-9d48-67240f038fa9" name="Changes" comment="make queue draggable">
+    <list default="true" id="a2bb1927-ba76-4621-9d48-67240f038fa9" name="Changes" comment="update dependencies">
       <change afterPath="$PROJECT_DIR$/../.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../app/video_search/SoundCloud.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/VideoSearch.stories.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/themes.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/routes/Sockets.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/routes/Room.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/routes/Room.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/routes/Video.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/routes/Video.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Button.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Dashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dashboard.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/VideoSearch.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/VideoSearch.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +69,7 @@
       <recent name="C:\Users\Hanmin\Websites\vidqr\client\src\components" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.start">
+  <component name="RunManager" selected="npm.storybook">
     <configuration name="test" type="JavascriptDebugType" uri="http://localhost:3000">
       <method v="2" />
     </configuration>
@@ -134,7 +134,7 @@
       <workItem from="1677028611975" duration="3328000" />
       <workItem from="1677032079043" duration="41699000" />
       <workItem from="1678769535433" duration="229000" />
-      <workItem from="1679103897687" duration="8135000" />
+      <workItem from="1679103897687" duration="16387000" />
     </task>
     <task id="LOCAL-00001" summary="actually working version">
       <created>1674876501205</created>
@@ -340,7 +340,8 @@
     <MESSAGE value="added memory manager to clean up unused rooms and users" />
     <MESSAGE value="move Share Link button to separate file" />
     <MESSAGE value="add search for host" />
-    <option name="LAST_COMMIT_MESSAGE" value="add search for host" />
+    <MESSAGE value="update dependencies" />
+    <option name="LAST_COMMIT_MESSAGE" value="update dependencies" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

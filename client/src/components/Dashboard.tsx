@@ -41,10 +41,9 @@ function HostMenu(props: {roomId: string, username: string}) {
                 <ActionIcon className="mt-1 mb-2" color={'white'} onClick={() => {setIsSearching(!isSearching)}}>
                     {isSearching? <IconX size={16} />: <IconSearch size={16} />}
                 </ActionIcon>
-                {isSearching ?
-                    <div className="border-2 border-slate-50">
-                        <VideoSearcher roomId={props.roomId}/>
-                    </div>: null}
+                <div className="border-2 border-slate-50" style={{display: isSearching? undefined : "none"}}>
+                    <VideoSearcher roomId={props.roomId} hidden={!isSearching}/>
+                </div>
             </div>
             <div className="table-row-group flex-column md:flex md:flex-row min-w-full w-full">
 
