@@ -132,7 +132,7 @@ const RemoteVideoSearcher = forwardRef(function RemoteVideoSearcher(props: { que
                 return;
             }
             searchVideo();
-        }, [platform, searchQuery])
+        }, [platform])
 
         const searchVideo = () => {
             setLastPlatform(platform);
@@ -229,7 +229,7 @@ function VideoSearcher(props: { roomId: string, hidden?: boolean }) {
     const textSubmit = () => {
         if (videoLink !== "") {
             setSubmitted(true);
-            aFetch.post(`/api/room/add_video`, {roomId: props.roomId, videoLink: videoLink, platform: platform}).then(
+            aFetch.post(`/api/room/add_video`, {roomId: props.roomId, videoLink: videoLink, videoPlatform: platform}).then(
                 response => {
                     setSubmitted(false);
                     if (response.data.validVideo) {

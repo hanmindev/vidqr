@@ -1,16 +1,15 @@
 import express from 'express';
 import {RoomManager} from "../modules/rooms/room";
 import VideoController from "../controllers/VideoController";
-import {default as axios} from "axios";
-import VideoSearchController, {VideoPlatformSearchResult} from "../video_search/VideoSearchController";
 import {UserManager} from "../modules/users/user";
+import VideoFormatter, {VideoFormatResult} from "../video_format/VideoFormatter";
 
 const router = express.Router();
 
 
-
 const roomManager = RoomManager.getInstance();
 const userManager = UserManager.getInstance();
+const videoFormatter = VideoFormatter.getInstance();
 
 router.post('/create_room', function (req: any, res: any) {
     let roomId = roomManager.getUnusedId()
@@ -54,7 +53,7 @@ router.post('/get_current_video/:roomId', function (req: any, res: any) {
         }
 
         res.send({'video': room.getCurrentVideo()});
-    }catch (e) {
+    } catch (e) {
         res.send({'video': []});
     }
 });
@@ -80,18 +79,17 @@ router.post('/mediaControl/:roomId', function (req: any, res: any) {
         } else {
             res.send({'success': false});
         }
-    }catch (e) {
+    } catch (e) {
         res.send({'success': false});
     }
 });
-
 
 
 router.post('/check_room/:roomId', function (req: any, res: any) {
     let roomId = req.params.roomId;
     if (roomManager.roomExists(roomId)) {
         res.send({'validRoom': true});
-    }else{
+    } else {
         res.send({'validRoom': false});
     }
 });
@@ -99,47 +97,36 @@ router.post('/check_room/:roomId', function (req: any, res: any) {
 router.post('/add_video/', function (req: any, res: any) {
 
     let videoLink = req.body.videoLink;
+    let platform = req.body.videoPlatform;
     let userId = req.session.id;
     let roomId = req.body.roomId;
 
     try {
-
-        videoLink = videoLink.match(/^((?:https?:)?\/\/)?((?:www|m)\.)?(youtube(-nocookie)?\.com|youtu.be)(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/)[6];
-        videoLink = "https://www.youtube.com/watch?v=" + videoLink;
-
-
-
-        axios.get("https://noembed.com/embed?url=" + videoLink).then(response => {
-            if (response.data.error) {
-                res.send({'validVideo': false});
-                return;
-            }
-
-            try {
-                let videoTitle: string = response.data.title;
-                let videoThumbnail: string = response.data.thumbnail_url.replace("hqdefault", "mqdefault");
+        videoFormatter.format(platform, videoLink).then((videoFormatResult: VideoFormatResult) => {
                 let videoUser = userManager.getUser(userId);
                 const room = roomManager.getRoom(roomId);
 
                 let video = {
-                    'videoLink': videoLink,
-                    'videoTitle': videoTitle,
-                    'videoThumbnail': videoThumbnail,
-                    'videoUsername': videoUser.getUsername(roomId) || "Unknown User"
+                    videoLink: videoFormatResult.url,
+                    videoTitle: videoFormatResult.title,
+                    videoThumbnail: videoFormatResult.thumbnail,
+                    videoUsername: videoUser.getUsername(roomId) || "Unknown User"
                 };
+
                 room.addVideo(video);
 
                 VideoController.getInstance().updateVideoList(roomId, room.videoList.length == 1);
                 res.send({'validVideo': true});
-            } catch (e) {
-
+                return;
+            }
+        ).catch(() => {
                 res.send({'validVideo': false});
                 return;
             }
-        });
-    } catch (e) {
+        )
+    }
+    catch (e) {
         res.send({'validVideo': false});
-        return;
     }
 });
 

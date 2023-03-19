@@ -1,5 +1,5 @@
-import {YouTubeSearch} from "./YouTube";
-import {SoundCloudSearch} from "./SoundCloud";
+import {YouTubeSearch} from "./YouTubeSearch";
+import {SoundCloudSearch} from "./SoundCloudSearch";
 
 export interface VideoPlatformSearch {
     search: (search: string) => Promise<VideoPlatformSearchResult[]>;
