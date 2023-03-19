@@ -4,17 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2bb1927-ba76-4621-9d48-67240f038fa9" name="Changes" comment="add search for host">
+    <list default="true" id="a2bb1927-ba76-4621-9d48-67240f038fa9" name="Changes" comment="update dependencies">
+      <change afterPath="$PROJECT_DIR$/../app/video_format/SoundCloudFormat.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/video_format/YouTubeFormat.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/controllers/VideoController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/controllers/VideoController.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/routes/Room.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/routes/Room.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/video_format/VideoFormatter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/video_format/VideoFormatter.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/video_search/SoundCloud.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/video_search/SoundCloudSearch.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/video_search/VideoSearchController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/video_search/VideoSearchController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/video_search/YouTube.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app/video_search/YouTubeSearch.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Dashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dashboard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ShareLink.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ShareLink.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/VideoQueue.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/VideoQueue.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/VideoSearch.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/VideoSearch.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,9 +24,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript File" />
         <option value="CSS File" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -46,7 +46,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Hanmin/Websites/vidqr/client&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Hanmin/Websites/vidqr/client/src/components&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -62,6 +62,9 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Hanmin\Websites\vidqr\client\src\components" />
       <recent name="C:\Users\Hanmin\Websites\vidqr\client\src\pages" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Hanmin\Websites\vidqr\client\src\components" />
     </key>
   </component>
   <component name="RunManager" selected="npm.start">
@@ -85,11 +88,27 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="storybook" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="storybook" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="JavaScript Debug.test" />
       <item itemvalue="npm.build" />
       <item itemvalue="npm.start" />
+      <item itemvalue="npm.storybook" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.storybook" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -113,6 +132,8 @@
       <workItem from="1677028611975" duration="3328000" />
       <workItem from="1677032079043" duration="41699000" />
       <workItem from="1678769535433" duration="229000" />
+      <workItem from="1679103897687" duration="19362000" />
+      <workItem from="1679183662035" duration="7735000" />
     </task>
     <task id="LOCAL-00001" summary="actually working version">
       <created>1674876501205</created>
@@ -268,7 +289,21 @@
       <option name="project" value="LOCAL" />
       <updated>1678763160883</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="update dependencies">
+      <created>1679180378417</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1679180378417</updated>
+    </task>
+    <task id="LOCAL-00024" summary="update dependencies">
+      <created>1679180763116</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1679180763116</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -279,7 +314,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="additional-platforms" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -306,7 +353,8 @@
     <MESSAGE value="added memory manager to clean up unused rooms and users" />
     <MESSAGE value="move Share Link button to separate file" />
     <MESSAGE value="add search for host" />
-    <option name="LAST_COMMIT_MESSAGE" value="add search for host" />
+    <MESSAGE value="update dependencies" />
+    <option name="LAST_COMMIT_MESSAGE" value="update dependencies" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

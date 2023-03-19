@@ -1,15 +1,16 @@
-import * as yt from 'youtube-search-without-api-key';
+import {YouTubeSearch} from "./YouTubeSearch";
+import {SoundCloudSearch} from "./SoundCloudSearch";
 
-interface VideoPlatformSearch {
-    search: (search: string) => Promise<[]>;
+export interface VideoPlatformSearch {
+    search: (search: string) => Promise<VideoPlatformSearchResult[]>;
 
 }
 
-class YouTubeSearch implements VideoPlatformSearch {
-    search(search: string): Promise<[]> {
-        // @ts-ignore
-        return yt.search(search);
-    }
+export interface VideoPlatformSearchResult {
+    title: string;
+    url: string;
+    thumbnail: string;
+    channelName: string;
 }
 
 class VideoSearchController {
@@ -19,6 +20,7 @@ class VideoSearchController {
     private constructor() {
         this._platforms = new Map<string, VideoPlatformSearch>();
         this._platforms.set("youtube", new YouTubeSearch());
+        this._platforms.set("soundcloud", new SoundCloudSearch());
     }
 
     public static getInstance(): VideoSearchController {
@@ -29,11 +31,11 @@ class VideoSearchController {
         return VideoSearchController._instance;
     }
 
-    public search(platform: string, search: string): Promise<[]> {
+    public search(platform: string, search: string): Promise<VideoPlatformSearchResult[]> {
         const platformSearch = this._platforms.get(platform);
         if (platformSearch == undefined) {
             throw new Error("Platform not found");
-        }else{
+        } else {
             return platformSearch.search(search);
         }
 
