@@ -30,4 +30,4 @@ function ThemeWrapper(props) {
   );
 }
 
-export const decorators = [(renderStory: Function) => <ThemeWrapper>{renderStory()}</ThemeWrapper>];
+export const decorators = [(renderStory) => <ThemeWrapper>{renderStory()}</ThemeWrapper>];

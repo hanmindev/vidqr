@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {ComponentStory, ComponentMeta} from '@storybook/react';
-import VideoSearcher from "./VideoSearch";
+import VideoSearcher, {Platforms, VideoIcon} from "./VideoSearch";
 
 export default {
     title: 'Video Searcher',
@@ -24,5 +24,26 @@ export default {
 
 } as ComponentMeta<typeof VideoSearcher>;
 
-export const Primary: ComponentStory<typeof VideoSearcher> = () => <VideoSearcher roomId={"0"}/>;
+export const Primary: ComponentStory<typeof VideoSearcher> = (args) => <VideoSearcher roomId={"0"}/>;
 
+export const VideoCard: ComponentStory<typeof VideoIcon> = (args) => <div className="w-80 h-60">
+    <VideoIcon {...args} queueVideo={() => {}}/>
+</div>
+
+// export const Buttons: ComponentStory<typeof Platforms> = () => {
+//
+//     return <Platforms setPlatform={}/>
+// };
+//
+//
+//
+// Buttons.args = {
+//
+// }
+
+VideoCard.args = {
+    thumbnailLink: "https://i1.sndcdn.com/artworks-oUpMNoCS8eIfPvi9-ns9yqg-large.jpg",
+    title: "test",
+    channelName: "test",
+    videoLink: "test"
+}

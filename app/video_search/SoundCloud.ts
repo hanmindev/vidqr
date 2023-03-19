@@ -1,18 +1,33 @@
-// @ts-ignore
-import ScSearcher from 'sc-searcher';
 import {VideoPlatformSearch, VideoPlatformSearchResult} from "./VideoSearchController";
-
-const scSearch = new ScSearcher();
-const client_id = process.env.SOUNDCLOUD_CLIENT_ID;
-const result_limit = 10;
-scSearch.init(client_id);
+import {default as axios} from "axios";
 
 export class SoundCloudSearch implements VideoPlatformSearch {
     search(search: string): Promise<VideoPlatformSearchResult[]> {
         return new Promise<VideoPlatformSearchResult[]>((resolve, reject) => {
-            scSearch.getTracks(search, result_limit).then((response: any) => {
-                const videos: VideoPlatformSearchResult[] = [];
-                console.log(response);
+            axios.get(`https://api-v2.soundcloud.com/search/tracks?q=${search.replace(' ', '%20')}&client_id=${process.env.SOUNDCLOUD_ID}&limit=20`).then(
+                (response: any) => {
+                    const videos: VideoPlatformSearchResult[] = [];
+
+                    const video_raw = response.data.collection;
+
+                    for (let i = 0; i < video_raw.length; i++) {
+                        let title = video_raw[i].title;
+                        let videoLink = video_raw[i].permalink_url;
+
+                        let thumbnailLink = video_raw[i].artwork_url.replace('large.jpg', 't500x500.jpg')
+                        let channelName = "";
+
+                        videos.push({
+                            title: title,
+                            url: videoLink,
+                            thumbnail: thumbnailLink,
+                            channelName: channelName
+                        });
+                    }
+                    resolve(videos);
+                }
+            ).catch((error: any) => {
+                reject(error);
             });
         });
     }
