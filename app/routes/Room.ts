@@ -58,13 +58,27 @@ router.post('/get_current_video/:roomId', function (req: any, res: any) {
     }
 });
 
+router.post('/get_player_info/:roomId', function (req: any, res: any) {
+    try {
+        const roomId = req.params.roomId;
+        const room = roomManager.getRoom(roomId);
+
+        if (room === undefined) {
+            res.send({playerState: undefined});
+            return;
+        }
+
+        res.send({playerState: room.videoPlayerState});
+    } catch (e) {
+        res.send({playerState: undefined});
+    }
+});
+
 router.post('/mediaControl/:roomId', function (req: any, res: any) {
     try {
         const roomId = req.params.roomId;
         const action = req.body.action;
-        if (action === "play") {
-            res.send({'success': VideoController.getInstance().toggleVideo(roomId)});
-        } else if (action === "next") {
+        if (action === "next") {
             res.send({'success': VideoController.getInstance().nextVideo(roomId)});
         } else if (action === "prev") {
             res.send({'success': VideoController.getInstance().prevVideo(roomId)});

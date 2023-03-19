@@ -106,10 +106,11 @@ function VideoQueue(props: { roomId: string; username?: string; }) {
     }
 
     return (
-        <div className="bg-gray-900 right-0 h-full w-96 min-w-[24rem] max-w-[24rem] float-right">
-            <div className="bg-gray-900 rounded flex flex-col min-h-0 max-h-full overflow-x-hidden min-w-[24rem] max-w-[24rem]
+        <div className="bg-gray-900 right-0 w-96 min-w-[24rem] max-w-[24rem] float-right">
+            <div className="bg-gray-900 rounded flex flex-col min-h-0 h-full max-h-full overflow-x-hidden min-w-[24rem] max-w-[24rem]
             md:absolute md:overflow-y-auto
-            relative overflow-y-hidden">
+            relative overflow-y-hidden"
+            >
 
                 <DragDropContext onDragEnd={handleOnDragEnd}>
                     <Droppable droppableId="videos">
