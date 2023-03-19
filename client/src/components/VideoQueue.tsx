@@ -1,17 +1,19 @@
 import React, {useEffect, useState} from "react";
 import {socket} from "../config/socket";
-import {ActionIcon, Button, Image} from "@mantine/core";
-import {
-    IconPlayerPause,
-    IconPlayerSkipBack,
-    IconPlayerSkipForward,
-    IconTrash
-} from "@tabler/icons-react";
+import {ActionIcon, Image} from "@mantine/core";
+import {IconTrash} from "@tabler/icons-react";
 import "./VideoQueue.css";
 import aFetch from "../config/axios";
 import {useHover} from "../hooks/hooks";
 // @ts-ignore
-import {DragDropContext, Draggable, DraggableProvided, Droppable, DroppableProvided} from 'react-beautiful-dnd';
+import {
+    DragDropContext,
+    Draggable,
+    DraggableProvided,
+    DraggableStateSnapshot,
+    Droppable,
+    DroppableProvided
+} from 'react-beautiful-dnd';
 
 
 function QueueVideo(props: { index: number; videoLink: string; title: string; user: string; videoThumbnail: string; isCurrent: boolean; roomId: string; isMine?: boolean }) {
@@ -23,13 +25,6 @@ function QueueVideo(props: { index: number; videoLink: string; title: string; us
             // console.log(response.data);
         })
     }
-
-    // const raiseVideo = () => {
-    //     queueControls("raise");
-    // }
-    // const lowerVideo = () => {
-    //     queueControls("lower");
-    // }
     const deleteVideo = () => {
         queueControls("delete");
     }
@@ -59,12 +54,6 @@ function QueueVideo(props: { index: number; videoLink: string; title: string; us
                 <p className="w-full">{"queued by: " + props.user}</p>
             </div>
             {isHovered ? <div className="absolute ml-[354px] float-right">
-                {/*<ActionIcon onClick={raiseVideo}>*/}
-                {/*    <IconArrowBarUp size={18} />*/}
-                {/*</ActionIcon>*/}
-                {/*<ActionIcon onClick={lowerVideo}>*/}
-                {/*    <IconArrowBarDown size={18} />*/}
-                {/*</ActionIcon>*/}
                 <ActionIcon onClick={deleteVideo}>
                     <IconTrash size={18}/>
                 </ActionIcon>
@@ -73,42 +62,6 @@ function QueueVideo(props: { index: number; videoLink: string; title: string; us
     );
 }
 
-
-function MediaControls(params: { roomId: string; }) {
-    const mediaControls = (action: any) => {
-        aFetch.post(`/api/room/mediaControl/${params.roomId}`, {action: action}).then(_ => {
-            // console.log(response.data);
-        })
-    }
-
-    const prevVideo = () => {
-        mediaControls("prev");
-    }
-    const play = () => {
-        mediaControls("play");
-    }
-    const nextVideo = () => {
-        mediaControls("next");
-    }
-
-
-    return (
-        <div className="absolute bottom-0">
-            <Button.Group>
-                <ActionIcon onClick={prevVideo}>
-                    {<IconPlayerSkipBack/>}
-                </ActionIcon>
-                <ActionIcon onClick={play}>
-                    {<IconPlayerPause/>}
-                </ActionIcon>
-                <ActionIcon onClick={nextVideo}>
-                    {<IconPlayerSkipForward/>}
-                </ActionIcon>
-            </Button.Group>
-        </div>
-    )
-
-}
 
 function VideoQueue(props: { roomId: string; username?: string; }) {
 
@@ -159,66 +112,31 @@ function VideoQueue(props: { roomId: string; username?: string; }) {
             relative overflow-y-hidden">
 
                 <DragDropContext onDragEnd={handleOnDragEnd}>
-                    <div className="relative border-solid bg-gray-900 border-gray-700 border-2 rounded mb-2 h-28">
-                        <Droppable droppableId="videos">
-                            {(provided: DroppableProvided) => (
-                                <div {...provided.droppableProps} ref={provided.innerRef}>
-                                    {videoList.length !== 0 && videoList[0] ?
-
-                                        <Draggable key={videoList[0].videoId.toString()}
-                                                   draggableId={videoList[0].videoId.toString()} index={0}>
-                                            {(provided: DraggableProvided) => (
-                                                <div
-                                                    ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                                    <QueueVideo index={0} roomId={props.roomId} isCurrent={true}
-                                                                videoLink={videoList[0].videoLink}
-                                                                videoThumbnail={videoList[0].videoThumbnail}
-                                                                title={videoList[0].videoTitle}
-                                                                user={videoList[0].videoUsername}/>
-                                                </div>
-                                            )}
-                                        </Draggable> :
-                                        <QueueVideo index={0} roomId={props.roomId} isCurrent={true}
-                                                    videoLink={""}
-                                                    videoThumbnail={""}
-                                                    title={""}
-                                                    user={""}/>
-                                    }
-                                    {provided.placeholder}
-                                </div>
-                            )}
-                        </Droppable>
-                        <MediaControls roomId={props.roomId}/>
-                    </div>
-                    <p>Current Queue:</p>
-
-
                     <Droppable droppableId="videos">
                         {(provided: DroppableProvided) => (
                             <div {...provided.droppableProps} ref={provided.innerRef}>
                                 {videoList.map((video: { videoLink: string, videoTitle: string, videoThumbnail: string, videoUsername: string, videoId: number }, index: number) =>
                                     (
-                                        index === 0 ? null :
-                                            <Draggable key={video.videoId.toString()}
-                                                       draggableId={video.videoId.toString()} index={index}>
+                                        <Draggable key={video.videoId.toString()}
+                                                   draggableId={video.videoId.toString()} index={index}>
 
-                                                {(provided: DraggableProvided) => (
+                                            {(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
+                                                <div
+                                                    ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                                                     <div
-                                                        ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                                        <div
-                                                            className="border-solid bg-gray-900 border-gray-700 border-2 rounded mb-2"
-                                                            key={index}>
-                                                            <QueueVideo index={index} roomId={props.roomId} key={index}
-                                                                        isCurrent={false}
-                                                                        isMine={props.username === video.videoUsername}
-                                                                        videoLink={video.videoLink}
-                                                                        videoThumbnail={video.videoThumbnail}
-                                                                        title={video.videoTitle}
-                                                                        user={video.videoUsername}/>
-                                                        </div>
+                                                        className="border-solid bg-gray-900 border-gray-700 border-2 rounded mb-2"
+                                                        key={index}>
+                                                        <QueueVideo index={index} roomId={props.roomId} key={index}
+                                                                    isCurrent={index === 0 && !snapshot.isDragging}
+                                                                    isMine={props.username === video.videoUsername}
+                                                                    videoLink={video.videoLink}
+                                                                    videoThumbnail={video.videoThumbnail}
+                                                                    title={video.videoTitle}
+                                                                    user={video.videoUsername}/>
                                                     </div>
-                                                )}
-                                            </Draggable>
+                                                </div>
+                                            )}
+                                        </Draggable>
                                     )
                                 )}
                                 {provided.placeholder}
