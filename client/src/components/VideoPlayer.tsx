@@ -191,7 +191,6 @@ export function RemoteMediaController(props: { roomId: string, videoRef?: React.
     useEffect(() => {
         aFetch.post(`/api/room/get_player_info/${props.roomId}`).then(res => {
             const {videoSeconds, videoDuration, currentTime, playing, volume, muted} = res.data.playerState;
-            console.log(res.data.playerState);
             setLastVideoProgress({
                 videoSeconds: videoSeconds,
                 videoDuration: videoDuration,
@@ -240,7 +239,7 @@ function VideoPlayer(props: { roomId: string }) {
 
     const nextVideo = (discard?: boolean) => {
         CancelInvalidVideoSkip();
-        broadcastTime(progress);
+        broadcastTime(0);
         socket.emit("video:nextVideo", {roomId: props.roomId, discard: discard});
     }
 
@@ -263,7 +262,6 @@ function VideoPlayer(props: { roomId: string }) {
     useEffect(() => {
         aFetch.post(`/api/room/get_player_info/${props.roomId}`).then(res => {
             const {videoSeconds, videoDuration, playing, volume, muted} = res.data.playerState;
-            console.log(res.data.playerState);
             ref.current?.seekTo(videoSeconds / videoDuration, 'fraction');
 
             setVideoPlaying(playing)
