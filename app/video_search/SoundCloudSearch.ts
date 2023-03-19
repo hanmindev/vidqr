@@ -11,18 +11,25 @@ export class SoundCloudSearch implements VideoPlatformSearch {
                     const video_raw = response.data.collection;
 
                     for (let i = 0; i < video_raw.length; i++) {
-                        let title = video_raw[i].title;
-                        let videoLink = video_raw[i].permalink_url;
+                        try {
+                            let title = video_raw[i].title;
+                            let videoLink = video_raw[i].permalink_url;
 
-                        let thumbnailLink = video_raw[i].artwork_url.replace('large.jpg', 't500x500.jpg')
-                        let channelName = "";
+                            let thumbnailLink = video_raw[i].artwork_url
+                            try {
+                                thumbnailLink = thumbnailLink.replace('large.jpg', 't500x500.jpg')
+                            } catch (e) {
+                            }
+                            let channelName = "";
 
-                        videos.push({
-                            title: title,
-                            url: videoLink,
-                            thumbnail: thumbnailLink,
-                            channelName: channelName
-                        });
+                            videos.push({
+                                title: title,
+                                url: videoLink,
+                                thumbnail: thumbnailLink,
+                                channelName: channelName
+                            });
+                        } catch (e) {
+                        }
                     }
                     resolve(videos);
                 }
