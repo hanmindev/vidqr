@@ -40,18 +40,6 @@ class VideoController {
         return true;
     }
 
-    public toggleVideo(roomId: string): boolean{
-        const room = roomManager.getRoom(roomId);
-        if (!room) {
-            return false;
-        }
-        if (room.videoList.length > 0) {
-            this._io.to(roomId).emit("video:toggleVideo", {'roomId': roomId });
-        }
-
-        return true;
-    }
-
     public prevVideo(roomId: string): boolean{
         const room = roomManager.getRoom(roomId);
         if (!room) {

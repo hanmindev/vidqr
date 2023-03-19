@@ -1,6 +1,14 @@
 import {User, UserManager} from "../users/user";
 import {TIMEOUT} from "../memory_manager/memory_manager";
 
+interface VideoPlayerState {
+    videoSeconds: number
+    videoDuration: number
+    currentTime: number
+    playing: boolean
+    volume: number
+    muted: boolean
+}
 
 class Room {
     private readonly _roomId: string;
@@ -13,6 +21,7 @@ class Room {
     private readonly _historicalVideoList: {videoLink: string, videoTitle: string, videoThumbnail: string, videoUsername: string, videoId: number}[];
     private _videoCount: number;
     private _lastUsed: Date;
+    private _videoPlayerState: VideoPlayerState;
 
 
     constructor(roomId: string, roomName: string | undefined, hostId: string) {
@@ -25,6 +34,14 @@ class Room {
         this._historicalVideoList = [];
         this._videoCount = 0;
         this._lastUsed = new Date();
+        this._videoPlayerState = {
+            videoSeconds: 0,
+            videoDuration: 1,
+            currentTime: 0,
+            playing: false,
+            volume: 25,
+            muted: false
+        }
     }
 
     public useRoom(): void {
@@ -111,6 +128,22 @@ class Room {
 
     public getUsers(): Map<string, User> {
         return this._users;
+    }
+
+    public updateVideoPlayerState(type: string, info: any) {
+        if (type === "progress") {
+            if (info.videoSeconds !== undefined) {this._videoPlayerState.videoSeconds = info.videoSeconds;}
+            if (info.videoDuration !== undefined) {this._videoPlayerState.videoDuration = info.videoDuration;}
+            if (info.currentTime !== undefined) {this._videoPlayerState.currentTime = info.currentTime;}
+            if (info.playing !== undefined) {this._videoPlayerState.playing = info.playing;}
+        } else if (type === "volume") {
+            if (info.volume !== undefined) {this._videoPlayerState.volume = info.volume;}
+            if (info.muted !== undefined) {this._videoPlayerState.muted = info.muted;}
+        }
+    }
+
+    public get videoPlayerState(): VideoPlayerState {
+        return this._videoPlayerState;
     }
 
 

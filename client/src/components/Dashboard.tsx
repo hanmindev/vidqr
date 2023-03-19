@@ -1,7 +1,7 @@
 import React from "react";
 import VideoSearcher from "./VideoSearch";
 import {VideoQueue} from "./VideoQueue";
-import VideoPlayer from "./VideoPlayer";
+import VideoPlayer, {RemoteMediaController} from "./VideoPlayer";
 import ShareLink from "./ShareLink";
 import {ActionIcon} from "@mantine/core";
 import {IconSearch, IconX} from "@tabler/icons-react";
@@ -16,12 +16,13 @@ function Header(props: {username: string}) {
 
 function RemoteMenu(props: {roomId: string, username: string}) {
     return (
-        <div className="flex flex-col min-h-full overflow-x-hidden overflow-y-hidden">
+        <div className="flex flex-col max-h-[100lvh] overflow-x-hidden overflow-y-auto">
             <Header username={props.username}/>
             <div className="table-row-group flex-column md:flex md:flex-row">
                 <div className="flex-col overflow-hidden w-full">
                     <div className="bg-gray-900 w-full">
                         <VideoSearcher roomId={props.roomId}/>
+                        <RemoteMediaController roomId={props.roomId}/>
                         <ShareLink link={props.roomId}/>
                     </div>
                 </div>
@@ -35,7 +36,7 @@ function HostMenu(props: {roomId: string, username: string}) {
     const [isSearching, setIsSearching] = React.useState(false);
 
     return (
-        <div className="flex flex-col min-h-full overflow-x-hidden overflow-y-hidden">
+        <div className="flex flex-col max-h-[100lvh] overflow-x-hidden overflow-y-auto">
             <Header username={props.username}/>
             <div className="absolute w-96 z-10 top-0 right-1">
                 <ActionIcon className="mt-1 mb-2" color={'white'} onClick={() => {setIsSearching(!isSearching)}}>

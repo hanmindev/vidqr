@@ -13,14 +13,17 @@ dotenv.config();
 const app: Express = express();
 const httpServer = createServer(app);
 
-app.use(express.json());
-app.use(cors({
-    origin: ["http://localhost:3000", "http://localhost:6006"],
+
+const corsConfig = {
+    origin: process.env.NODE_ENV === "production" ? ["http://localhost:3000"] : ["http://localhost:3000", "http://localhost:6006", "https://admin.socket.io", "http://192.168.0.32:3000"],
     methods: "GET,POST",
+    credentials: true,
     preflightContinue: false,
-    optionsSuccessStatus: 204,
-    credentials: true
-}));
+    optionsSuccessStatus: 204
+}
+
+app.use(express.json());
+app.use(cors(corsConfig));
 
 
 const MemoryStore = require('memorystore')(session);
@@ -41,11 +44,7 @@ app.use(sessionMiddleware);
 app.use(require('sanitize').middleware);
 
 const io = new Server(httpServer, {
-    cors: {
-        origin: ["http://localhost:3000", "https://admin.socket.io"],
-        methods: ["GET", "POST"],
-        credentials: true
-    }
+    cors: corsConfig
 });
 
 const wrap = (middleware: any) => (socket: any, next: any) => middleware(socket.request, {}, next);
@@ -74,18 +73,18 @@ app.use('/api/room', roomRouter);
 app.use('/api/user', userRouter);
 app.use('/api/video', videoRouter);
 
-const {subscribe, nextVideo} = require("./app/routes/Sockets")(io);
+const {subscribe, nextVideo, videoProgress} = require("./app/routes/Sockets")(io);
 
 io.on("connection", (socket: any) => {
-        console.log("a user connected");
-        socket.on("video:subscribe", subscribe);
-        socket.on("video:nextVideo", nextVideo);
+    console.log("a user connected");
+    socket.on("video:subscribe", subscribe);
+    socket.on("video:nextVideo", nextVideo);
+    socket.on("video:videoProgress", videoProgress);
 
-        socket.on('disconnect', function () {
-            console.log('a user disconnected');
-        });
-    }
-);
+    socket.on('disconnect', function () {
+        console.log('a user disconnected');
+    });
+});
 
 const port = process.env.PORT || 5000;
 
