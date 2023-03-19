@@ -49,7 +49,7 @@ function HostMenu(props: {roomId: string, username: string}) {
 
                 <div className="flex-col w-full overflow-hidden mr-2">
                     <div className="bg-gray-900 w-full">
-                        <VideoPlayer link={props.roomId}/>
+                        <VideoPlayer roomId={props.roomId}/>
                     </div>
                     <div className="bg-gray-900 overflow-hidden mt-1">
                         <ShareLink link={props.roomId}/>
