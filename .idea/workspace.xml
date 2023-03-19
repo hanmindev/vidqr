@@ -5,16 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="551da139-04ea-45c3-bbf0-076ee8c48de8" name="Changes" comment="add soundcloud integration">
-      <change afterPath="$PROJECT_DIR$/app/video_format/SoundCloudFormat.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/video_format/YouTubeFormat.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/routes/Room.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/Room.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/video_format/VideoFormatter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/video_format/VideoFormatter.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/video_search/SoundCloud.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/video_search/SoundCloudSearch.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/video_search/VideoSearchController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/video_search/VideoSearchController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/video_search/YouTube.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/video_search/YouTubeSearch.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/client/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/VideoSearch.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/VideoSearch.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -148,7 +141,7 @@
       <workItem from="1677032063788" duration="32654000" />
       <workItem from="1679103808100" duration="8437000" />
       <workItem from="1679176930804" duration="2554000" />
-      <workItem from="1679183665279" duration="5401000" />
+      <workItem from="1679183665279" duration="5991000" />
     </task>
     <task id="LOCAL-00001" summary="working website">
       <created>1674858528745</created>
@@ -346,7 +339,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679191347675</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="add soundcloud integration">
+      <created>1679193231841</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1679193231841</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
