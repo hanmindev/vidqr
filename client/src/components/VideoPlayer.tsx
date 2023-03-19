@@ -38,7 +38,7 @@ export function MediaController({
                 {<IconPlayerSkipForward/>}
             </ActionIcon>
         </Button.Group>
-        <div className="mr-2 w-full flex">
+        <div className="mx-2 w-full flex">
             <Slider
                 size="small"
                 value={videoProgress}
@@ -287,6 +287,7 @@ function VideoPlayer(props: { roomId: string }) {
                 setVideoRef(videoLink + '?');
             }
             setVideoPlaying(true);
+            broadcastTime(0);
         });
 
 
@@ -308,7 +309,7 @@ function VideoPlayer(props: { roomId: string }) {
                 setVolume(volume);
             }
         });
-    }, [props.roomId, videoPlaying, videoRef]);
+    }, []);
 
     const InvalidVideo = () => {
         setTimeoutVideoSkip(setTimeout(() => nextVideo(true), 2000));
