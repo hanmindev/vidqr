@@ -106,48 +106,43 @@ function VideoQueue(props: { roomId: string; username?: string; }) {
     }
 
     return (
-        <div className="bg-gray-900 right-0 w-96 min-w-[24rem] max-w-[24rem] float-right">
-            <div className="bg-gray-900 rounded flex flex-col min-h-0 h-full max-h-full overflow-x-hidden min-w-[24rem] max-w-[24rem]
-            md:absolute md:overflow-y-auto
-            relative overflow-y-hidden"
-            >
+        <div
+            className="bg-gray-900 rounded flex flex-col overflow-x-hidden min-w-[24rem] max-w-[24rem] overflow-y-auto relative">
+            <DragDropContext onDragEnd={handleOnDragEnd}>
+                <Droppable droppableId="videos">
+                    {(provided: DroppableProvided) => (
+                        <div {...provided.droppableProps} ref={provided.innerRef}>
+                            {videoList.map((video: { videoLink: string, videoTitle: string, videoThumbnail: string, videoUsername: string, videoId: number }, index: number) =>
+                                (
+                                    <Draggable key={video.videoId.toString()}
+                                               draggableId={video.videoId.toString()} index={index}>
 
-                <DragDropContext onDragEnd={handleOnDragEnd}>
-                    <Droppable droppableId="videos">
-                        {(provided: DroppableProvided) => (
-                            <div {...provided.droppableProps} ref={provided.innerRef}>
-                                {videoList.map((video: { videoLink: string, videoTitle: string, videoThumbnail: string, videoUsername: string, videoId: number }, index: number) =>
-                                    (
-                                        <Draggable key={video.videoId.toString()}
-                                                   draggableId={video.videoId.toString()} index={index}>
-
-                                            {(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
+                                        {(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
+                                            <div
+                                                ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                                                 <div
-                                                    ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                                    <div
-                                                        className="border-solid bg-gray-900 border-gray-700 border-2 rounded mb-2"
-                                                        key={index}>
-                                                        <QueueVideo index={index} roomId={props.roomId} key={index}
-                                                                    isCurrent={index === 0 && !snapshot.isDragging}
-                                                                    isMine={props.username === video.videoUsername}
-                                                                    videoLink={video.videoLink}
-                                                                    videoThumbnail={video.videoThumbnail}
-                                                                    title={video.videoTitle}
-                                                                    user={video.videoUsername}/>
-                                                    </div>
+                                                    className="border-solid bg-gray-900 border-gray-700 border-2 rounded mb-2"
+                                                    key={index}>
+                                                    <QueueVideo index={index} roomId={props.roomId} key={index}
+                                                                isCurrent={index === 0 && !snapshot.isDragging}
+                                                                isMine={props.username === video.videoUsername}
+                                                                videoLink={video.videoLink}
+                                                                videoThumbnail={video.videoThumbnail}
+                                                                title={video.videoTitle}
+                                                                user={video.videoUsername}/>
                                                 </div>
-                                            )}
-                                        </Draggable>
-                                    )
-                                )}
-                                {provided.placeholder}
-                            </div>
-                        )}
-                    </Droppable>
+                                            </div>
+                                        )}
+                                    </Draggable>
+                                )
+                            )}
+                            {provided.placeholder}
+                        </div>
+                    )}
+                </Droppable>
 
 
-                </DragDropContext>
-            </div>
+            </DragDropContext>
         </div>
     );
 }
