@@ -225,7 +225,7 @@ export function RemoteMediaController(props: { roomId: string, videoRef?: React.
 }
 
 function VideoPlayer(props: { roomId: string }) {
-    const [videoRef, setVideoRef] = useState('');
+    const [videoURL, setVideoURL] = useState('');
     const [videoPlaying, setVideoPlaying] = useState(true);
     const [wasPlaying, setWasPlaying] = useState(false);
     const [volume, setVolume] = useState(25);
@@ -259,10 +259,14 @@ function VideoPlayer(props: { roomId: string }) {
         mediaControls("next");
     }
 
+    const setVideoTime = (frac: number) => {
+        ref.current?.seekTo(frac, 'fraction');
+    }
+
     useEffect(() => {
         aFetch.post(`/api/room/get_player_info/${props.roomId}`).then(res => {
             const {videoSeconds, videoDuration, playing, volume, muted} = res.data.playerState;
-            ref.current?.seekTo(videoSeconds / videoDuration, 'fraction');
+            setVideoTime(videoSeconds / videoDuration);
 
             setVideoPlaying(playing)
             setVolume(volume);
@@ -271,22 +275,30 @@ function VideoPlayer(props: { roomId: string }) {
 
         aFetch.post('/api/room/get_current_video/' + props.roomId).then(response => {
             if (response.data.video) {
-                setVideoRef(response.data.video.videoLink)
+                setVideoURL(response.data.video.videoLink)
             } else {
-                setVideoRef('')
+                setVideoURL('')
             }
         })
 
         socket.on("video:nextVideo", (params: any) => {
             CancelInvalidVideoSkip();
-            const videoLink = params.videoLink;
+            const video = params.video;
+            if (video) {
+                const videoLink = params.video.videoLink;
 
-            if (videoLink !== videoRef) {
-                setVideoRef(videoLink);
-            } else {
-                setVideoRef(videoLink + '?');
+                if (videoLink !== videoURL) {
+                    setVideoURL(videoLink);
+                } else {
+                    setVideoURL(videoLink + "?");
+                    setVideoTime(0);
+                }
+                setVideoPlaying(false);
+
+                setTimeout(() => {
+                    setVideoPlaying(true);
+                }, 1000);
             }
-            setVideoPlaying(true);
             broadcastTime(0);
         });
 
@@ -298,7 +310,7 @@ function VideoPlayer(props: { roomId: string }) {
         socket.on("video:videoProgress", (params: any) => {
             if (params.type === "progress") {
                 const {videoSeconds, videoDuration, playing} = params.info;
-                ref.current?.seekTo(videoSeconds / videoDuration, 'fraction');
+                setVideoTime(videoSeconds / videoDuration);
                 setProgress(videoSeconds / videoDuration * 100);
                 setLastUpdate(Date.now() + 2000);
                 setVideoPlaying(playing);
@@ -361,7 +373,7 @@ function VideoPlayer(props: { roomId: string }) {
 
     const handleSliderChangeCommitted = (value: number) => {
         setHolding(false);
-        ref.current?.seekTo(value / 100, 'fraction');
+        setVideoTime(value / 100);
         broadcastTime(value, wasPlaying);
 
         if (wasPlaying) {
@@ -390,12 +402,18 @@ function VideoPlayer(props: { roomId: string }) {
     return (
         <div className="bg-gray-700">
             <AspectRatio ratio={16 / 9}>
-                <ReactPlayer url={videoRef}
+                <ReactPlayer url={videoURL}
                              ref={ref}
                              playing={videoPlaying}
-                             onStart={() => setVideoPlaying(true)}
-                             onPlay={() => setVideoPlaying(true)}
-                             onPause={() => setVideoPlaying(false)}
+                             onStart={() => {
+                                 if (!videoPlaying) {broadcastTime(progress, true)}
+                                 setVideoPlaying(true)}}
+                             onPlay={() => {
+                                 if (!videoPlaying) {broadcastTime(progress, true)}
+                                 setVideoPlaying(true)}}
+                             onPause={() => {
+                                 if (videoPlaying) {broadcastTime(progress, false)}
+                                 setVideoPlaying(false)}}
                              onDuration={(duration) => setDuration(duration)}
 
                              onProgress={(progress) => {
