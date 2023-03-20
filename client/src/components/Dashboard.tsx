@@ -10,16 +10,16 @@ function Header(props: {username: string, roomId?: string}) {
     return (
         <div className="w-full flex flex-row gap-10 min-h-[32px]">
             <b>{props.username}</b>
-            <ShareLink link={props.roomId || "unknown room"}/>
+            <ShareLink className="z-20" link={props.roomId || "unknown room"}/>
         </div>
     )
 }
 
 function RemoteMenu(props: {roomId: string, username: string}) {
     return (
-        <div className="flex flex-col max-h-[100lvh] overflow-x-hidden overflow-y-auto">
+        <div className="flex flex-col max-h-[100lvh] min-h-[100lvh] overflow-x-hidden overflow-y-auto">
             <Header username={props.username} roomId={props.roomId}/>
-            <div className="table-row-group flex-column md:flex md:flex-row">
+            <div className="table-row-group flex-column h-full md:flex md:flex-row">
                 <div className="flex-col overflow-hidden w-full">
                     <div className="bg-gray-900 w-full">
                         <VideoSearcher roomId={props.roomId}/>
@@ -38,7 +38,7 @@ function HostMenu(props: {roomId: string, username: string}) {
     const [isSearching, setIsSearching] = React.useState(false);
 
     return (
-        <div className="flex flex-col max-h-[100lvh] overflow-x-hidden overflow-y-auto relative">
+        <div className="flex flex-col max-h-[100lvh] min-h-[100lvh] overflow-x-hidden overflow-y-auto relative">
             <Header username={props.username} roomId={props.roomId}/>
             <div className="absolute w-96 z-10 top-0 right-1 top-0">
                 <div className="flex flex-col relative">
@@ -50,7 +50,7 @@ function HostMenu(props: {roomId: string, username: string}) {
                     </div>
                 </div>
             </div>
-            <div className="table-row-group flex-column md:flex md:flex-row min-w-full w-full">
+            <div className="table-row-group flex-column h-full md:flex md:flex-row min-w-full w-full">
 
                 <div className="flex-col w-full overflow-hidden mr-2">
                     <div className="bg-gray-900 w-full">

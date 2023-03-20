@@ -59,9 +59,9 @@ class VideoController {
         }
         if (force) {
             if (room.videoList.length > 0){
-                this._io.to(roomId).emit("video:nextVideo", {'roomId': roomId, 'videoLink': room.videoList[0].videoLink});
+                this._io.to(roomId).emit("video:nextVideo", {'roomId': roomId, 'video': room.videoList[0]});
             }else{
-                this._io.to(roomId).emit("video:nextVideo", {'roomId': roomId, 'videoLink': ''});
+                this._io.to(roomId).emit("video:nextVideo", {'roomId': roomId, 'video': ''});
             }
         }
 
