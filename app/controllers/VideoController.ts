@@ -138,6 +138,16 @@ class VideoController {
         this.updateVideoList(roomId, force);
         return true;
     }
+
+    getVideoList(roomId: string) {
+        const room = roomManager.getRoom(roomId);
+        if (!room) {
+            return false;
+        }
+
+        return room.videoList;
+
+    }
 }
 
 export default VideoController;
