@@ -69,7 +69,11 @@ function VideoQueue(props: { roomId: string; username?: string; }) {
     // params.roomId
 
     useEffect(() => {
-        getVideoList();
+        socket.on("video:videoList", (data: any) => {
+            if (data.videoList !== undefined) {
+                setVideoList(data.videoList);
+            }
+        });
     }, []);
 
     useEffect(() => {
@@ -77,15 +81,6 @@ function VideoQueue(props: { roomId: string; username?: string; }) {
             socket.emit("video:subscribe", {'roomId': props.roomId});
         }
     }, [props.roomId]);
-
-    const getVideoList = () => {
-        socket.on("video:videoList", (data: any) => {
-            if (data.videoList !== undefined) {
-                setVideoList(data.videoList);
-            }
-        });
-    };
-
     function handleOnDragEnd(result: any) {
         if (!result.destination) return;
         const items = Array.from(videoList);

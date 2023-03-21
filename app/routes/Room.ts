@@ -82,6 +82,8 @@ router.post('/mediaControl/:roomId', function (req: any, res: any) {
             res.send({'success': VideoController.getInstance().nextVideo(roomId)});
         } else if (action === "prev") {
             res.send({'success': VideoController.getInstance().prevVideo(roomId)});
+        } else if (action === "discard") {
+            res.send({'success': VideoController.getInstance().nextVideo(roomId)});
         } else if (action === "raise") {
             res.send({'success': VideoController.getInstance().raiseVideo(roomId, req.body.index)});
         } else if (action === "lower") {

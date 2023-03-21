@@ -5,7 +5,8 @@ interface VideoPlayerState {
     videoSeconds: number
     videoDuration: number
     currentTime: number
-    playing: boolean
+    shouldPlay: boolean
+    isPlaying: boolean
     volume: number
     muted: boolean
 }
@@ -38,7 +39,8 @@ class Room {
             videoSeconds: 0,
             videoDuration: 1,
             currentTime: 0,
-            playing: false,
+            shouldPlay: false,
+            isPlaying: false,
             volume: 25,
             muted: false
         }
@@ -135,7 +137,8 @@ class Room {
             if (info.videoSeconds !== undefined) {this._videoPlayerState.videoSeconds = info.videoSeconds;}
             if (info.videoDuration !== undefined) {this._videoPlayerState.videoDuration = info.videoDuration;}
             if (info.currentTime !== undefined) {this._videoPlayerState.currentTime = info.currentTime;}
-            if (info.playing !== undefined) {this._videoPlayerState.playing = info.playing;}
+            if (info.shouldPlay !== undefined) {this._videoPlayerState.shouldPlay = info.shouldPlay;}
+            if (info.isPlaying !== undefined) {this._videoPlayerState.isPlaying = info.isPlaying;}
         } else if (type === "volume") {
             if (info.volume !== undefined) {this._videoPlayerState.volume = info.volume;}
             if (info.muted !== undefined) {this._videoPlayerState.muted = info.muted;}

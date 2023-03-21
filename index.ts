@@ -78,7 +78,7 @@ const {subscribe, nextVideo, videoProgress} = require("./app/routes/Sockets")(io
 io.on("connection", (socket: any) => {
     console.log("a user connected");
     socket.on("video:subscribe", subscribe);
-    socket.on("video:nextVideo", nextVideo);
+    socket.on("video:changeVideo", nextVideo);
     socket.on("video:videoProgress", videoProgress);
 
     socket.on('disconnect', function () {
