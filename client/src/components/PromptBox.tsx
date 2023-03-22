@@ -2,9 +2,13 @@ import {Stack, TextInput} from "@mantine/core";
 import React, {createContext, ReactNode, useContext} from "react";
 import Button from "./Button";
 
-const SubmitContext = createContext(() => {});
+const SubmitContext = createContext(() => {
+});
 
-function RoomNamePrompt({roomNameState, errorState}: {roomNameState: [string, (roomName: string) => void]; errorState: [string, (roomName: string) => void]}) {
+function RoomNamePrompt({
+                            roomNameState,
+                            errorState
+                        }: { roomNameState: [string, (roomName: string) => void]; errorState: [string, (roomName: string) => void] }) {
     const promptSubmit = useContext(SubmitContext);
 
     const [roomName, setRoomName] = roomNameState;
@@ -12,9 +16,9 @@ function RoomNamePrompt({roomNameState, errorState}: {roomNameState: [string, (r
 
     const roomNameEdit = (roomName: string) => {
         setRoomName(roomName);
-        if (roomName.length > 16){
+        if (roomName.length > 16) {
             setError('Room names must be at most 16 characters');
-        }else{
+        } else {
             setError('');
         }
     }
@@ -24,14 +28,21 @@ function RoomNamePrompt({roomNameState, errorState}: {roomNameState: [string, (r
             <b>Pick a room name</b>
             <TextInput
                 placeholder="Room Name"
-                onChange={(e) => {roomNameEdit(e.target.value)}}
-                onKeyDown={(e) => e.key === "Enter" ? promptSubmit(): null}
+                onChange={(e) => {
+                    roomNameEdit(e.target.value)
+                }}
+                onKeyDown={(e) => e.key === "Enter" ? promptSubmit() : null}
                 error={error}
             />
         </>
     )
 }
-function RoomUserNamePrompt({roomId, usernameState, errorState}: {roomId: string; usernameState: [string, (username: string) => void]; errorState: [string, (error: string) => void]}) {
+
+function RoomUserNamePrompt({
+                                roomId,
+                                usernameState,
+                                errorState
+                            }: { roomId: string; usernameState: [string, (username: string) => void]; errorState: [string, (error: string) => void] }) {
 
     const [username, setUsername] = usernameState;
     const [error, setError] = errorState;
@@ -40,9 +51,9 @@ function RoomUserNamePrompt({roomId, usernameState, errorState}: {roomId: string
 
     const usernameEdit = (username: string) => {
         setUsername(username);
-        if (username.length > 16){
+        if (username.length > 16) {
             setError('Usernames must be at most 16 characters');
-        }else{
+        } else {
             setError('');
         }
     }
@@ -52,24 +63,27 @@ function RoomUserNamePrompt({roomId, usernameState, errorState}: {roomId: string
             <b>Pick a username</b>
             <TextInput
                 placeholder="Username"
-                onChange={(e) => {usernameEdit(e.target.value)}}
-                onKeyDown={(e) => e.key === "Enter" ? promptSubmit(): null}
-                error={error==='' ? null: error}
+                onChange={(e) => {
+                    usernameEdit(e.target.value)
+                }}
+                onKeyDown={(e) => e.key === "Enter" ? promptSubmit() : null}
+                error={error === '' ? null : error}
             />
         </>
     )
 }
 
-function SubmitButton(props: {text: string}) {
+function SubmitButton(props: { text: string }) {
     const promptSubmit = useContext(SubmitContext);
     return <Button className="bg-gradient-to-r from-green-400 to-blue-500" onClick={promptSubmit}>{props.text}</Button>
 }
 
-function PromptBox(props: {children: ReactNode; promptSubmit: () => void}) {
+function PromptBox(props: { children: ReactNode; promptSubmit: () => void }) {
 
     return (
         <SubmitContext.Provider value={props.promptSubmit}>
-            <div className="flex flex-col items-center p-4 rounded bg-gradient-to-tl from-teal-300 to-teal-900 w-72 h-64">
+            <div
+                className="flex flex-col items-center p-4 rounded bg-gradient-to-tl from-teal-300 to-teal-900 w-72 h-64">
                 <Stack className="w-4/5">
                     {props.children}
                 </Stack>
