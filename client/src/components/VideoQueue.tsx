@@ -79,6 +79,7 @@ function VideoQueue(props: { roomId: string; username?: string; }) {
             socket.emit("video:subscribe", {'roomId': props.roomId});
         }
     }, [props.roomId]);
+
     function handleOnDragEnd(result: any) {
         if (!result.destination) return;
         const items = Array.from(videoList);
@@ -104,7 +105,8 @@ function VideoQueue(props: { roomId: string; username?: string; }) {
             <DragDropContext onDragEnd={handleOnDragEnd}>
                 <Droppable droppableId="videos">
                     {(provided: DroppableProvided) => (
-                        <div {...provided.droppableProps} ref={provided.innerRef} style={{height: `${videoList.length * 80 + 400}px`}}>
+                        <div {...provided.droppableProps} ref={provided.innerRef}
+                             style={{height: `${videoList.length * 80 + 400}px`}}>
                             {videoList.map((video: { videoLink: string, videoTitle: string, videoThumbnail: string, videoUsername: string, videoId: number }, index: number) =>
                                 (
                                     <Draggable key={video.videoId.toString()}

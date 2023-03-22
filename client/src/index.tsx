@@ -11,23 +11,15 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-    // <Auth0Provider
-    //     domain="dev-2ah1ozn8qz2cjqsv.us.auth0.com"
-    //     clientId="ZoQ0ZNfyRJgqPTRSq1gzBEXcnQA9u7DZ"
-    //     authorizationParams={{
-    //         redirect_uri: window.location.origin
-    //     }}
-    // >
-        <ThemeProvider theme={MuiTheme}>
-            <MantineProvider
-                withGlobalStyles
-                withNormalizeCSS
-                theme={{
-                    colorScheme: 'dark'
-                }}
-            >
-                <App/>
-            </MantineProvider>
-        </ThemeProvider>
-    // </Auth0Provider>
+    <ThemeProvider theme={MuiTheme}>
+        <MantineProvider
+            withGlobalStyles
+            withNormalizeCSS
+            theme={{
+                colorScheme: 'dark'
+            }}
+        >
+            <App/>
+        </MantineProvider>
+    </ThemeProvider>
 );
