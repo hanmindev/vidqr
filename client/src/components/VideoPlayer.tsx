@@ -11,6 +11,7 @@ import {
     IconVolumeOff
 } from "@tabler/icons-react";
 import {Slider} from "@mui/material";
+import {uptime} from "os";
 
 
 export function MediaController({
@@ -142,13 +143,13 @@ export function RemoteMediaController(props: { roomId: string, videoController?:
                 setVideoSeconds(videoSeconds);
                 setVideoDuration(videoDuration);
                 setLastVideoTime(currentTime);
-                setShouldPlay(shouldPlay);
-                setIsPlaying(isPlaying);
                 if (shouldPlay) {
                     videoController("play");
                 } else {
                     videoController("pause");
                 }
+                setShouldPlay(shouldPlay);
+                setIsPlaying(isPlaying);
 
                 const newVideoSeconds = (videoSeconds + (new Date().getTime() - currentTime) / 1000)
                 setVideoProgress(progressFromSeconds(newVideoSeconds, videoDuration));
@@ -204,16 +205,20 @@ export function RemoteMediaController(props: { roomId: string, videoController?:
     }
 
     const mediaPlay = () => {
-        broadcastProgress(videoProgress, videoDuration, shouldPlay);
+        broadcastProgress(videoProgress, videoDuration, !shouldPlay);
         if (shouldPlay) {
             videoController("pause");
+            setShouldPlay(false);
+            setIsPlaying(false);
+
         } else {
             setVideoSeconds(secondsFromProgress(videoProgress, videoDuration));
             setLastVideoTime(new Date().getTime());
             videoController("play");
-        }
+            setShouldPlay(true);
+            setIsPlaying(true);
 
-        setShouldPlay(!shouldPlay);
+        }
 
     }
 
@@ -292,7 +297,6 @@ export function RemoteMediaController(props: { roomId: string, videoController?:
                               videoPlayback={[!shouldPlay, videoProgress, changeVideoProgress, finalizeVideoProgress]}
                               volumeSet={[mute ? 0 : volume, changeVolume, finalizeVolume]}
                               muteFunction={[mute, finalizeMute]}/>
-
     </>
 
 }
@@ -332,6 +336,10 @@ function VideoPlayer(props: { roomId: string }) {
         setLastVideoTime(new Date().getTime());
     }, [])
 
+    const sendUpdate = useCallback(() => {
+        setUpdate(update + 1);
+    }, [update])
+
     useEffect(() => {
         aFetch.post('/api/room/get_current_video/' + props.roomId).then(response => {
             if (response.data.video) {
@@ -340,7 +348,9 @@ function VideoPlayer(props: { roomId: string }) {
                 setVideoURL('')
             }
         })
+    }, [props.roomId])
 
+    useEffect(() => {
         socket.on("video:changeVideo", (params: any) => {
             clearTimeout(timeoutVideoSkip);
             const video = params.video;
@@ -354,18 +364,16 @@ function VideoPlayer(props: { roomId: string }) {
                 }
                 setVideoTime(0);
                 updateVideoTime(0);
-                sendUpdate(update);
+                sendUpdate();
 
                 setVideoIsPlaying(false);
 
                 setTimeout(() => {
                     setVideoIsPlaying(true);
-                    updateVideoTime(0);
-                    sendUpdate(update);
                 }, 1000);
             }
         });
-    }, [props.roomId, timeoutVideoSkip, update, updateVideoTime, videoURL]);
+    }, [props.roomId, sendUpdate, timeoutVideoSkip, updateVideoTime, videoURL]);
 
     const InvalidVideo = () => {
         setTimeoutVideoSkip(setTimeout(() => mediaControls("discard"), 2000));
@@ -375,22 +383,24 @@ function VideoPlayer(props: { roomId: string }) {
         return ref.current?.getCurrentTime() || 0
     }
 
-    const sendUpdate = (update: number) => {
-        setUpdate(update + 1);
+    const [updateTimeout, setUpdateTimeout] = useState(setTimeout(() => {},0));
+    const sendUpdateBuffered = () => {
+        clearTimeout(updateTimeout);
+        setUpdateTimeout(setTimeout(() => {
+            sendUpdate();
+    }, 1000));
     }
 
     const play = () => {
         setVideoIsPlaying(true);
         setVideoShouldPlay(true);
         updateVideoTime();
-        sendUpdate(update);
     }
 
     const pause = () => {
         setVideoIsPlaying(false);
         setVideoShouldPlay(false);
         updateVideoTime();
-        sendUpdate(update);
     }
 
     const videoController = (action: string, seconds?: number) => {
@@ -418,9 +428,7 @@ function VideoPlayer(props: { roomId: string }) {
 
     return (
         <div className="bg-gray-700">
-            <AspectRatio ratio={16 / 9}
-                // className="pointer-events-none"
-            >
+            <AspectRatio ratio={16 / 9} className="pointer-events-none">
                 <ReactPlayer url={videoURL}
                              ref={ref}
                              playing={videoIsPlaying}
@@ -428,31 +436,33 @@ function VideoPlayer(props: { roomId: string }) {
                                  setVideoIsPlaying(true);
                                  setVideoShouldPlay(true);
                                  updateVideoTime();
-                                 sendUpdate(update);
+                                 sendUpdateBuffered();
                              }}
                              onPlay={() => {
                                  setVideoIsPlaying(true);
                                  setVideoShouldPlay(true);
                                  updateVideoTime();
-                                 sendUpdate(update);
+                                 sendUpdateBuffered();
                              }}
                              onPause={() => {
                                  setVideoIsPlaying(false);
                                  setVideoShouldPlay(false);
                                  updateVideoTime();
-                                 sendUpdate(update);
+                                 sendUpdateBuffered();
                              }}
                              onBuffer={() => {
                                  setVideoIsPlaying(false);
                                  updateVideoTime();
-                                 sendUpdate(update);
+                                 sendUpdateBuffered();
                              }}
+
+
                              onDuration={(duration) => setVideoDuration(duration)}
 
                              onProgress={(progress) => {
                                  if (Math.abs((videoSeconds + (new Date().getTime() - lastVideoTime) / 1000) - progress.playedSeconds) > 0.1) {
                                      updateVideoTime(progress.playedSeconds);
-                                     sendUpdate(update);
+                                     sendUpdate();
                                  }
                              }}
 
