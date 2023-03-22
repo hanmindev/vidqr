@@ -80,7 +80,7 @@ interface volumeInfo {
 
 }
 
-export function RemoteMediaController(props: { roomId: string, videoController?: (action: string, value?: number) => void, videoSeconds?: number, videoDuration?: number, shouldPlay?: boolean, isPlaying?: boolean, lastVideoTime?: number, update?: number }) {
+export function RemoteMediaController(props: { roomId: string, onSetPlay?: (play: boolean) => void, onSeek?: (seconds: number) => void, onVolume?: (volume: number) => void, onSetMute?: (mute: boolean) => void, videoSeconds?: number, videoDuration?: number, shouldPlay?: boolean, isPlaying?: boolean, lastVideoTime?: number, update?: number }) {
     const [lastExternalUpdateNo, setLastExternalUpdateNo] = useState(-1);
 
     const [videoSeconds, setVideoSeconds] = useState(0);
@@ -95,12 +95,6 @@ export function RemoteMediaController(props: { roomId: string, videoController?:
     const [videoProgress, setVideoProgress] = useState(0); // 0-100
     const [draggingVideoBar, setDraggingVideoBar] = useState(false);
 
-    const pVideoController = props.videoController;
-    const videoController = useCallback((action: string, value?: number) => {
-        if (pVideoController) {
-            pVideoController(action, value);
-        }
-    }, [pVideoController]);
 
     const secondsFromProgress = (progress: number, duration: number) => {
         return progress / 100 * duration
@@ -131,34 +125,26 @@ export function RemoteMediaController(props: { roomId: string, videoController?:
                 setVideoSeconds(videoSeconds);
                 setVideoDuration(videoDuration);
                 setLastVideoTime(currentTime);
-                if (shouldPlay) {
-                    videoController("play");
-                } else {
-                    videoController("pause");
-                }
+
+                props.onSetPlay?.(shouldPlay);
                 setShouldPlay(shouldPlay);
                 setIsPlaying(isPlaying);
 
                 const newVideoSeconds = (videoSeconds + (new Date().getTime() - currentTime) / 1000)
                 setVideoProgress(progressFromSeconds(newVideoSeconds, videoDuration));
-                videoController("seek", newVideoSeconds);
+                props.onSeek?.(newVideoSeconds);
 
             } else if (params.type === "volume") {
                 const {muted, volume} = params.info;
-                if (muted) {
-                    videoController("mute");
-                } else {
-                    videoController("unmute");
-                }
-
-                videoController("volume", volume);
+                props.onSetMute?.(muted);
+                props.onVolume?.(volume);
 
                 setMute(muted);
                 setVolume(volume);
             }
         });
 
-    }, [videoController]);
+    }, [props]);
 
 
     const broadcastProgress = useCallback((progress: number, duration: number, shouldPlay: boolean, isPlaying?: boolean) => {
@@ -213,15 +199,15 @@ export function RemoteMediaController(props: { roomId: string, videoController?:
 
     const mediaPlay = () => {
         broadcastProgress(videoProgress, videoDuration, !shouldPlay);
+        props.onSetPlay?.(!shouldPlay);
+
         if (shouldPlay) {
-            videoController("pause");
             setShouldPlay(false);
             setIsPlaying(false);
 
         } else {
             setVideoSeconds(secondsFromProgress(videoProgress, videoDuration));
             setLastVideoTime(new Date().getTime());
-            videoController("play");
             setShouldPlay(true);
             setIsPlaying(true);
         }
@@ -242,12 +228,12 @@ export function RemoteMediaController(props: { roomId: string, videoController?:
         setLastVideoTime(new Date().getTime());
         broadcastProgress(videoProgress, videoDuration, shouldPlay);
 
-        videoController("seek", videoSeconds);
+        props.onSeek?.(videoSeconds);
     }
 
     const changeVolume = (volume: number) => {
         setVolume(volume);
-        videoController("volume", volume);
+        props.onVolume?.(volume);
     }
 
     const finalizeVolume = (volume: number) => {
@@ -256,11 +242,7 @@ export function RemoteMediaController(props: { roomId: string, videoController?:
 
     const finalizeMute = (mute: boolean) => {
         setMute(mute);
-        if (mute) {
-            videoController("mute");
-        } else {
-            videoController("unmute");
-        }
+        props.onSetMute?.(mute);
         broadcastVolume(volume, mute);
     }
 
@@ -293,7 +275,7 @@ export function RemoteMediaController(props: { roomId: string, videoController?:
                 setVideoDuration(videoDuration);
                 setLastVideoTime(currentTime);
 
-                videoController("seek", videoSeconds);
+                props.onSeek?.(videoSeconds);
 
                 setShouldPlay(shouldPlay);
                 setIsPlaying(isPlaying);
@@ -303,7 +285,7 @@ export function RemoteMediaController(props: { roomId: string, videoController?:
         }
 
         setLastExternalUpdateNo(updateValue);
-    }, [props.roomId, props.videoSeconds, props.videoDuration, props.lastVideoTime, props.update, lastExternalUpdateNo, videoController, props.shouldPlay, props.isPlaying, broadcastProgress]);
+    }, [props.roomId, props.videoSeconds, props.videoDuration, props.lastVideoTime, props.update, lastExternalUpdateNo, props.shouldPlay, props.isPlaying, broadcastProgress, props]);
 
 
     return <MediaController mediaControls={[mediaPrevVideo, mediaPlay, mediaNextVideo]}
@@ -330,10 +312,6 @@ function VideoPlayer(props: { roomId: string }) {
     const [update, setUpdate] = useState(-1);
 
     const ref = useRef<ReactPlayer>(null);
-
-    const setVideoTime = (frac: number) => {
-        ref.current?.seekTo(frac, 'fraction');
-    }
 
     const setVideoTimeSeconds = (seconds: number) => {
         ref.current?.seekTo(seconds, 'seconds');
@@ -374,7 +352,7 @@ function VideoPlayer(props: { roomId: string }) {
                 } else {
                     setVideoURL(videoLink + "?");
                 }
-                setVideoTime(0);
+                setVideoTimeSeconds(0);
                 updateVideoTime(0);
                 sendUpdate();
 
@@ -395,8 +373,7 @@ function VideoPlayer(props: { roomId: string }) {
         return ref.current?.getCurrentTime() || 0
     }
 
-    const [updateTimeout, setUpdateTimeout] = useState(setTimeout(() => {
-    }, 0));
+    const [updateTimeout, setUpdateTimeout] = useState(setTimeout(() => {}, 0));
     const sendUpdateBuffered = () => {
         clearTimeout(updateTimeout);
         setUpdateTimeout(setTimeout(() => {
@@ -404,45 +381,23 @@ function VideoPlayer(props: { roomId: string }) {
         }, 1000));
     }
 
-    const play = () => {
-        setVideoIsPlaying(true);
-        setVideoShouldPlay(true);
+    const onSetPlay = (play: boolean) => {
+        setVideoIsPlaying(play);
+        setVideoShouldPlay(play);
         updateVideoTime();
     }
 
-    const pause = () => {
-        setVideoIsPlaying(false);
-        setVideoShouldPlay(false);
-        updateVideoTime();
+    const onSeek = (seconds: number) => {
+        setVideoTimeSeconds(seconds);
+        updateVideoTime(seconds);
     }
 
-    const videoController = (action: string, value?: number) => {
-        switch (action) {
-            case "play":
-                play();
-                break;
-            case "pause":
-                pause();
-                break;
-            case "seek":
-                if (value !== undefined) {
-                    setVideoTimeSeconds(value);
-                    updateVideoTime(value);
-                }
-                break;
-            case "volume":
-                if (value !== undefined) {
-                    setVolume(value);
-                }
-                break;
-            case "mute":
-                setMute(true);
-                break;
-            case "unmute":
-                setMute(false);
-                break;
+    const onVolume = (volume: number) => {
+        setVolume(volume);
+    }
 
-        }
+    const onSetMute = (mute: boolean) => {
+        setMute(mute);
     }
 
     const mediaControls = (action: any) => {
@@ -500,7 +455,8 @@ function VideoPlayer(props: { roomId: string }) {
                              onEnded={() => mediaControls("next")}
                 />
             </AspectRatio>
-            <RemoteMediaController roomId={props.roomId} videoController={videoController} videoSeconds={videoSeconds}
+            <RemoteMediaController roomId={props.roomId} onSetPlay={onSetPlay} onSeek={onSeek} onVolume={onVolume}
+                                   onSetMute={onSetMute} videoSeconds={videoSeconds}
                                    videoDuration={videoDuration} lastVideoTime={lastVideoTime}
                                    shouldPlay={videoShouldPlay} isPlaying={videoIsPlaying}
                                    update={update}/>

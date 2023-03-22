@@ -119,7 +119,7 @@ const RemoteVideoSearcher = forwardRef(function RemoteVideoSearcher(props: { que
         const changePlatform = (newPlatform: string) => {
             setPlatform(newPlatform);
             if (searchQuery !== '') {
-                searchVideo();
+                searchVideo(newPlatform, searchQuery);
             }
         }
 
@@ -127,10 +127,10 @@ const RemoteVideoSearcher = forwardRef(function RemoteVideoSearcher(props: { que
             if (searchQuery === '' || (lastPlatform === platform && lastQuery === searchQuery)) {
                 return;
             }
-            searchVideo();
+            searchVideo(platform, searchQuery);
         }
 
-        const searchVideo = () => {
+        const searchVideo = (platform: string, searchQuery: string) => {
             setLastPlatform(platform);
             setSubmitted(true);
             setLastQuery(searchQuery);
