@@ -4,7 +4,6 @@ import {ActionIcon, Image} from "@mantine/core";
 import {IconTrash} from "@tabler/icons-react";
 import "./VideoQueue.css";
 import aFetch from "../config/axios";
-import {useHover} from "../hooks/hooks";
 // @ts-ignore
 import {
     DragDropContext,
@@ -18,7 +17,6 @@ import {
 
 function QueueVideo(props: { index: number; videoLink: string; title: string; user: string; videoThumbnail: string; isCurrent: boolean; roomId: string; isMine?: boolean }) {
     let videoTitle = props.title;
-    const [hoverRef, isHovered] = useHover<HTMLDivElement>();
 
     const queueControls = (action: any) => {
         aFetch.post(`/api/room/mediaControl/${props.roomId}`, {action: action, index: props.index}).then(_ => {
@@ -37,7 +35,7 @@ function QueueVideo(props: { index: number; videoLink: string; title: string; us
     }
 
     return (
-        <div className="flex flex-row overflow-hidden flex-wrap h-20" ref={hoverRef} style={style}>
+        <div className="flex flex-row overflow-hidden flex-wrap h-20" style={style}>
             <div className="w-20 h-20 relative">
                 <Image src={props.videoThumbnail}
                        style={{objectFit: "cover"}}
@@ -53,11 +51,11 @@ function QueueVideo(props: { index: number; videoLink: string; title: string; us
                 </div>
                 <p className="w-full">{"queued by: " + props.user}</p>
             </div>
-            {isHovered ? <div className="absolute ml-[354px] float-right">
+            <div className="absolute right-0">
                 <ActionIcon onClick={deleteVideo}>
                     <IconTrash size={18}/>
                 </ActionIcon>
-            </div> : undefined}
+            </div>
         </div>
     );
 }
@@ -65,7 +63,7 @@ function QueueVideo(props: { index: number; videoLink: string; title: string; us
 
 function VideoQueue(props: { roomId: string; username?: string; }) {
 
-    const [videoList, setVideoList] = useState<any>([]);
+    const [videoList, setVideoList] = useState<any[]>([]);
     // params.roomId
 
     useEffect(() => {
@@ -102,11 +100,11 @@ function VideoQueue(props: { roomId: string; username?: string; }) {
 
     return (
         <div
-            className="bg-gray-900 rounded flex flex-col overflow-x-hidden min-w-[24rem] max-w-[24rem] overflow-y-auto relative">
+            className="bg-gray-900 rounded flex flex-col overflow-x-hidden min-w-[24rem] max-w-[24rem] overflow-y-auto relative h-full">
             <DragDropContext onDragEnd={handleOnDragEnd}>
                 <Droppable droppableId="videos">
                     {(provided: DroppableProvided) => (
-                        <div {...provided.droppableProps} ref={provided.innerRef}>
+                        <div {...provided.droppableProps} ref={provided.innerRef} style={{height: `${videoList.length * 80 + 400}px`}}>
                             {videoList.map((video: { videoLink: string, videoTitle: string, videoThumbnail: string, videoUsername: string, videoId: number }, index: number) =>
                                 (
                                     <Draggable key={video.videoId.toString()}
