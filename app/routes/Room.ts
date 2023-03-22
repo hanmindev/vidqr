@@ -75,26 +75,35 @@ router.post('/get_player_info/:roomId', function (req: any, res: any) {
     }
 });
 
-router.post('/mediaControl/:roomId', function (req: any, res: any) {
+router.post('/media_control/:roomId', function (req: any, res: any) {
     try {
         const roomId = req.params.roomId;
         const action = req.body.action;
-        if (action === "next") {
-            res.send({'success': videoController.nextVideo(roomId)});
-        } else if (action === "prev") {
-            res.send({'success': videoController.prevVideo(roomId)});
-        } else if (action === "discard") {
-            res.send({'success': videoController.nextVideo(roomId)});
-        } else if (action === "raise") {
-            res.send({'success': videoController.raiseVideo(roomId, req.body.index)});
-        } else if (action === "lower") {
-            res.send({'success': videoController.raiseVideo(roomId, req.body.index + 1)});
-        } else if (action === "delete") {
-            res.send({'success': videoController.deleteVideo(roomId, req.body.index)});
-        } else if (action === "moveTo") {
-            res.send({'success': videoController.moveTo(roomId, req.body.index, req.body.to)});
-        } else {
-            res.send({'success': false});
+        switch (action) {
+            case "next":
+                res.send({'success': videoController.nextVideo(roomId)});
+                break;
+            case "prev":
+                res.send({'success': videoController.prevVideo(roomId)});
+                break;
+            case "discard":
+                res.send({'success': videoController.nextVideo(roomId)});
+                break;
+            case "raise":
+                res.send({'success': videoController.raiseVideo(roomId, req.body.index)});
+                break;
+            case "lower":
+                res.send({'success': videoController.raiseVideo(roomId, req.body.index + 1)});
+                break;
+            case "delete":
+                res.send({'success': videoController.deleteVideo(roomId, req.body.index)});
+                break;
+            case "moveTo":
+                res.send({'success': videoController.moveTo(roomId, req.body.index, req.body.to)});
+                break;
+            default:
+                res.send({'success': false});
+                break;
         }
     } catch (e) {
         res.send({'success': false});

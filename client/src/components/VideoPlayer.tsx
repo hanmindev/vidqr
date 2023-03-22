@@ -184,7 +184,7 @@ export function RemoteMediaController(props: { roomId: string, onSetPlay?: (play
 
 
     const mediaControls = (action: any) => {
-        aFetch.post(`/api/room/mediaControl/${props.roomId}`, {action: action}).then(_ => {
+        aFetch.post(`/api/room/media_control/${props.roomId}`, {action: action}).then(_ => {
         })
     }
 
@@ -355,12 +355,6 @@ function VideoPlayer(props: { roomId: string }) {
                 setVideoTimeSeconds(0);
                 updateVideoTime(0);
                 sendUpdate();
-
-                setVideoIsPlaying(false);
-
-                setTimeout(() => {
-                    setVideoIsPlaying(true);
-                }, 1000);
             }
         });
     }, [props.roomId, sendUpdate, timeoutVideoSkip, updateVideoTime, videoURL]);
@@ -401,7 +395,7 @@ function VideoPlayer(props: { roomId: string }) {
     }
 
     const mediaControls = (action: any) => {
-        aFetch.post(`/api/room/mediaControl/${props.roomId}`, {action: action}).then(_ => {
+        aFetch.post(`/api/room/media_control/${props.roomId}`, {action: action}).then(_ => {
         })
     }
 
