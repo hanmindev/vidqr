@@ -306,11 +306,10 @@ export function RemoteMediaController(props: { roomId: string, videoController?:
     }, [props.roomId, props.videoSeconds, props.videoDuration, props.lastVideoTime, props.update, lastExternalUpdateNo, videoController, props.shouldPlay, props.isPlaying, broadcastProgress]);
 
 
-    return <><MediaController mediaControls={[mediaPrevVideo, mediaPlay, mediaNextVideo]}
+    return <MediaController mediaControls={[mediaPrevVideo, mediaPlay, mediaNextVideo]}
                               videoPlayback={[!shouldPlay, videoProgress, changeVideoProgress, finalizeVideoProgress]}
-                              volumeSet={[mute ? 0 : volume, changeVolume, finalizeVolume]}
+                              volumeSet={[volume, changeVolume, finalizeVolume]}
                               muteFunction={[mute, finalizeMute]}/>
-    </>
 
 }
 

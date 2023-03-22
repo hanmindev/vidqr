@@ -99,11 +99,11 @@ const RemoteVideoSearcher = forwardRef(function RemoteVideoSearcher(props: { que
         const [width, setWidth] = useState(0);
         useEffect(() => {
             if (heightRef.current) setWidth(heightRef.current.offsetWidth);
-        }, [heightRef]);
 
-        window.addEventListener('resize', () => {
-            if (heightRef.current) setWidth(heightRef.current.offsetWidth)
-        });
+            window.addEventListener('resize', () => {
+                if (heightRef.current) setWidth(heightRef.current.offsetWidth)
+            });
+        }, [heightRef]);
 
         const [searchQuery, setSearchQuery] = useState('');
 
@@ -118,6 +118,9 @@ const RemoteVideoSearcher = forwardRef(function RemoteVideoSearcher(props: { que
 
         const changePlatform = (newPlatform: string) => {
             setPlatform(newPlatform);
+            if (searchQuery !== '') {
+                searchVideo();
+            }
         }
 
         const textSubmit = () => {
@@ -126,13 +129,6 @@ const RemoteVideoSearcher = forwardRef(function RemoteVideoSearcher(props: { que
             }
             searchVideo();
         }
-
-        useEffect(() => {
-            if (searchQuery === '') {
-                return;
-            }
-            searchVideo();
-        }, [platform])
 
         const searchVideo = () => {
             setLastPlatform(platform);
@@ -162,8 +158,16 @@ const RemoteVideoSearcher = forwardRef(function RemoteVideoSearcher(props: { que
         const [activePage, setPage] = useState(1);
         const [submitted, setSubmitted] = useState(false);
 
-        const vidPerColumn = width >= 770 ? (width >= 1280 ? 5 : 3) : 2;
-        const vidPerPage = width >= 1280 ? 10 : 6;
+        let vidPerColumn = 2;
+        let vidPerPage = 4;
+
+        if (width >= 1280) {
+            vidPerColumn = 5;
+            vidPerPage = 10;
+        } else if (width >= 770) {
+            vidPerColumn = 3;
+            vidPerPage = 6;
+        }
         const totPage = Math.max(Math.ceil(videoResults.length / vidPerPage), 1)
 
         if (activePage > totPage || activePage < 1) {
@@ -229,7 +233,11 @@ function VideoSearcher(props: { roomId: string, hidden?: boolean }) {
     const textSubmit = () => {
         if (videoLink !== "") {
             setSubmitted(true);
-            aFetch.post(`/api/room/add_video`, {roomId: props.roomId, videoLink: videoLink, videoPlatform: platform}).then(
+            aFetch.post(`/api/room/add_video`, {
+                roomId: props.roomId,
+                videoLink: videoLink,
+                videoPlatform: platform
+            }).then(
                 response => {
                     setSubmitted(false);
                     if (response.data.validVideo) {
