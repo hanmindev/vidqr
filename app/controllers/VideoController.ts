@@ -26,9 +26,9 @@ class VideoController {
 
         if (room.videoList.length > 1) {
             const nextVideoObject = room.videoList[1];
-            this._io.to(roomId).emit("video:nextVideo", {'roomId': roomId, 'video': nextVideoObject});
+            this._io.to(roomId).emit("video:changeVideo", {'roomId': roomId, 'video': nextVideoObject});
         }else{
-            this._io.to(roomId).emit("video:nextVideo", {'roomId': roomId, 'video': ''});
+            this._io.to(roomId).emit("video:changeVideo", {'roomId': roomId, 'video': ''});
         }
 
         if (room.videoList.length > 0) {
@@ -59,9 +59,9 @@ class VideoController {
         }
         if (force) {
             if (room.videoList.length > 0){
-                this._io.to(roomId).emit("video:nextVideo", {'roomId': roomId, 'video': room.videoList[0]});
+                this._io.to(roomId).emit("video:changeVideo", {'roomId': roomId, 'video': room.videoList[0]});
             }else{
-                this._io.to(roomId).emit("video:nextVideo", {'roomId': roomId, 'video': ''});
+                this._io.to(roomId).emit("video:changeVideo", {'roomId': roomId, 'video': ''});
             }
         }
 
@@ -137,6 +137,16 @@ class VideoController {
         }
         this.updateVideoList(roomId, force);
         return true;
+    }
+
+    getVideoList(roomId: string) {
+        const room = roomManager.getRoom(roomId);
+        if (!room) {
+            return false;
+        }
+
+        return room.videoList;
+
     }
 }
 

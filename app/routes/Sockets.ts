@@ -15,8 +15,11 @@ module.exports = (io: Server) => {
         const socket = this;
 
         socket.join(roomId);
-        VideoController.getInstance().pingVideoList(roomId);
+        const videoList = VideoController.getInstance().getVideoList(roomId)
 
+        if (videoList !== undefined) {
+            socket.emit("video:videoList", {videoList: videoList});
+        }
     };
 
     const nextVideo = function (this: any, params: any) {

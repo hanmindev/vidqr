@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import {socket} from "../config/socket";
 import aFetch from "../config/axios";
 import {ActionIcon, AspectRatio, Button} from "@mantine/core";
@@ -66,213 +66,294 @@ export function MediaController({
     </div>
 }
 
-const broadcastVolume = (roomId: string, volume: number, mute: boolean) => {
-    socket.emit("video:videoProgress", {
-        roomId: roomId,
-        type: "volume",
-        info: {
-            mute: mute,
-            volume: volume
-        }
-    })
+interface videoInfo {
+    videoSeconds: number
+    videoDuration: number
+    currentTime: number
+    shouldPlay: boolean
+    isPlaying: boolean
 }
 
-export function RemoteMediaController(props: { roomId: string, videoRef?: React.RefObject<ReactPlayer> }) {
+interface volumeInfo {
+    volume: number
+    muted: boolean
+
+}
+
+export function RemoteMediaController(props: { roomId: string, videoController?: (action: string, value?: number) => void, videoSeconds?: number, videoDuration?: number, shouldPlay?: boolean, isPlaying?: boolean, lastVideoTime?: number, update?: number }) {
+    const [lastExternalUpdateNo, setLastExternalUpdateNo] = useState(-1);
+
+    const [videoSeconds, setVideoSeconds] = useState(0);
+    const [videoDuration, setVideoDuration] = useState(-1);
+    const [lastVideoTime, setLastVideoTime] = useState(0);
+
+    const [isPlaying, setIsPlaying] = useState(true);
+    const [shouldPlay, setShouldPlay] = useState(true);
+    const [volume, setVolume] = useState(25);
+    const [mute, setMute] = useState(false);
+
+    const [videoProgress, setVideoProgress] = useState(0); // 0-100
+    const [draggingVideoBar, setDraggingVideoBar] = useState(false);
+
+    const pVideoController = props.videoController;
+    const videoController = useCallback((action: string, value?: number) => {
+        if (pVideoController) {
+            pVideoController(action, value);
+        }
+    }, [pVideoController]);
+
+    const secondsFromProgress = (progress: number, duration: number) => {
+        return progress / 100 * duration
+    }
+
+    const progressFromSeconds = (seconds: number, duration: number) => {
+        return seconds / duration * 100
+    }
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            if (!draggingVideoBar && isPlaying) {
+                if (videoDuration === -1) {
+                    return;
+                } else {
+                    setVideoProgress(progressFromSeconds((videoSeconds + (new Date().getTime() - lastVideoTime) / 1000), videoDuration));
+                }
+            }
+        }, 100);
+        return () => clearInterval(timer);
+    }, [draggingVideoBar, isPlaying, lastVideoTime, shouldPlay, videoDuration, videoSeconds]);
+
+    useEffect(() => {
+        socket.on("video:videoProgress", (params: any) => {
+            if (params.type === "progress") {
+                const {videoSeconds, videoDuration, currentTime, shouldPlay, isPlaying} = params.info;
+
+                setVideoSeconds(videoSeconds);
+                setVideoDuration(videoDuration);
+                setLastVideoTime(currentTime);
+                if (shouldPlay) {
+                    videoController("play");
+                } else {
+                    videoController("pause");
+                }
+                setShouldPlay(shouldPlay);
+                setIsPlaying(isPlaying);
+
+                const newVideoSeconds = (videoSeconds + (new Date().getTime() - currentTime) / 1000)
+                setVideoProgress(progressFromSeconds(newVideoSeconds, videoDuration));
+                videoController("seek", newVideoSeconds);
+
+            } else if (params.type === "volume") {
+                const {muted, volume} = params.info;
+                if (muted) {
+                    videoController("mute");
+                } else {
+                    videoController("unmute");
+                }
+
+                videoController("volume", volume);
+
+                setMute(muted);
+                setVolume(volume);
+            }
+        });
+
+    }, [videoController]);
+
+
+    const broadcastProgress = useCallback((progress: number, duration: number, shouldPlay: boolean, isPlaying?: boolean) => {
+        if (isPlaying === undefined) {
+            isPlaying = shouldPlay;
+        }
+
+        if (duration === 0 || videoDuration === -1) {
+            return;
+        }
+
+        socket.emit("video:videoProgress", {
+            roomId: props.roomId,
+            type: "progress",
+            info: {
+                videoSeconds: secondsFromProgress(progress, duration),
+                videoDuration: duration,
+                currentTime: new Date().getTime(),
+                auto: false,
+                host: false,
+                shouldPlay: shouldPlay,
+                isPlaying: isPlaying
+            } as videoInfo
+        })
+    }, [props.roomId, videoDuration]);
+
+    const broadcastVolume = (volume: number, muted: boolean) => {
+        socket.emit("video:videoProgress", {
+            roomId: props.roomId,
+            type: "volume",
+            info: {
+                volume: volume,
+                muted: muted
+            } as volumeInfo
+        })
+    }
+
+
     const mediaControls = (action: any) => {
         aFetch.post(`/api/room/mediaControl/${props.roomId}`, {action: action}).then(_ => {
         })
     }
 
-    const [videoProgress, setVideoProgress] = useState(0); // 0-100
-    const [lastVideoProgress, setLastVideoProgress] = useState({videoSeconds: 0, videoDuration: 1, currentTime: 0});
-    const [dragging, setDragging] = useState(false);
-    const [playing, setPlaying] = useState(true);
-    const [volume, setVolume] = useState(25);
-    const [mute, setMute] = useState(false);
-
     const mediaPrevVideo = () => {
         mediaControls("prev");
     }
-    const mediaPlay = () => {
-        const date = new Date();
-        const videoSeconds = calculateVideoProgress(date) / 100 * lastVideoProgress.videoDuration;
-        setLastVideoProgress({
-            videoSeconds: videoSeconds,
-            videoDuration: lastVideoProgress.videoDuration,
-            currentTime: date.getTime()
-        });
-
-        socket.emit("video:videoProgress", {
-            roomId: props.roomId,
-            type: "progress",
-            info: {
-                videoSeconds: videoSeconds,
-                videoDuration: lastVideoProgress.videoDuration,
-                currentTime: date.getTime(),
-                auto: false,
-                host: false,
-                playing: !playing
-            }
-        })
-        setPlaying(!playing);
-    }
     const mediaNextVideo = () => {
         mediaControls("next");
+        broadcastProgress(videoProgress, videoDuration, !shouldPlay, false);
+
     }
-    const calculateVideoProgress = (date: Date) => {
-        let currSeconds;
-        if (!playing) {
-            currSeconds = lastVideoProgress.videoSeconds;
+
+    const mediaPlay = () => {
+        broadcastProgress(videoProgress, videoDuration, !shouldPlay);
+        if (shouldPlay) {
+            videoController("pause");
+            setShouldPlay(false);
+            setIsPlaying(false);
+
         } else {
-            const deltaTime = (date.getTime() - lastVideoProgress.currentTime) / 1000
-            currSeconds = (lastVideoProgress.videoSeconds + deltaTime)
+            setVideoSeconds(secondsFromProgress(videoProgress, videoDuration));
+            setLastVideoTime(new Date().getTime());
+            videoController("play");
+            setShouldPlay(true);
+            setIsPlaying(true);
         }
-        return (currSeconds / lastVideoProgress.videoDuration) * 100
     }
-
-    useEffect(() => {
-        const timer = setInterval(() => {
-            if (!dragging) {
-                setVideoProgress(calculateVideoProgress(new Date()));
-            }
-        }, 100);
-        return () => clearInterval(timer);
-    });
-
 
     const changeVideoProgress = (value: number) => {
+        if (!draggingVideoBar) {
+            setDraggingVideoBar(true);
+        }
         setVideoProgress(value);
-        setDragging(true);
+
     }
 
     const finalizeVideoProgress = (value: number) => {
-        const newDate = new Date();
+        setDraggingVideoBar(false);
+        const videoSeconds = value / 100 * videoDuration
+        setVideoSeconds(videoSeconds);
+        setLastVideoTime(new Date().getTime());
+        broadcastProgress(videoProgress, videoDuration, shouldPlay);
 
-        socket.emit("video:videoProgress", {
-            roomId: props.roomId,
-            type: "progress",
-            info: {
-                videoSeconds: value / 100 * lastVideoProgress.videoDuration,
-                videoDuration: lastVideoProgress.videoDuration,
-                currentTime: newDate.getTime(),
-                auto: false,
-                host: false,
-                playing: playing
-            }
-        })
-
-
-        setVideoProgress(value);
-        setLastVideoProgress({
-            videoSeconds: value / 100 * lastVideoProgress.videoDuration,
-            videoDuration: lastVideoProgress.videoDuration,
-            currentTime: new Date().getTime()
-        });
-        setDragging(false);
-
-
+        videoController("seek", videoSeconds);
     }
 
     const changeVolume = (volume: number) => {
         setVolume(volume);
-        setMute(false);
+        videoController("volume", volume);
     }
 
     const finalizeVolume = (volume: number) => {
-        setVolume(volume);
-        broadcastVolume(props.roomId, volume, false);
+        broadcastVolume(volume, mute);
     }
 
     const finalizeMute = (mute: boolean) => {
         setMute(mute);
-        broadcastVolume(props.roomId, volume, mute);
+        if (mute) {
+            videoController("mute");
+        } else {
+            videoController("unmute");
+        }
+        broadcastVolume(volume, mute);
     }
 
     useEffect(() => {
-        aFetch.post(`/api/room/get_player_info/${props.roomId}`).then(res => {
-            const {videoSeconds, videoDuration, currentTime, playing, volume, muted} = res.data.playerState;
-            setLastVideoProgress({
-                videoSeconds: videoSeconds,
-                videoDuration: videoDuration,
-                currentTime: currentTime
-            });
-            setVideoProgress(calculateVideoProgress(new Date()));
-            setPlaying(playing);
-            setVolume(volume);
-            setMute(muted);
-        });
+        const updateValue = props.update || 0;
+        if (updateValue <= lastExternalUpdateNo) {
+            return;
+        }
 
+        if (props.videoSeconds !== undefined && props.videoDuration !== undefined && props.lastVideoTime !== undefined && props.shouldPlay !== undefined && props.isPlaying !== undefined) {
+            setVideoSeconds(props.videoSeconds);
+            setVideoDuration(props.videoDuration);
+            setLastVideoTime(props.lastVideoTime);
+            setShouldPlay(props.shouldPlay);
+            setIsPlaying(props.isPlaying);
 
-        socket.on("video:videoProgress", (params: any) => {
-            if (params.type === "progress") {
-                const {videoSeconds, videoDuration, currentTime, playing} = params.info;
-                setLastVideoProgress({videoSeconds, videoDuration, currentTime});
-                setPlaying(playing);
+            broadcastProgress(progressFromSeconds(props.videoSeconds, props.videoDuration), props.videoDuration, props.shouldPlay);
+        } else {
+            aFetch.post(`/api/room/get_player_info/${props.roomId}`).then(res => {
+                const {
+                    videoSeconds,
+                    videoDuration,
+                    currentTime,
+                    shouldPlay,
+                    isPlaying,
+                    volume,
+                    muted
+                } = res.data.playerState;
+                setVideoSeconds(videoSeconds);
+                setVideoDuration(videoDuration);
+                setLastVideoTime(currentTime);
 
-            } else if (params.type === "volume") {
-                const {mute, volume} = params.info;
-                setMute(mute);
+                videoController("seek", videoSeconds);
+
+                setShouldPlay(shouldPlay);
+                setIsPlaying(isPlaying);
                 setVolume(volume);
-            }
-        });
-    }, []);
+                setMute(muted);
+            });
+        }
 
-    return <MediaController mediaControls={[mediaPrevVideo, mediaPlay, mediaNextVideo]}
-                            videoPlayback={[!playing, videoProgress, changeVideoProgress, finalizeVideoProgress]}
-                            volumeSet={[mute ? 0 : volume, changeVolume, finalizeVolume]}
-                            muteFunction={[mute, finalizeMute]}/>
+        setLastExternalUpdateNo(updateValue);
+    }, [props.roomId, props.videoSeconds, props.videoDuration, props.lastVideoTime, props.update, lastExternalUpdateNo, videoController, props.shouldPlay, props.isPlaying, broadcastProgress]);
+
+
+    return <><MediaController mediaControls={[mediaPrevVideo, mediaPlay, mediaNextVideo]}
+                              videoPlayback={[!shouldPlay, videoProgress, changeVideoProgress, finalizeVideoProgress]}
+                              volumeSet={[mute ? 0 : volume, changeVolume, finalizeVolume]}
+                              muteFunction={[mute, finalizeMute]}/>
+    </>
 
 }
 
 function VideoPlayer(props: { roomId: string }) {
     const [videoURL, setVideoURL] = useState('');
-    const [videoPlaying, setVideoPlaying] = useState(true);
-    const [wasPlaying, setWasPlaying] = useState(false);
+    const [videoIsPlaying, setVideoIsPlaying] = useState(true);
+    const [videoShouldPlay, setVideoShouldPlay] = useState(true);
     const [volume, setVolume] = useState(25);
     const [mute, setMute] = useState(false);
 
     const [timeoutVideoSkip, setTimeoutVideoSkip] = useState(setTimeout(() => {
     }, 0));
 
+    const [videoSeconds, setVideoSeconds] = useState(0);
+    const [videoDuration, setVideoDuration] = useState(-1);
+    const [lastVideoTime, setLastVideoTime] = useState(0);
+
+    const [update, setUpdate] = useState(-1);
+
     const ref = useRef<ReactPlayer>(null);
-
-
-    const nextVideo = (discard?: boolean) => {
-        CancelInvalidVideoSkip();
-        broadcastTime(0);
-        socket.emit("video:nextVideo", {roomId: props.roomId, discard: discard});
-    }
-
-    const mediaControls = (action: any) => {
-        aFetch.post(`/api/room/mediaControl/${props.roomId}`, {action: action}).then(_ => {
-        })
-    }
-
-    const mediaPrevVideo = () => {
-        mediaControls("prev");
-    }
-    const mediaPlay = () => {
-        broadcastTime(progress, !videoPlaying);
-        setVideoPlaying(!videoPlaying);
-    }
-    const mediaNextVideo = () => {
-        mediaControls("next");
-    }
 
     const setVideoTime = (frac: number) => {
         ref.current?.seekTo(frac, 'fraction');
     }
 
+    const setVideoTimeSeconds = (seconds: number) => {
+        ref.current?.seekTo(seconds, 'seconds');
+    }
+
+    const updateVideoTime = useCallback((seconds?: number) => {
+        if (seconds === undefined) {
+            seconds = getVideoSeconds();
+        }
+
+        setVideoSeconds(seconds);
+        setLastVideoTime(new Date().getTime());
+    }, [])
+
+    const sendUpdate = useCallback(() => {
+        setUpdate(update + 1);
+    }, [update])
+
     useEffect(() => {
-        aFetch.post(`/api/room/get_player_info/${props.roomId}`).then(res => {
-            const {videoSeconds, videoDuration, playing, volume, muted} = res.data.playerState;
-            setVideoTime(videoSeconds / videoDuration);
-
-            setVideoPlaying(playing)
-            setVolume(volume);
-            setMute(muted);
-        });
-
         aFetch.post('/api/room/get_current_video/' + props.roomId).then(response => {
             if (response.data.video) {
                 setVideoURL(response.data.video.videoLink)
@@ -280,9 +361,11 @@ function VideoPlayer(props: { roomId: string }) {
                 setVideoURL('')
             }
         })
+    }, [props.roomId])
 
-        socket.on("video:nextVideo", (params: any) => {
-            CancelInvalidVideoSkip();
+    useEffect(() => {
+        socket.on("video:changeVideo", (params: any) => {
+            clearTimeout(timeoutVideoSkip);
             const video = params.video;
             if (video) {
                 const videoLink = params.video.videoLink;
@@ -291,111 +374,81 @@ function VideoPlayer(props: { roomId: string }) {
                     setVideoURL(videoLink);
                 } else {
                     setVideoURL(videoLink + "?");
-                    setVideoTime(0);
                 }
-                setVideoPlaying(false);
+                setVideoTime(0);
+                updateVideoTime(0);
+                sendUpdate();
+
+                setVideoIsPlaying(false);
 
                 setTimeout(() => {
-                    setVideoPlaying(true);
+                    setVideoIsPlaying(true);
                 }, 1000);
             }
-            broadcastTime(0);
         });
-
-
-        socket.on("video:toggleVideo", () => {
-            setVideoPlaying(!videoPlaying);
-        });
-
-        socket.on("video:videoProgress", (params: any) => {
-            if (params.type === "progress") {
-                const {videoSeconds, videoDuration, playing} = params.info;
-                setVideoTime(videoSeconds / videoDuration);
-                setProgress(videoSeconds / videoDuration * 100);
-                setLastUpdate(Date.now() + 2000);
-                setVideoPlaying(playing);
-
-            } else if (params.type === "volume") {
-                const {mute, volume} = params.info;
-                setMute(mute);
-                setVolume(volume);
-            }
-        });
-    }, []);
+    }, [props.roomId, sendUpdate, timeoutVideoSkip, updateVideoTime, videoURL]);
 
     const InvalidVideo = () => {
-        setTimeoutVideoSkip(setTimeout(() => nextVideo(true), 2000));
+        setTimeoutVideoSkip(setTimeout(() => mediaControls("discard"), 2000));
     }
 
-    const CancelInvalidVideoSkip = () => {
-        clearTimeout(timeoutVideoSkip);
+    const getVideoSeconds = () => {
+        return ref.current?.getCurrentTime() || 0
     }
 
-    const [holding, setHolding] = useState(false);
-    const [progress, setProgress] = useState(0);
-    const [lastUpdate, setLastUpdate] = useState(0);
-    const [duration, setDuration] = useState(0);
+    const [updateTimeout, setUpdateTimeout] = useState(setTimeout(() => {
+    }, 0));
+    const sendUpdateBuffered = () => {
+        clearTimeout(updateTimeout);
+        setUpdateTimeout(setTimeout(() => {
+            sendUpdate();
+        }, 1000));
+    }
 
-    const broadcastTime = (value: number, play?: boolean) => {
-        setLastUpdate(Date.now());
-        socket.emit("video:videoProgress", {
-            roomId: props.roomId,
-            type: "progress",
-            info: {
-                videoSeconds: value / 100 * duration,
-                videoDuration: duration,
-                currentTime: new Date().getTime(),
-                auto: true,
-                host: true,
-                playing: play === undefined ? videoPlaying : play
-            }
+    const play = () => {
+        setVideoIsPlaying(true);
+        setVideoShouldPlay(true);
+        updateVideoTime();
+    }
+
+    const pause = () => {
+        setVideoIsPlaying(false);
+        setVideoShouldPlay(false);
+        updateVideoTime();
+    }
+
+    const videoController = (action: string, value?: number) => {
+        switch (action) {
+            case "play":
+                play();
+                break;
+            case "pause":
+                pause();
+                break;
+            case "seek":
+                if (value !== undefined) {
+                    setVideoTimeSeconds(value);
+                    updateVideoTime(value);
+                }
+                break;
+            case "volume":
+                if (value !== undefined) {
+                    setVolume(value);
+                }
+                break;
+            case "mute":
+                setMute(true);
+                break;
+            case "unmute":
+                setMute(false);
+                break;
+
+        }
+    }
+
+    const mediaControls = (action: any) => {
+        aFetch.post(`/api/room/mediaControl/${props.roomId}`, {action: action}).then(_ => {
         })
-    }
-
-    const updateBar = (videoProgress: number) => {
-        if (!holding) {
-            const deltaUpdate = Date.now() - lastUpdate
-            if ((deltaUpdate > 30000 || Math.abs(progress - videoProgress) > 1) && deltaUpdate > 0) {
-                broadcastTime(videoProgress);
-            }
-            setProgress(videoProgress);
-        }
-    }
-
-    const handleSliderChange = (value: number) => {
-        if (!holding) {
-            setWasPlaying(videoPlaying);
-        }
-        setProgress(value);
-        setHolding(true);
-        setVideoPlaying(false);
-    }
-
-    const handleSliderChangeCommitted = (value: number) => {
-        setHolding(false);
-        setVideoTime(value / 100);
-        broadcastTime(value, wasPlaying);
-
-        if (wasPlaying) {
-            setVideoPlaying(true);
-        }
-
-    }
-
-    const changeVolume = (volume: number) => {
-        setMute(false);
-        setVolume(volume);
-    }
-
-    const finalizeVolume = (volume: number) => {
-        setMute(false);
-        setVolume(volume);
-        broadcastVolume(props.roomId, volume, false);
-    }
-
-    const finalizeMute = (mute: boolean) => {
-        setMute(mute);
-        broadcastVolume(props.roomId, volume, mute);
     }
 
 
@@ -404,33 +457,54 @@ function VideoPlayer(props: { roomId: string }) {
             <AspectRatio ratio={16 / 9}>
                 <ReactPlayer url={videoURL}
                              ref={ref}
-                             playing={videoPlaying}
+                             playing={videoShouldPlay}
                              onStart={() => {
-                                 if (!videoPlaying) {broadcastTime(progress, true)}
-                                 setVideoPlaying(true)}}
+                                 setVideoIsPlaying(true);
+                                 setVideoShouldPlay(true);
+                                 updateVideoTime();
+                                 sendUpdateBuffered();
+                             }}
                              onPlay={() => {
-                                 if (!videoPlaying) {broadcastTime(progress, true)}
-                                 setVideoPlaying(true)}}
+                                 setVideoIsPlaying(true);
+                                 setVideoShouldPlay(true);
+                                 updateVideoTime();
+                                 sendUpdateBuffered();
+                             }}
                              onPause={() => {
-                                 if (videoPlaying) {broadcastTime(progress, false)}
-                                 setVideoPlaying(false)}}
-                             onDuration={(duration) => setDuration(duration)}
+                                 setVideoIsPlaying(false);
+                                 setVideoShouldPlay(false);
+                                 updateVideoTime();
+                                 sendUpdateBuffered();
+                             }}
+                             onBuffer={() => {
+                                 setVideoIsPlaying(false);
+                                 updateVideoTime();
+                                 sendUpdateBuffered();
+                             }}
+
+
+                             onDuration={(duration) => setVideoDuration(duration)}
 
                              onProgress={(progress) => {
-                                 updateBar(progress.played * 100)
+                                 if (Math.abs((videoSeconds + (new Date().getTime() - lastVideoTime) / 1000) - progress.playedSeconds) > 0.1) {
+                                     updateVideoTime(progress.playedSeconds);
+                                     sendUpdate();
+                                 }
                              }}
+
                              onError={InvalidVideo}
-                             controls={false}
+                             controls={true}
                              volume={mute ? 0 : volume / 100}
                              embedoptions={{cc_load_policy: 1, cc_lang_pref: "en"}}
                              width="100%"
                              height="100%"
-                             onEnded={() => nextVideo()}
+                             onEnded={() => mediaControls("next")}
                 />
             </AspectRatio>
-            <MediaController mediaControls={[mediaPrevVideo, mediaPlay, mediaNextVideo]}
-                             videoPlayback={[!videoPlaying, progress, handleSliderChange, handleSliderChangeCommitted]}
-                             volumeSet={[volume, changeVolume, finalizeVolume]} muteFunction={[mute, finalizeMute]}/>
+            <RemoteMediaController roomId={props.roomId} videoController={videoController} videoSeconds={videoSeconds}
+                                   videoDuration={videoDuration} lastVideoTime={lastVideoTime}
+                                   shouldPlay={videoShouldPlay} isPlaying={videoIsPlaying}
+                                   update={update}/>
         </div>
     );
 }
