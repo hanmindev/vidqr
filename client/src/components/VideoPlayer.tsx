@@ -454,10 +454,10 @@ function VideoPlayer(props: { roomId: string }) {
 
     return (
         <div className="bg-gray-700">
-            <AspectRatio ratio={16 / 9} className="pointer-events-none">
+            <AspectRatio ratio={16 / 9}>
                 <ReactPlayer url={videoURL}
                              ref={ref}
-                             playing={videoIsPlaying}
+                             playing={videoShouldPlay}
                              onStart={() => {
                                  setVideoIsPlaying(true);
                                  setVideoShouldPlay(true);
