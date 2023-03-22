@@ -313,10 +313,6 @@ function VideoPlayer(props: { roomId: string }) {
 
     const ref = useRef<ReactPlayer>(null);
 
-    const setVideoTime = (frac: number) => {
-        ref.current?.seekTo(frac, 'fraction');
-    }
-
     const setVideoTimeSeconds = (seconds: number) => {
         ref.current?.seekTo(seconds, 'seconds');
     }
@@ -356,7 +352,7 @@ function VideoPlayer(props: { roomId: string }) {
                 } else {
                     setVideoURL(videoLink + "?");
                 }
-                setVideoTime(0);
+                setVideoTimeSeconds(0);
                 updateVideoTime(0);
                 sendUpdate();
 
@@ -377,8 +373,7 @@ function VideoPlayer(props: { roomId: string }) {
         return ref.current?.getCurrentTime() || 0
     }
 
-    const [updateTimeout, setUpdateTimeout] = useState(setTimeout(() => {
-    }, 0));
+    const [updateTimeout, setUpdateTimeout] = useState(setTimeout(() => {}, 0));
     const sendUpdateBuffered = () => {
         clearTimeout(updateTimeout);
         setUpdateTimeout(setTimeout(() => {
