@@ -28,7 +28,6 @@ router.post('/search/', function (req: any, res: any) {
             videos.push(video);
         }
         res.send(videos);
-        // res.send(response);
     });
 });
 

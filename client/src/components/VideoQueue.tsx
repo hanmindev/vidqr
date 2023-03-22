@@ -19,7 +19,7 @@ function QueueVideo(props: { index: number; videoLink: string; title: string; us
     let videoTitle = props.title;
 
     const queueControls = (action: any) => {
-        aFetch.post(`/api/room/mediaControl/${props.roomId}`, {action: action, index: props.index}).then(_ => {
+        aFetch.post(`/api/room/media_control/${props.roomId}`, {action: action, index: props.index}).then(_ => {
             // console.log(response.data);
         })
     }
@@ -89,7 +89,7 @@ function VideoQueue(props: { roomId: string; username?: string; }) {
         setVideoList(items);
 
 
-        aFetch.post(`/api/room/mediaControl/${props.roomId}`, {
+        aFetch.post(`/api/room/media_control/${props.roomId}`, {
             action: "moveTo",
             index: result.source.index,
             to: result.destination.index
