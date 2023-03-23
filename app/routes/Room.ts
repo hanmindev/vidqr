@@ -74,7 +74,7 @@ router.post('/get_player_info/:roomId', function (req: any, res: any) {
     }
 });
 
-router.post('/mediaControl/:roomId', function (req: any, res: any) {
+router.post('/media_control/:roomId', function (req: any, res: any) {
     try {
         const roomId = req.params.roomId;
         const action = req.body.action;
