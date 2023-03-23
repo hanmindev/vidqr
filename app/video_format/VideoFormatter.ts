@@ -30,12 +30,19 @@ class VideoFormatter {
         return VideoFormatter._instance;
     }
 
-    public format(platform: string, search: string): Promise<VideoFormatResult> {
-        const platformSearch = this._platforms.get(platform);
-        if (platformSearch == undefined) {
+    public format(search: string): Promise<VideoFormatResult> {
+        let platform = undefined;
+
+        if (search.match(/^(?:(https?):\/\/)?(?:(?:www|m)\.)?(soundcloud\.com|snd\.sc)\/(.*)$/) != null) {
+            platform = this._platforms.get("soundcloud")?.format(search);
+        } else if (search.match(/^((?:https?:)?\/\/)?((?:www|m)\.)?(youtube(-nocookie)?\.com|youtu.be)(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/) != null) {
+            platform = this._platforms.get("youtube")?.format(search);
+        }
+
+        if (platform == undefined) {
             throw new Error("Platform not found");
         } else {
-            return platformSearch.format(search);
+            return platform
         }
 
     }

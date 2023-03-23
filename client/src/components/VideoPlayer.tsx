@@ -259,7 +259,7 @@ export function RemoteMediaController(props: { roomId: string, onSetPlay?: (play
             setShouldPlay(props.shouldPlay);
             setIsPlaying(props.isPlaying);
 
-            broadcastProgress(progressFromSeconds(props.videoSeconds, props.videoDuration), props.videoDuration, props.shouldPlay);
+            broadcastProgress(progressFromSeconds(props.videoSeconds, props.videoDuration), props.videoDuration, props.shouldPlay, props.isPlaying);
         } else {
             aFetch.post(`/api/room/get_player_info/${props.roomId}`).then(res => {
                 const {
@@ -333,9 +333,9 @@ function VideoPlayer(props: { roomId: string }) {
     useEffect(() => {
         aFetch.post('/api/room/get_current_video/' + props.roomId).then(response => {
             if (response.data.video) {
-                setVideoURL(response.data.video.videoLink)
+                setVideoURL(response.data.video.videoLink);
             } else {
-                setVideoURL('')
+                setVideoURL('');
             }
         })
     }, [props.roomId])
@@ -355,6 +355,14 @@ function VideoPlayer(props: { roomId: string }) {
                 setVideoTimeSeconds(0);
                 updateVideoTime(0);
                 sendUpdate();
+                setVideoIsPlaying(false);
+
+                setTimeout(() => {
+                    setVideoIsPlaying(true);
+                }, 1000);
+            } else {
+                setVideoURL("");
+                setVideoIsPlaying(false);
             }
         });
     }, [props.roomId, sendUpdate, timeoutVideoSkip, updateVideoTime, videoURL]);
@@ -452,7 +460,7 @@ function VideoPlayer(props: { roomId: string }) {
             <RemoteMediaController roomId={props.roomId} onSetPlay={onSetPlay} onSeek={onSeek} onVolume={onVolume}
                                    onSetMute={onSetMute} videoSeconds={videoSeconds}
                                    videoDuration={videoDuration} lastVideoTime={lastVideoTime}
-                                   shouldPlay={videoShouldPlay} isPlaying={videoIsPlaying}
+                                   shouldPlay={videoShouldPlay} isPlaying={videoIsPlaying && videoURL !== ''}
                                    update={update}/>
         </div>
     );
