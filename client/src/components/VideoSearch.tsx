@@ -119,7 +119,7 @@ const RemoteVideoSearcher = forwardRef(function RemoteVideoSearcher(props: { que
         const changePlatform = (newPlatform: string) => {
             setPlatform(newPlatform);
             if (searchQuery !== '') {
-                searchVideo();
+                searchVideo(searchQuery, newPlatform);
             }
         }
 
@@ -127,10 +127,10 @@ const RemoteVideoSearcher = forwardRef(function RemoteVideoSearcher(props: { que
             if (searchQuery === '' || (lastPlatform === platform && lastQuery === searchQuery)) {
                 return;
             }
-            searchVideo();
+            searchVideo(searchQuery, platform);
         }
 
-        const searchVideo = () => {
+        const searchVideo = (searchQuery: string, platform: string) => {
             setLastPlatform(platform);
             setSubmitted(true);
             setLastQuery(searchQuery);
@@ -236,7 +236,6 @@ function VideoSearcher(props: { roomId: string, hidden?: boolean }) {
             aFetch.post(`/api/room/add_video`, {
                 roomId: props.roomId,
                 videoLink: videoLink,
-                videoPlatform: platform
             }).then(
                 response => {
                     setSubmitted(false);
