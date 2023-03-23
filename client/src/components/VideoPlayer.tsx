@@ -277,7 +277,7 @@ export function RemoteMediaController(props: { roomId: string, videoController?:
             setShouldPlay(props.shouldPlay);
             setIsPlaying(props.isPlaying);
 
-            broadcastProgress(progressFromSeconds(props.videoSeconds, props.videoDuration), props.videoDuration, props.shouldPlay);
+            broadcastProgress(progressFromSeconds(props.videoSeconds, props.videoDuration), props.videoDuration, props.shouldPlay, props.isPlaying);
         } else {
             aFetch.post(`/api/room/get_player_info/${props.roomId}`).then(res => {
                 const {
