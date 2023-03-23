@@ -113,12 +113,11 @@ router.post('/check_room/:roomId', function (req: any, res: any) {
 router.post('/add_video/', function (req: any, res: any) {
 
     let videoLink = req.body.videoLink;
-    let platform = req.body.videoPlatform;
     let userId = req.session.id;
     let roomId = req.body.roomId;
 
     try {
-        videoFormatter.format(platform, videoLink).then((videoFormatResult: VideoFormatResult) => {
+        videoFormatter.format(videoLink).then((videoFormatResult: VideoFormatResult) => {
                 let videoUser = userManager.getUser(userId);
                 const room = roomManager.getRoom(roomId);
 
