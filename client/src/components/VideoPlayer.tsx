@@ -355,9 +355,9 @@ function VideoPlayer(props: { roomId: string }) {
     useEffect(() => {
         aFetch.post('/api/room/get_current_video/' + props.roomId).then(response => {
             if (response.data.video) {
-                setVideoURL(response.data.video.videoLink)
+                setVideoURL(response.data.video.videoLink);
             } else {
-                setVideoURL('')
+                setVideoURL('');
             }
         })
     }, [props.roomId])
@@ -383,6 +383,9 @@ function VideoPlayer(props: { roomId: string }) {
                 setTimeout(() => {
                     setVideoIsPlaying(true);
                 }, 1000);
+            } else {
+                setVideoURL("");
+                setVideoIsPlaying(false);
             }
         });
     }, [props.roomId, sendUpdate, timeoutVideoSkip, updateVideoTime, videoURL]);
@@ -502,7 +505,7 @@ function VideoPlayer(props: { roomId: string }) {
             </AspectRatio>
             <RemoteMediaController roomId={props.roomId} videoController={videoController} videoSeconds={videoSeconds}
                                    videoDuration={videoDuration} lastVideoTime={lastVideoTime}
-                                   shouldPlay={videoShouldPlay} isPlaying={videoIsPlaying}
+                                   shouldPlay={videoShouldPlay} isPlaying={videoIsPlaying && videoURL !== ''}
                                    update={update}/>
         </div>
     );
