@@ -359,6 +359,7 @@ function VideoPlayer(props: { roomId: string }) {
 
                 setTimeout(() => {
                     setVideoIsPlaying(true);
+                    setVideoShouldPlay(true);
                 }, 1000);
             } else {
                 setVideoURL("");
