@@ -4,10 +4,8 @@ const roomManager = RoomManager.getInstance();
 
 class VideoController {
     private static _instance: VideoController;
-    private _io: any;
-
-    private constructor() {
-        this._io = require('../../index');
+    private getIo(): any {
+        return require('../../index');
     }
 
     public static getInstance(): VideoController {
@@ -26,16 +24,16 @@ class VideoController {
 
         if (room.videoList.length > 1) {
             const nextVideoObject = room.videoList[1];
-            this._io.to(roomId).emit("video:changeVideo", {'roomId': roomId, 'video': nextVideoObject});
+            this.getIo().to(roomId).emit("video:changeVideo", {'roomId': roomId, 'video': nextVideoObject});
         }else{
-            this._io.to(roomId).emit("video:changeVideo", {'roomId': roomId, 'video': ''});
+            this.getIo().to(roomId).emit("video:changeVideo", {'roomId': roomId, 'video': ''});
         }
 
         if (room.videoList.length > 0) {
             room.shiftVideoList(discard);
         }
 
-        this._io.to(roomId).emit("video:videoList", {'roomId': roomId, 'videoList': room.videoList});
+        this.getIo().to(roomId).emit("video:videoList", {'roomId': roomId, 'videoList': room.videoList});
 
         return true;
     }
@@ -59,9 +57,9 @@ class VideoController {
         }
         if (force) {
             if (room.videoList.length > 0){
-                this._io.to(roomId).emit("video:changeVideo", {'roomId': roomId, 'video': room.videoList[0]});
+                this.getIo().to(roomId).emit("video:changeVideo", {'roomId': roomId, 'video': room.videoList[0]});
             }else{
-                this._io.to(roomId).emit("video:changeVideo", {'roomId': roomId, 'video': ''});
+                this.getIo().to(roomId).emit("video:changeVideo", {'roomId': roomId, 'video': ''});
             }
         }
 
@@ -76,7 +74,7 @@ class VideoController {
             return false;
         }
 
-        this._io.to(roomId).emit("video:videoList", {'roomId': roomId, 'videoList': room.videoList});
+        this.getIo().to(roomId).emit("video:videoList", {'roomId': roomId, 'videoList': room.videoList});
 
         return true;
     }
