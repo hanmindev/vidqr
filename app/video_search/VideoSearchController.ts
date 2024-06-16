@@ -20,7 +20,6 @@ class VideoSearchController {
     private constructor() {
         this._platforms = new Map<string, VideoPlatformSearch>();
         this._platforms.set("youtube", new YouTubeSearch());
-        this._platforms.set("soundcloud", new SoundCloudSearch());
     }
 
     public static getInstance(): VideoSearchController {
